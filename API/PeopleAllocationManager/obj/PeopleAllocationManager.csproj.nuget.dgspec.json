@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\PeopleAllocationManager\\PeopleAllocationManager.csproj": {}
+    "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\API\\PeopleAllocationManager\\PeopleAllocationManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\PeopleAllocationManager\\PeopleAllocationManager.csproj": {
+    "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\API\\PeopleAllocationManager\\PeopleAllocationManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\PeopleAllocationManager\\PeopleAllocationManager.csproj",
+        "projectUniqueName": "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\API\\PeopleAllocationManager\\PeopleAllocationManager.csproj",
         "projectName": "PeopleAllocationManager",
-        "projectPath": "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\PeopleAllocationManager\\PeopleAllocationManager.csproj",
+        "projectPath": "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\API\\PeopleAllocationManager\\PeopleAllocationManager.csproj",
         "packagesPath": "C:\\Users\\gtora\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\PeopleAllocationManager\\obj\\",
+        "outputPath": "C:\\Users\\gtora\\source\\repos\\PeopleAllocationManager\\API\\PeopleAllocationManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -45,7 +45,15 @@
               "target": "Package",
               "version": "[3.1.4, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
               "version": "[3.1.4, )"
             },

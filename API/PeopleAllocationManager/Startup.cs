@@ -35,10 +35,14 @@ namespace PeopleAllocationManager
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("PeopleAllocationManagerDatabase");
-            services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseSqlServer(connection));
+            //services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseSqlServer(connection));
+            services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
             //services.AddDbContext<tgDiserContext>(opts => opts.UseSqlServer("Server=.; Database=tgDiserDB;Trusted_Connection=True;MultipleActiveResultSets=true;"));
 
             services.AddControllers();
+
+            services.AddControllersWithViews().
+                AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // configure authorization middleware START
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

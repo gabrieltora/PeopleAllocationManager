@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,51 +9,50 @@ using PeopleAllocationManager.Models;
 
 namespace PeopleAllocationManager.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class DepartmentsController : ControllerBase
     {
         private readonly PeopleAllocationManagerContext _context;
 
-        public ProductsController(PeopleAllocationManagerContext context)
+        public DepartmentsController(PeopleAllocationManagerContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Departments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Department.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Departments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Products>> GetProducts(int id)
+        public async Task<ActionResult<Department>> GetDepartment(int id)
         {
-            var products = await _context.Products.FindAsync(id);
+            var department = await _context.Department.FindAsync(id);
 
-            if (products == null)
+            if (department == null)
             {
                 return NotFound();
             }
 
-            return products;
+            return department;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Departments/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProducts(int id, Products products)
+        public async Task<IActionResult> PutDepartment(int id, Department department)
         {
-            if (id != products.ProductId)
+            if (id != department.DepartmentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(products).State = EntityState.Modified;
+            _context.Entry(department).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace PeopleAllocationManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductsExists(id))
+                if (!DepartmentExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +73,37 @@ namespace PeopleAllocationManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Departments
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Products>> PostProducts(Products products)
+        public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
-            _context.Products.Add(products);
+            _context.Department.Add(department);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProducts", new { id = products.ProductId }, products);
+            return CreatedAtAction("GetDepartment", new { id = department.DepartmentId }, department);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Departments/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Products>> DeleteProducts(int id)
+        public async Task<ActionResult<Department>> DeleteDepartment(int id)
         {
-            var products = await _context.Products.FindAsync(id);
-            if (products == null)
+            var department = await _context.Department.FindAsync(id);
+            if (department == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(products);
+            _context.Department.Remove(department);
             await _context.SaveChangesAsync();
 
-            return products;
+            return department;
         }
 
-        private bool ProductsExists(int id)
+        private bool DepartmentExists(int id)
         {
-            return _context.Products.Any(e => e.ProductId == id);
+            return _context.Department.Any(e => e.DepartmentId == id);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace PeopleAllocationManager.Controllers
             if (_userData != null && _userData.Email != null && _userData.Password != null)
             {
                 var user = await GetUser(_userData.Email, _userData.Password);
+                var date = DateTime.UtcNow.ToString();
 
                 if (user != null)
                 {
