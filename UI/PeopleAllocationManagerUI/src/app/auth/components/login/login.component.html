@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+      <!-- <div *ngIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+      </div> -->
+      <form [formGroup]="loginForm" class="form">
+        <mat-form-field>
+          <input matInput formControlName="Email" placeholder="Email">
+          <mat-error
+            *ngIf="loginControls.Email.invalid && (loginControls.Email.dirty || loginControls.Email.touched)">
+            <span *ngIf="loginControls.Email.errors.required">Email is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="Password" placeholder="Password"
+            [type]=" !hidePassword ? 'password' : 'text'">
+          <button type=" button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="loginControls.Password.invalid && (loginControls.Password.dirty || loginControls.Password.touched)">
+            <span *ngIf="loginControls.Password.errors.required">Password is required</span>
+          </mat-error>
+        </mat-form-field>
+
+      </form>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="action-buttons">
+        <button mat-raised-button (click)="login()" color="primary"
+          [disabled]="!loginForm.valid">Login</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

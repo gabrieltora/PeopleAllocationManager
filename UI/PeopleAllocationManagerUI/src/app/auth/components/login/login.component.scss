@@ -1,0 +1,31 @@
+.wrapper {
+    background-image: url('src/assets/images/login-documents-background.png');
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-card-title,
+    mat-card-content {
+        display: flex;
+        justify-content: center;
+    }
+
+    mat-form-field {
+        width: 100%;
+        min-width: 300px;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 5px;
+
+        :first-child {
+            margin-right: 15px;
+        }
+    }
+}
