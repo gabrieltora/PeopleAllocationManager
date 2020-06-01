@@ -34,6 +34,8 @@ namespace PeopleAllocationManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             var connection = Configuration.GetConnectionString("PeopleAllocationManagerDatabase");
             //services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseSqlServer(connection));
             services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
@@ -93,6 +95,12 @@ namespace PeopleAllocationManager
 
             // Swager END
 
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin().
+                AllowAnyMethod().
+                AllowAnyHeader()
+            );
+            
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

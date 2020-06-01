@@ -1,4 +1,15 @@
-mat-sidenav-container,
-mat-sidenav {
+:host * {
+    box-sizing: border-box;
     height: 100%;
+    overflow-y: auto;
 }
+
+main {
+    height: auto;
+}
+
+// mat-sidenav,
+// mat-sidenav-content {
+//     box-sizing: border-box;
+//     height: 100%;
+// }

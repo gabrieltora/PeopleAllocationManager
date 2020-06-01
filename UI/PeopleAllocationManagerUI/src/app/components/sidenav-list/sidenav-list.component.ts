@@ -6,6 +6,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent implements OnInit {
+  isLoggedIn = false;
 
   @Output()
   sidenavClose = new EventEmitter();

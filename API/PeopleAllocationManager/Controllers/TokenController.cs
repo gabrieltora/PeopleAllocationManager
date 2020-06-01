@@ -52,8 +52,12 @@ namespace PeopleAllocationManager.Controllers
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                     var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
-
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    var email = user.Email;
+                    var Token = new JwtSecurityTokenHandler().WriteToken(token);
+                    return Ok(new
+                    {
+                        Token = Token
+                    });
                 }
                 else
                 {

@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
 
     // Angular materials
     MatInputModule,

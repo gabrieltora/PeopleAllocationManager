@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,28 +9,61 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public isLoading = true;
+  loading = false;
+  submitted = false;
   loginForm: FormGroup;
   loginControls: any;
   hidePassword = false;
+  returnUrl: string;
+  error = '';
 
-  constructor() {
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/admin']);
+    }
   }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      Email: new FormControl('', Validators.required),
-      Password: new FormControl('', Validators.required),
+    this.loginForm = this.formBuilder.group({
+      Email: ['', Validators.required],
+      Password: ['', Validators.required]
     });
 
     this.loginControls = this.loginForm.controls;
 
-    console.log('sunt in login');
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
   }
 
-  public login() {
+  get f() { return this.loginForm.controls; }
 
+  public login() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authService.login(this.f.Email.value, this.f.Password.value)
+      .subscribe(
+        success => {
+          if (success) {
+            this.loading = false;
+            this.router.navigate(['/admin']);
+          } else {
+            this.loading = false;
+          }
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
 
 }
