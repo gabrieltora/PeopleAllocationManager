@@ -24,6 +24,7 @@ namespace PeopleAllocationManager
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,12 +35,36 @@ namespace PeopleAllocationManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200")
+                                                          .AllowAnyHeader()
+                                                          .AllowAnyMethod()
+                                                          .AllowCredentials();
+                                  });
+            });
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("allowSpecificOrigin",
+            //           builder =>
+            //           {
+            //               builder.WithOrigins("http://localhost:4200", Configuration.GetSection("urls").Value).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            //           });
+
+            //});
+
             services.AddCors();
 
             var connection = Configuration.GetConnectionString("PeopleAllocationManagerDatabase");
             //services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseSqlServer(connection));
             services.AddDbContextPool<Models.PeopleAllocationManagerContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
             //services.AddDbContext<tgDiserContext>(opts => opts.UseSqlServer("Server=.; Database=tgDiserDB;Trusted_Connection=True;MultipleActiveResultSets=true;"));
+
+
 
             services.AddControllers();
 
@@ -95,12 +120,15 @@ namespace PeopleAllocationManager
 
             // Swager END
 
-            app.UseCors(builder =>
-                builder.AllowAnyOrigin().
-                AllowAnyMethod().
-                AllowAnyHeader()
-            );
-            
+            //app.UseCors("allowSpecificOrigin");
+            //app.UseCors(builder =>
+            //    builder.AllowAnyOrigin().
+            //    AllowAnyMethod().
+            //    AllowAnyHeader()
+            //);
+
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

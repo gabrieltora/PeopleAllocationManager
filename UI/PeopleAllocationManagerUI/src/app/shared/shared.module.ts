@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
@@ -15,7 +16,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule
   ],
   exports: [
     LoadingSpinnerComponent,
@@ -51,7 +54,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule
   ]
 })
 export class SharedModule { }

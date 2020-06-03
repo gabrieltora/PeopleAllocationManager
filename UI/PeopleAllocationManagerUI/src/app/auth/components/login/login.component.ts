@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService) {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/time-management']);
     }
   }
 
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         success => {
           if (success) {
             this.loading = false;
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/time-management']);
           } else {
             this.loading = false;
           }

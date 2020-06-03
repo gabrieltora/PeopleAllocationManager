@@ -53,10 +53,15 @@ namespace PeopleAllocationManager.Controllers
 
                     var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
                     var email = user.Email;
+                    var userId = user.UserId;
+                    var userRoleId = user.UserRoleId;
                     var Token = new JwtSecurityTokenHandler().WriteToken(token);
                     return Ok(new
                     {
-                        Token = Token
+                        Token = Token,
+                        UserId = userId,
+                        UserRoleId = userRoleId,
+                        Email = email
                     });
                 }
                 else

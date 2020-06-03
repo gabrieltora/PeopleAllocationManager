@@ -21,6 +21,8 @@ export class AuthService {
   public currentUser: Observable<TokenModel>;
   public isRefreshingToken: boolean;
 
+  public userId: number;
+
   constructor(private http: HttpClient) {
     this.isRefreshingToken = false;
     this.currentUserSubject = new BehaviorSubject<TokenModel>(new TokenModel());
@@ -47,7 +49,7 @@ export class AuthService {
     // return this.http.post<any>(`${environment.apiUrl}/api/Token`, { email, password }, httpOptions)
     return this.http.post<any>(`${environment.apiUrl}/api/Token`, { email, password })
       .pipe(
-        tap(tokens => this.doLoginUser(email, tokens)),
+        tap(resp => this.doLoginUser(email, resp)),
         mapTo(true),
         catchError(error => {
           console.log(error.error);
@@ -76,6 +78,7 @@ export class AuthService {
   }
 
   public isLoggedIn() {
+    this.userId = parseInt(sessionStorage.getItem('UserId'), 10);
     return !!this.getJwtToken() && !this.isRefreshingToken;
   }
 
@@ -96,9 +99,13 @@ export class AuthService {
       );
   }
 
-  private doLoginUser(email: string, tokens: AuthenticationModel) {
-    this.storeTokens(tokens);
-    this.setCurrentUser(tokens.token);
+  private doLoginUser(email: string, resp: AuthenticationModel) {
+    this.storeTokens(resp);
+    this.setCurrentUser(resp.token);
+    sessionStorage.setItem('UserId', resp.userId.toString());
+    // this.userId = tokens.userId;
+    console.log('tokenstokens', this.userId);
+
   }
 
   public doLogoutUser() {
