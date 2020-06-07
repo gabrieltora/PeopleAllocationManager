@@ -10,7 +10,6 @@ export class EmployeeService {
   token: string;
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth');
-    console.log('token', this.token);
 
   }
 

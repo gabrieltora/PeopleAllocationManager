@@ -4,9 +4,14 @@
     justify-content: center;
 }
 
-table {
+table,
+mat-paginator {
     width: 75%;
     margin: auto;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
 }
 
 tr.example-detail-row {

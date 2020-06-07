@@ -17,11 +17,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ModalComponent } from './components/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
 @NgModule({
-  declarations: [LoadingSpinnerComponent],
+  declarations: [LoadingSpinnerComponent, ModalComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -38,12 +42,18 @@ import { MatTableModule } from '@angular/material/table';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule
   ],
   exports: [
-    LoadingSpinnerComponent,
     FormsModule,
     ReactiveFormsModule,
+
+    // components
+    LoadingSpinnerComponent,
+    ModalComponent,
 
     // Angular materials
     MatInputModule,
@@ -55,7 +65,10 @@ import { MatTableModule } from '@angular/material/table';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

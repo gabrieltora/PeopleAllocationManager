@@ -8,12 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
 
     constructor() {
-        console.log('sunt in admin');
 
     }
 
     ngOnInit() {
-        console.log('sunt in admin');
     }
 
 }

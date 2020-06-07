@@ -10,6 +10,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import { AppConfig } from 'src/app/constants';
 import { TokenModel } from 'src/app/shared/models/TokenModel';
 import * as jwt_decode from 'jwt-decode';
+import { EmployeeModel } from 'src/app/shared/models/EmployeeModel';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class AuthService {
         }));
   }
 
-  public logout() {
+  public logout(data: EmployeeModel) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -103,8 +104,6 @@ export class AuthService {
     this.storeTokens(resp);
     this.setCurrentUser(resp.token);
     sessionStorage.setItem('UserId', resp.userId.toString());
-    // this.userId = tokens.userId;
-    console.log('tokenstokens', this.userId);
 
   }
 

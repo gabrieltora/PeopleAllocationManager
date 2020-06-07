@@ -1,5 +1,8 @@
 <h2 class="title">Pontaj lunar</h2>
-<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+<button mat-raised-button color="primary" (click)="openAddDailyActivityModal()">Pontează</button>
+
+<table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
   <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
@@ -7,25 +10,25 @@
 
   <!-- Project Column -->
   <ng-container matColumnDef="projectId">
-    <th mat-header-cell *matHeaderCellDef> Proiect </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Proiect </th>
     <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
   </ng-container>
 
   <!-- Date Column -->
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef> Data </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
     <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
   </ng-container>
 
   <!-- Worked Hours Column -->
   <ng-container matColumnDef="workedHours">
-    <th mat-header-cell *matHeaderCellDef> Numar ore lucrate </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Numar ore lucrate </th>
     <td mat-cell *matCellDef="let element"> {{element.workedHours}} </td>
   </ng-container>
 
   <!-- Service Column -->
   <ng-container matColumnDef="serviceId">
-    <th mat-header-cell *matHeaderCellDef> Denumire serviciu </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Denumire serviciu </th>
     <td mat-cell *matCellDef="let element"> {{element.serviceId}} </td>
   </ng-container>
 
@@ -49,3 +52,7 @@
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
+
+<mat-paginator [pageSize]="30" [pageSizeOptions]="[5, 10, 15, 30, 60, 90, 120]"
+  class="mat-elevation-z8">
+</mat-paginator>

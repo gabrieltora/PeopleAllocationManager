@@ -7,7 +7,7 @@ export class DailyActivityModel extends EmployeeModel {
     comment: string;
     price: number;
     projectId: number;
-    projectName: string;
+    projectName?: string;
     employeeId: number;
     serviceId: number;
 }
