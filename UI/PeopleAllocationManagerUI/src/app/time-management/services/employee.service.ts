@@ -10,7 +10,6 @@ export class EmployeeService {
   token: string;
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth');
-
   }
 
   // return this.http.post<any>(`${environment.apiUrl}/api/Token`, { email, password }, httpOptions)

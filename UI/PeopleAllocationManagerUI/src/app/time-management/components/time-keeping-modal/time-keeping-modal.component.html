@@ -1,0 +1,86 @@
+<div class="modal-wrapper">
+  <h1 mat-dialog-title>Activitate zilnică</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="dailyActivityForm" class="form">
+      <!-- <mat-form-field>
+      <input matInput formControlName="date" placeholder="Data">
+      <mat-error
+        *ngIf="loginControls.Email.invalid && (loginControls.Email.dirty || loginControls.Email.touched)">
+        <span *ngIf="loginControls.Email.errors.required">Selectarea datei este obligatorie</span>
+      </mat-error>
+    </mat-form-field> -->
+
+      <mat-form-field>
+        <mat-label>Alege data</mat-label>
+        <input matInput [matDatepicker]="date" formControlName="Date">
+        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <mat-datepicker #date></mat-datepicker>
+
+        <mat-error
+          *ngIf="dailyActivityControls.Date.invalid && (dailyActivityControls.Date.dirty || dailyActivityControls.Date.touched)">
+          <span *ngIf="dailyActivityControls.Date.errors.required">Selectarea datei este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="WorkedHours" placeholder="Număr ore: " type="number"
+          max="16">
+        <mat-error
+          *ngIf="dailyActivityControls.WorkedHours.invalid && (dailyActivityControls.WorkedHours.dirty || dailyActivityControls.WorkedHours.touched)">
+          <span *ngIf="dailyActivityControls.WorkedHours.errors.required">Introducerea numărului de
+            ore este obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Selectează proiectul</mat-label>
+        <mat-select [(ngModel)]="selectedProjectId" formControlName="ProjectId" name="ProjectId">
+          <mat-option *ngFor="let project of employeeProjects" [value]="project.projectId">
+            {{project.project.name}}
+          </mat-option>
+        </mat-select>
+
+        <mat-error
+          *ngIf="dailyActivityControls.ProjectId.invalid && (dailyActivityControls.ProjectId.dirty || dailyActivityControls.ProjectId.touched)">
+          <span *ngIf="dailyActivityControls.ProjectId.errors.required">Selectarea proiectului este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Selectează serviciul</mat-label>
+        <mat-select [(ngModel)]="selectedServiceId" formControlName="ServiceId" name="ServiceId">
+          <mat-option *ngFor="let service of services" [value]="service.serviceId">
+            {{service.name}}
+          </mat-option>
+        </mat-select>
+
+        <mat-error
+          *ngIf="dailyActivityControls.ProjectId.invalid && (dailyActivityControls.ProjectId.dirty || dailyActivityControls.ProjectId.touched)">
+          <span *ngIf="dailyActivityControls.ProjectId.errors.required">Selectarea serviciului este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Comentariu: </mat-label>
+        <textarea #message maxlength="512" matInput cdkTextareaAutosize formControlName="Comment"
+          placeholder="Detalii activitate"></textarea>
+        <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
+        <mat-error
+          *ngIf="dailyActivityControls.Comment.invalid && (dailyActivityControls.Comment.dirty || dailyActivityControls.Comment.touched)">
+          <span *ngIf="dailyActivityControls.Comment.errors.required">Introducerea comentariului
+            este obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+
+
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button cdkFocusInitial (click)="addDailyActivity()">Ok</button>
+  </div>
+</div>

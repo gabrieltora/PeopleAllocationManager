@@ -1,7 +1,7 @@
 import { EmployeeModel } from './EmployeeModel';
 
 export class DailyActivityModel extends EmployeeModel {
-    dailyActivityId: number;
+    dailyActivityId?: number;
     date: Date;
     workedHours: number;
     comment: string;
@@ -10,4 +10,5 @@ export class DailyActivityModel extends EmployeeModel {
     projectName?: string;
     employeeId: number;
     serviceId: number;
+    serviceName?: string;
 }

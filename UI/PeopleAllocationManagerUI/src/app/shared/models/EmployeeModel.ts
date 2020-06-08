@@ -1,4 +1,5 @@
 import { DailyActivityModel } from './DailyActivityModel';
+import { ProjectModel } from './ProjectModel';
 
 export class EmployeeModel {
     userId: number;
@@ -20,6 +21,7 @@ export class EmployeeModel {
     functionId?: number;
     seniorityId?: number;
     dailyActivities: Array<DailyActivityModel>;
+    employeeProject: Array<any>;
 
     constructor() { }
 }
