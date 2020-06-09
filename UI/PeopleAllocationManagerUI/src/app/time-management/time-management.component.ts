@@ -9,10 +9,11 @@ import { ProjectModel } from '../shared/models/ProjectModel';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TimeKeepingModalComponent } from './components/time-keeping-modal/time-keeping-modal.component';
 import { ServiceService } from '../shared/services/service.service';
 import { ServiceModel } from '../shared/models/ServiceModel';
+import { ModalComponent } from '../shared/components/modal/modal.component';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class TimeManagementComponent implements OnInit {
   projects: any;
 
   dataSource = new MatTableDataSource(this.dailyActivities);
-  columnsToDisplay: string[] = ['projectId', 'date', 'workedHours', 'serviceId'];
+  columnsToDisplay: string[] = ['projectId', 'date', 'workedHours', 'serviceId', 'actions'];
   expandedElement: any;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -100,20 +101,51 @@ export class TimeManagementComponent implements OnInit {
     return this.dailyActivities;
   }
 
-  public openAddDailyActivityModal() {
-    const dialogRef = this.matDialog.open(TimeKeepingModalComponent, {
-      width: '450px',
-      data: {
+  public openAddDailyActivityModal(dailyActivity?) {
+    const modalData = dailyActivity ?
+      {
+        dailyActivityData: dailyActivity,
         employeeData: this.employee,
         services: this.services
-      }
+      } :
+      {
+        employeeData: this.employee,
+        services: this.services
+      };
+
+    const dialogRef = this.matDialog.open(TimeKeepingModalComponent, {
+      width: '450px',
+      data: modalData
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getData(this.userId);
       } else if (result === false) {
-        alert(`Daily activity not added. Daily activity successfully added is: ${result}`);
+        alert('Daily activity was NOT updated');
+      }
+    });
+  }
+
+  public openAlertModal(dailyActivity) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    // dialogConfig.height = '300px';
+    dialogConfig.width = '500px';
+    dialogConfig.data = {
+      name: 'deleteDailyActivity',
+      title: 'Stergere activitate zilnică?',
+      description: 'Dacă continuați, activitatea din data: ' + new Date(dailyActivity.date) + ' va fi ștearsă!',
+      actionButtonText: 'Sterge',
+      dailyActivityId: dailyActivity.dailyActivityId
+    };
+    const dialogRef = this.matDialog.open(ModalComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getData(this.userId);
+      } else if (result === false) {
+        alert('Daily activity was NOT deletet');
       }
     });
   }

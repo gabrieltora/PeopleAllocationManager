@@ -1,0 +1,11 @@
+.modal-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}

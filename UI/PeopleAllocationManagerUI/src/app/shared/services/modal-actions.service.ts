@@ -8,6 +8,8 @@ import { EmployeeModel } from '../models/EmployeeModel';
   providedIn: 'root'
 })
 export class ModalActionsService {
+  error = '';
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -24,8 +26,8 @@ export class ModalActionsService {
         this.logout(modalData);
         break;
 
-      case 'deleteProduct':
-        this.deleteProduct(modalData);
+      case 'deleteDailyActivity':
+        this.deleteDailyActivity(modalData);
         break;
 
       default:
@@ -42,9 +44,24 @@ export class ModalActionsService {
     this.authService.logout(modalData);
   }
 
-  private deleteProduct(modalData: DailyActivityModel) {
-    // Call a service that makes a DELETE HTTP Request to the server for the\
-    // given product id
-    this.dailyActivityService.addDailyActivity(modalData);
+  private deleteDailyActivity(modalData: DailyActivityModel) {
+    this.dailyActivityService.deleteDailyActivity(modalData.dailyActivityId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Daily activity deleted');
+          return true;
+        } else {
+          console.log('Daily activity was NOT deteled');
+          return false;
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        return false;
+      });
+
   }
 }

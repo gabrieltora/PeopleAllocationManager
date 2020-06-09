@@ -1,5 +1,7 @@
 <div class="modal-wrapper">
-  <h1 mat-dialog-title>Activitate zilnică</h1>
+  <h1 mat-dialog-title *ngIf="!hasDailyActivityId">Adăugare Activitate zilnică</h1>
+  <h1 mat-dialog-title *ngIf="hasDailyActivityId">Editare Activitate zilnică</h1>
+  <!-- <h1 mat-dialog-title>Adăugare Activitate zilnică</h1> -->
   <div mat-dialog-content>
     <form [formGroup]="dailyActivityForm" class="form">
       <!-- <mat-form-field>
@@ -79,8 +81,9 @@
 
     </form>
   </div>
-  <div mat-dialog-actions>
+  <div mat-dialog-actions class="action-buttons">
     <button mat-button (click)="closeDialog()">Anulează</button>
-    <button mat-button cdkFocusInitial (click)="addDailyActivity()">Ok</button>
+    <button mat-button *ngIf="!hasDailyActivityId" (click)="addDailyActivity()">Adaugă</button>
+    <button mat-button *ngIf="hasDailyActivityId" (click)="updateDailyActivity()">Salvează</button>
   </div>
 </div>

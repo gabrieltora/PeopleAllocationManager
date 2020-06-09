@@ -18,6 +18,8 @@ export class TimeKeepingModalComponent implements OnInit {
   selectedServiceId: any;
 
   dailyActivity: any;
+  hasDailyActivityId: boolean;
+  dailyActivityId: number;
 
   employeeProjects: any;
   services: any;
@@ -36,12 +38,16 @@ export class TimeKeepingModalComponent implements OnInit {
     this.employeeProjects = data.employeeData.employeeProject;
     this.employeeData = data.employeeData;
     this.services = data.services;
-  }
 
-  ngOnInit(): void {
+    if (data.hasOwnProperty('dailyActivityData') && data.dailyActivityData.hasOwnProperty('dailyActivityId')) {
+      this.hasDailyActivityId = true;
+      this.dailyActivityId = data.dailyActivityData.dailyActivityId;
+    } else {
+      this.hasDailyActivityId = false;
+    }
 
     this.dailyActivityForm = this.formBuilder.group({
-      // dailyActivityId: number;
+      DailyActivityId: [''],
       Date: ['', [Validators.required]],
       WorkedHours: ['', [Validators.required]],
       Comment: ['', [Validators.required]],
@@ -50,19 +56,35 @@ export class TimeKeepingModalComponent implements OnInit {
       EmployeeId: ['', [Validators.required]],
       ServiceId: ['', [Validators.required]]
     });
+  }
+
+  ngOnInit(): void {
+    if (this.hasDailyActivityId) {
+      this.selectedProjectId = this.data.dailyActivityData.projectId;
+      this.selectedServiceId = this.data.dailyActivityData.serviceId;
+      this.dailyActivityForm.patchValue({
+        DailyActivityId: this.dailyActivityId,
+        Date: this.data.dailyActivityData.date,
+        WorkedHours: this.data.dailyActivityData.workedHours,
+        Comment: this.data.dailyActivityData.comment,
+        Price: this.data.dailyActivityData.price,
+        ProjectId: this.selectedProjectId,
+        EmployeeId: this.data.dailyActivityData.employeeId,
+        ServiceId: this.selectedServiceId
+      });
+    }
 
     this.dailyActivityControls = this.dailyActivityForm.controls;
   }
 
   get f() { return this.dailyActivityForm.controls; }
 
-  public closeDialog(data) {
+  public closeDialog(data?) {
     this.dialogRef.close(data);
   }
 
-  public addDailyActivity() {
-    console.log('dailyActivityForm', this.dailyActivityForm);
 
+  public addDailyActivity() {
     this.dailyActivityForm.patchValue({
       EmployeeId: this.employeeData.userId,
       Price: this.dailyActivityForm.controls.WorkedHours.value * this.employeeData.hourlyPrice,
@@ -82,17 +104,52 @@ export class TimeKeepingModalComponent implements OnInit {
       serviceId: this.dailyActivityForm.controls.ServiceId.value
     };
 
-    console.log('this.dailyActivity', this.dailyActivity);
     this.loading = true;
 
     this.dailyActivityService.addDailyActivity(this.dailyActivity).subscribe(
       success => {
         this.loading = false;
         if (success) {
-          console.log('Daily activity added');
           this.closeDialog(success);
         } else {
-          // console.log('error');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(this.error);
+      });
+  }
+
+  public updateDailyActivity() {
+    this.loading = true;
+    if (this.dailyActivityForm.invalid) {
+      return;
+    }
+
+    this.dailyActivityForm.patchValue({
+      Price: this.dailyActivityForm.controls.WorkedHours.value * this.employeeData.hourlyPrice
+    });
+
+    this.dailyActivity = {
+      dailyActivityId: this.dailyActivityId,
+      date: this.dailyActivityForm.controls.Date.value,
+      workedHours: this.dailyActivityForm.controls.WorkedHours.value,
+      comment: this.dailyActivityForm.controls.Comment.value,
+      price: this.dailyActivityForm.controls.Price.value,
+      projectId: this.dailyActivityForm.controls.ProjectId.value,
+      employeeId: this.dailyActivityForm.controls.EmployeeId.value,
+      serviceId: this.dailyActivityForm.controls.ServiceId.value
+    };
+
+    this.dailyActivityService.updateDailyActivity(this.dailyActivity).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          this.closeDialog(success);
+        } else {
           this.closeDialog(success);
         }
       },

@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalActionsService } from 'src/app/shared/services/modal-actions.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { DailyActivityService } from 'src/app/time-management/services/daily-activity.service';
+import { EmployeeModel } from '../../models/EmployeeModel';
+import { DailyActivityModel } from '../../models/DailyActivityModel';
 
 @Component({
   selector: 'app-modal',
@@ -8,14 +12,16 @@ import { ModalActionsService } from 'src/app/shared/services/modal-actions.servi
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  loading = false;
+  error = '';
 
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public modalData: any,
-    private modalService: ModalActionsService
-  ) {
-    console.log(modalData);
-  }
+    private modalService: ModalActionsService,
+    private authService: AuthService,
+    private dailyActivityService: DailyActivityService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,15 +29,59 @@ export class ModalComponent implements OnInit {
   // When the user clicks the action button, the modal calls the service\
   // responsible for executing the action for this modal (depending on\
   // the name passed to `modalData`). After that, it closes the modal
-  actionFunction() {
-    this.modalService.modalAction(this.modalData);
+  public actionFunction() {
+    this.modalAction(this.modalData);
     this.closeModal();
   }
 
   // If the user clicks the cancel button a.k.a. the go back button, then\
   // just close the modal
-  closeModal() {
+  public closeModal() {
     this.dialogRef.close();
+  }
+
+  public modalAction(modalData: any) {
+    switch (modalData.name) {
+      case 'logout':
+        this.logout(modalData);
+        break;
+
+      case 'deleteDailyActivity':
+        this.deleteDailyActivity(modalData);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  private logout(modalData: EmployeeModel) {
+    // Call an authentication service method to logout the user
+    this.authService.logout(modalData);
+  }
+
+  private deleteDailyActivity(modalData: DailyActivityModel) {
+    this.dailyActivityService.deleteDailyActivity(modalData.dailyActivityId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Daily activity deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Daily activity was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  public closeDialog(data?) {
+    this.dialogRef.close(data);
   }
 
 }
