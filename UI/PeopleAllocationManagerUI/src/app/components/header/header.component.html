@@ -1,7 +1,45 @@
-<mat-toolbar color="primary" (sidenavToggle)="sidenav.toggle()">
+<!-- <mat-toolbar color="primary" (sidenavToggle)="sidenav.toggle()">
   <div>
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
+  </div>
+</mat-toolbar> -->
+
+<mat-toolbar (sidenavToggle)="sidenav.toggle()">
+  <div>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="wrapper">
+    <div class="branding">
+      <div class="branding-image">
+        <!-- <img src="../../../../assets/logo_white_big.png" alt="Stefanini_logo"> -->
+      </div>
+      <div class="branding-text">
+        <a routerLink="/time-management">People Allocation Manager Tool </a>
+      </div>
+    </div>
+    <div class="user-menu" *ngIf="employeeName">
+      <div class="user-notifications">
+        <mat-icon [matMenuTriggerFor]="notifications" class="icon">notifications</mat-icon>
+        <mat-menu #notifications="matMenu" xPosition="before">
+          <button mat-menu-item>Notification 1</button>
+          <button mat-menu-item>Notification 2</button>
+        </mat-menu>
+      </div>
+      <div class="user-actions">
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <mat-icon class="icon">person</mat-icon>
+          {{employeeName}}
+          <mat-icon class="icon-bottom">keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <button mat-menu-item>My profile</button>
+          <button mat-menu-item>Log-out</button>
+        </mat-menu>
+      </div>
+    </div>
   </div>
 </mat-toolbar>

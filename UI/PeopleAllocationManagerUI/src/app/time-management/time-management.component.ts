@@ -62,7 +62,17 @@ export class TimeManagementComponent implements OnInit {
     this.employeeService.getEmployeeById(userId).subscribe((data: EmployeeModel) => {
       this.employee = data as EmployeeModel;
       this.setDailyActivityData();
+      this.sendEmployeeData(this.employee);
     });
+  }
+
+  public setUserDetails(employee) {
+    sessionStorage.setItem('EmployeeName', employee.firstName + ' ' + employee.lastName);
+  }
+
+  public sendEmployeeData(employeeData): void {
+    // send message to subscribers via observable subject
+    this.employeeService.sendEmployeeData(employeeData);
   }
 
   public getProjects() {

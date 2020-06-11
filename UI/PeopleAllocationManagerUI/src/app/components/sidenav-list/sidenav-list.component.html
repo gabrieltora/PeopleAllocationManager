@@ -1,20 +1,21 @@
-<!-- *ngIf="isLoggedIn" -->
-<mat-nav-list>
-  <a mat-list-item routerLink="/time-management" (click)="onSidenavClose()">
-    <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
-  </a>
-  <a mat-list-item routerLink="/admin" (click)="onSidenavClose()">
-    <mat-icon>vpn_key</mat-icon> <span class="nav-caption">Admin</span>
-  </a>
-  <a mat-list-item routerLink="/client-management" (click)="onSidenavClose()">
-    <mat-icon>lock_open</mat-icon> <span class="nav-caption">Clients</span>
-  </a>
-  <a mat-list-item routerLink="/reporting" (click)="onSidenavClose()">
-    <mat-icon>fiber_pin</mat-icon> <span class="nav-caption">Reports</span>
-  </a>
-</mat-nav-list>
-<!-- <mat-nav-list *ngIf="!isLoggedIn">
-  <a mat-list-item routerLink="/auth" (click)="onSidenavClose()">
-    <mat-icon>home</mat-icon> <span class="nav-caption">Log-in</span>
-  </a>
-</mat-nav-list> -->
+<div class="wrapper">
+  <mat-nav-list *ngIf="isLoggedIn">
+    <a mat-list-item routerLink="/time-management" (click)="onSidenavClose()">
+      <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
+    </a>
+    <a mat-list-item *ngIf="isAdmin" routerLink="/admin" (click)="onSidenavClose()">
+      <mat-icon>admin_panel_settings</mat-icon> <span class="nav-caption">Admin</span>
+    </a>
+    <a mat-list-item routerLink="/client-management" (click)="onSidenavClose()">
+      <mat-icon>business_center</mat-icon> <span class="nav-caption">Clients</span>
+    </a>
+    <a mat-list-item routerLink="/reporting" (click)="onSidenavClose()">
+      <mat-icon>insert_chart</mat-icon> <span class="nav-caption">Reports</span>
+    </a>
+  </mat-nav-list>
+  <mat-nav-list *ngIf="!isLoggedIn">
+    <a mat-list-item routerLink="/auth" (click)="onSidenavClose()">
+      <mat-icon>login</mat-icon> <span class="nav-caption">Log-in</span>
+    </a>
+  </mat-nav-list>
+</div>

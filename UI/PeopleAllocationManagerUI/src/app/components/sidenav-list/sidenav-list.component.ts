@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { EmployeeService } from 'src/app/time-management/services/employee.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -6,13 +8,24 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent implements OnInit {
-  isLoggedIn = false;
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  employeeUserRoleId: string;
+  employeeSubscription: Subscription;
 
   @Output()
   sidenavClose = new EventEmitter();
 
-
-  constructor() { }
+  constructor(private employeeService: EmployeeService) {
+    // this.employeeUserRoleId = '';
+    this.employeeSubscription = this.employeeService.getEmployeeData()
+      .subscribe(employeeData => {
+        this.employeeUserRoleId = employeeData.userRoleId;
+        this.isAdmin = (employeeData.userRoleId === 1) ? true : false;
+        this.isLoggedIn = employeeData ? true : false;
+        console.log(this.employeeUserRoleId);
+      });
+  }
 
   ngOnInit() {
   }
