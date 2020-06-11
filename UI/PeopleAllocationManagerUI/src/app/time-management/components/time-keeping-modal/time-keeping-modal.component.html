@@ -1,17 +1,9 @@
 <div class="modal-wrapper">
   <h1 mat-dialog-title *ngIf="!hasDailyActivityId">Adăugare Activitate zilnică</h1>
   <h1 mat-dialog-title *ngIf="hasDailyActivityId">Editare Activitate zilnică</h1>
-  <!-- <h1 mat-dialog-title>Adăugare Activitate zilnică</h1> -->
   <div mat-dialog-content>
     <form [formGroup]="dailyActivityForm" class="form">
-      <!-- <mat-form-field>
-      <input matInput formControlName="date" placeholder="Data">
-      <mat-error
-        *ngIf="loginControls.Email.invalid && (loginControls.Email.dirty || loginControls.Email.touched)">
-        <span *ngIf="loginControls.Email.errors.required">Selectarea datei este obligatorie</span>
-      </mat-error>
-    </mat-form-field> -->
-
+      <!-- Daily activity date -->
       <mat-form-field>
         <mat-label>Alege data</mat-label>
         <input matInput [matDatepicker]="date" formControlName="Date">
@@ -25,6 +17,7 @@
         </mat-error>
       </mat-form-field>
 
+      <!-- Daily activity worked hours -->
       <mat-form-field>
         <input matInput formControlName="WorkedHours" placeholder="Număr ore: " type="number"
           max="16">
@@ -35,6 +28,7 @@
         </mat-error>
       </mat-form-field>
 
+      <!-- Daily activity project -->
       <mat-form-field>
         <mat-label>Selectează proiectul</mat-label>
         <mat-select [(ngModel)]="selectedProjectId" formControlName="ProjectId" name="ProjectId">
@@ -50,6 +44,7 @@
         </mat-error>
       </mat-form-field>
 
+      <!-- Daily activity service -->
       <mat-form-field>
         <mat-label>Selectează serviciul</mat-label>
         <mat-select [(ngModel)]="selectedServiceId" formControlName="ServiceId" name="ServiceId">
@@ -59,12 +54,13 @@
         </mat-select>
 
         <mat-error
-          *ngIf="dailyActivityControls.ProjectId.invalid && (dailyActivityControls.ProjectId.dirty || dailyActivityControls.ProjectId.touched)">
-          <span *ngIf="dailyActivityControls.ProjectId.errors.required">Selectarea serviciului este
+          *ngIf="dailyActivityControls.ServiceId.invalid && (dailyActivityControls.ServiceId.dirty || dailyActivityControls.ServiceId.touched)">
+          <span *ngIf="dailyActivityControls.ServiceId.errors.required">Selectarea serviciului este
             obligatorie</span>
         </mat-error>
       </mat-form-field>
 
+      <!-- Daily activity comment -->
       <mat-form-field>
         <mat-label>Comentariu: </mat-label>
         <textarea #message maxlength="512" matInput cdkTextareaAutosize formControlName="Comment"
@@ -77,10 +73,9 @@
         </mat-error>
       </mat-form-field>
 
-
-
     </form>
   </div>
+
   <div mat-dialog-actions class="action-buttons">
     <button mat-button (click)="closeDialog()">Anulează</button>
     <button mat-button *ngIf="!hasDailyActivityId" (click)="addDailyActivity()">Adaugă</button>

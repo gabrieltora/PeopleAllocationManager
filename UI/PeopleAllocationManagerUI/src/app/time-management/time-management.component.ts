@@ -66,10 +66,6 @@ export class TimeManagementComponent implements OnInit {
     });
   }
 
-  public setUserDetails(employee) {
-    sessionStorage.setItem('EmployeeName', employee.firstName + ' ' + employee.lastName);
-  }
-
   public sendEmployeeData(employeeData): void {
     // send message to subscribers via observable subject
     this.employeeService.sendEmployeeData(employeeData);
@@ -111,7 +107,7 @@ export class TimeManagementComponent implements OnInit {
     return this.dailyActivities;
   }
 
-  public openAddDailyActivityModal(dailyActivity?) {
+  public openDailyActivityModal(dailyActivity?) {
     const modalData = dailyActivity ?
       {
         dailyActivityData: dailyActivity,
@@ -144,7 +140,7 @@ export class TimeManagementComponent implements OnInit {
     dialogConfig.width = '500px';
     dialogConfig.data = {
       name: 'deleteDailyActivity',
-      title: 'Stergere activitate zilnică?',
+      title: 'Stergere activitate zilnică!',
       description: 'Dacă continuați, activitatea din data: ' + new Date(dailyActivity.date) + ' va fi ștearsă!',
       actionButtonText: 'Sterge',
       dailyActivityId: dailyActivity.dailyActivityId

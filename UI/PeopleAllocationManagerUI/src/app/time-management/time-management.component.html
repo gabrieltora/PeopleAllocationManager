@@ -1,6 +1,6 @@
 <h2 class="title">Pontaj lunar</h2>
 
-<button mat-raised-button color="primary" (click)="openAddDailyActivityModal()">Pontează</button>
+<button mat-raised-button color="primary" (click)="openDailyActivityModal()">Pontează</button>
 
 <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
   matSortActive="date" matSortDirection="dsc">
@@ -33,7 +33,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell class="action-buttons" *matCellDef="let element">
       <button mat-raised-button class="action-button"
-        (click)="openAddDailyActivityModal(element)">Editează</button>
+        (click)="openDailyActivityModal(element)">Editează</button>
       <button mat-raised-button class="action-button"
         (click)="openAlertModal(element)">Sterge</button>
     </td>

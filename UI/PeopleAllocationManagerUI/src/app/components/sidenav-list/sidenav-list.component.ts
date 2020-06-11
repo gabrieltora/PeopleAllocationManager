@@ -17,13 +17,11 @@ export class SidenavListComponent implements OnInit {
   sidenavClose = new EventEmitter();
 
   constructor(private employeeService: EmployeeService) {
-    // this.employeeUserRoleId = '';
     this.employeeSubscription = this.employeeService.getEmployeeData()
       .subscribe(employeeData => {
         this.employeeUserRoleId = employeeData.userRoleId;
         this.isAdmin = (employeeData.userRoleId === 1) ? true : false;
         this.isLoggedIn = employeeData ? true : false;
-        console.log(this.employeeUserRoleId);
       });
   }
 

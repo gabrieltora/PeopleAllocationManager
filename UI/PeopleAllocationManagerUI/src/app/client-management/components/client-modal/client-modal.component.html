@@ -1,0 +1,61 @@
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasClientId">Adăugare Client</h1>
+  <h1 mat-dialog-title *ngIf="hasClientId">Editare Client</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="clientForm" class="form">
+      <!-- Client Name -->
+      <mat-form-field>
+        <input matInput formControlName="ClientName" placeholder="Nume client: ">
+        <mat-error
+          *ngIf="clientFormControls.ClientName.invalid && (clientFormControls.ClientName.dirty || clientFormControls.ClientName.touched)">
+          <span *ngIf="clientFormControls.ClientName.errors.required">Introducerea numelui de client
+            este obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Client Country -->
+      <mat-form-field>
+        <mat-label>Selectează țara</mat-label>
+        <mat-select [(ngModel)]="selectedCountryId" formControlName="CountryId" name="CountryId">
+          <mat-option *ngFor="let country of countries" [value]="country.countryId">
+            {{country.name}}
+          </mat-option>
+        </mat-select>
+
+        <mat-error
+          *ngIf="clientFormControls.CountryId.invalid && (clientFormControls.CountryId.dirty || clientFormControls.CountryId.touched)">
+          <span *ngIf="clientFormControls.CountryId.errors.required">Selectarea țării este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Client Phone -->
+      <mat-form-field>
+        <input matInput formControlName="Phone" placeholder="Telefon: ">
+        <!-- <mat-error
+          *ngIf="clientFormControls.Phone.invalid && (clientFormControls.Phone.dirty || clientFormControls.Phone.touched)">
+          <span *ngIf="clientFormControls.Phone.errors.required">Numărul de telefon este obligatoriu</span>
+        </mat-error> -->
+      </mat-form-field>
+
+      <!-- Client Email -->
+      <mat-form-field>
+        <input matInput formControlName="Email" placeholder="Email">
+        <mat-error
+          *ngIf="clientFormControls.Email.invalid && (clientFormControls.Email.dirty || clientFormControls.Email.touched)">
+          <span *ngIf="clientFormControls.Email.errors.required">Adresa de email este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Client Status -->
+      <mat-checkbox color="primary" formControlName="IsActiveClient">Client activ</mat-checkbox>
+
+    </form>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasClientId" (click)="addClient()">Adaugă</button>
+    <button mat-button *ngIf="hasClientId" (click)="updateDailyActivity()">Salvează</button>
+  </div>
+</div>

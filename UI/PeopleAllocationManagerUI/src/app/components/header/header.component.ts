@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.employeeSubscription = this.employeeService.getEmployeeData()
       .subscribe(employeeData => {
         this.employeeName = employeeData.firstName + ' ' + employeeData.lastName;
-        console.log(this.employeeName);
       });
   }
 

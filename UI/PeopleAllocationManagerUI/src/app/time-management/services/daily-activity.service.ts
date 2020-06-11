@@ -27,7 +27,6 @@ export class DailyActivityService {
     const params = new HttpParams();
     params.append('id', dailyActivity.dailyActivityId.toString());
     const apiUrl = `${environment.apiUrl}/api/DailyActivities/${dailyActivity.dailyActivityId}`;
-    // return this.http.put(`${environment.apiUrl}/api/Sensors/${dailyActivity.dailyActivityId}`, dailyActivity)
     return this.http.put(apiUrl, dailyActivity)
       .pipe(
         mapTo(true),
@@ -39,7 +38,6 @@ export class DailyActivityService {
   }
 
   public deleteDailyActivity(dailyActivityId): Observable<boolean> {
-    // return this.http.delete(`${environment.apiUrl}/api/DailyActivities/${dailyActivityId}`)
     const apiUrl = `${environment.apiUrl}/api/DailyActivities/${dailyActivityId}`;
     return this.http.delete(apiUrl)
       .pipe(

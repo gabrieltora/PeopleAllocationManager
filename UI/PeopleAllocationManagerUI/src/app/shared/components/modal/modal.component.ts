@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { DailyActivityService } from 'src/app/time-management/services/daily-activity.service';
 import { EmployeeModel } from '../../models/EmployeeModel';
 import { DailyActivityModel } from '../../models/DailyActivityModel';
+import { ClientModel } from '../../models/ClientModel';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-modal',
@@ -20,7 +22,8 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public modalData: any,
     private modalService: ModalActionsService,
     private authService: AuthService,
-    private dailyActivityService: DailyActivityService
+    private dailyActivityService: DailyActivityService,
+    private clientService: ClientService
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +53,11 @@ export class ModalComponent implements OnInit {
         this.deleteDailyActivity(modalData);
         break;
 
+      case 'deleteClient':
+        this.deleteClient(modalData);
+        break;
+
+
       default:
         break;
     }
@@ -69,6 +77,26 @@ export class ModalComponent implements OnInit {
           this.closeDialog(success);
         } else {
           console.log('Daily activity was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  private deleteClient(modalData: ClientModel) {
+    this.clientService.deleteClient(modalData.clientId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Client deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Client was NOT deteled');
           this.closeDialog(success);
         }
       },

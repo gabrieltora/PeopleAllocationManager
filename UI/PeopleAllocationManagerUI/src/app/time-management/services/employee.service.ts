@@ -11,7 +11,6 @@ export class EmployeeService {
   token: string;
 
   employeeSubject = new Subject<any>();
-  // public employeeSubscriber$ = this.employeeSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth');
@@ -25,7 +24,6 @@ export class EmployeeService {
     return this.employeeSubject.asObservable();
   }
 
-  // return this.http.post<any>(`${environment.apiUrl}/api/Token`, { email, password }, httpOptions)
   public getEmployeeById(id: number) {
     // const httpOptions = {
     //   headers: new HttpHeaders({
