@@ -9,6 +9,7 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
 import { ClientModel } from '../shared/models/ClientModel';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ClientModalComponent } from './components/client-modal/client-modal.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-client-management',
@@ -35,6 +36,8 @@ export class ClientManagementComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     public matDialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.getClients();
   }
@@ -108,5 +111,11 @@ export class ClientManagementComponent implements OnInit {
         alert('Clientul nu a fost sters');
       }
     });
+  }
+
+  public goToClientDetails(client) {
+    // if (client.clientId) {
+    this.router.navigate(['/client-details/', client.clientId], { relativeTo: this.route });
+    // }
   }
 }
