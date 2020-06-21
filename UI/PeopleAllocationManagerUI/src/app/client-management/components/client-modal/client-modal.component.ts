@@ -112,7 +112,7 @@ export class ClientModalComponent implements OnInit {
       });
   }
 
-  public updateDailyActivity() {
+  public updateClient() {
     this.loading = true;
     if (this.clientForm.invalid) {
       return;

@@ -30,7 +30,7 @@
 
       <!-- Daily activity project -->
       <mat-form-field>
-        <mat-label>Selectează proiectul</mat-label>
+        <mat-label>Proiect</mat-label>
         <mat-select [(ngModel)]="selectedProjectId" formControlName="ProjectId" name="ProjectId">
           <mat-option *ngFor="let project of employeeProjects" [value]="project.projectId">
             {{project.project.name}}
@@ -46,7 +46,7 @@
 
       <!-- Daily activity service -->
       <mat-form-field>
-        <mat-label>Selectează serviciul</mat-label>
+        <mat-label>Serviciul oferit</mat-label>
         <mat-select [(ngModel)]="selectedServiceId" formControlName="ServiceId" name="ServiceId">
           <mat-option *ngFor="let service of services" [value]="service.serviceId">
             {{service.name}}

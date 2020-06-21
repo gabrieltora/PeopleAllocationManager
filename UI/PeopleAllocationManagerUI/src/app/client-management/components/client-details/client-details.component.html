@@ -1,1 +1,103 @@
-<p>client-details works!</p>
+<div class="wrapper">
+  <mat-tab-group>
+    <mat-tab label="Detalii client">
+      <mat-card>
+        <form [formGroup]="clientForm" class="form">
+          <div class="row">
+            <div class="column">
+              <!-- Client Name -->
+              <mat-form-field>
+                <input matInput formControlName="ClientName" placeholder="Nume client: " required>
+                <mat-error
+                  *ngIf="clientFormControls.ClientName.invalid && (clientFormControls.ClientName.dirty || clientFormControls.ClientName.touched)">
+                  <span *ngIf="clientFormControls.ClientName.errors.required">Introducerea numelui
+                    de
+                    client
+                    este obligatorie</span>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- Client Phone -->
+              <mat-form-field>
+                <input matInput formControlName="Phone" placeholder="Telefon: " required>
+                <!-- <mat-error
+                                *ngIf="clientFormControls.Phone.invalid && (clientFormControls.Phone.dirty || clientFormControls.Phone.touched)">
+                                <span *ngIf="clientFormControls.Phone.errors.required">Numărul de telefon este obligatoriu</span>
+                              </mat-error> -->
+              </mat-form-field>
+
+              <!-- Client Email -->
+              <mat-form-field>
+                <input matInput formControlName="Email" placeholder="Email" required>
+                <mat-error
+                  *ngIf="clientFormControls.Email.invalid && (clientFormControls.Email.dirty || clientFormControls.Email.touched)">
+                  <span *ngIf="clientFormControls.Email.errors.required">Adresa de email este
+                    obligatorie</span>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- Client Country -->
+              <mat-form-field>
+                <mat-label>Țara</mat-label>
+                <mat-select [(ngModel)]="selectedCountryId" formControlName="CountryId"
+                  name="CountryId" required>
+                  <mat-option *ngFor="let country of countries" [value]="country.countryId">
+                    {{country.name}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error
+                  *ngIf="clientFormControls.CountryId.invalid && (clientFormControls.CountryId.dirty || clientFormControls.CountryId.touched)">
+                  <span *ngIf="clientFormControls.CountryId.errors.required">Selectarea țării este
+                    obligatorie</span>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- Client City -->
+              <mat-form-field>
+                <input matInput formControlName="City" placeholder="Oras ">
+              </mat-form-field>
+
+              <!-- Client Address -->
+              <mat-form-field>
+                <input matInput formControlName="Adress" placeholder="Adresa">
+              </mat-form-field>
+            </div>
+
+            <div class="column">
+              <!-- Client CIF -->
+              <mat-form-field>
+                <input matInput formControlName="Cif" placeholder="CIF">
+              </mat-form-field>
+
+              <!-- Client CIF -->
+              <mat-form-field>
+                <input matInput formControlName="Bank" placeholder="Banca">
+              </mat-form-field>
+
+              <!-- Client CIF -->
+              <mat-form-field>
+                <input matInput formControlName="Iban" placeholder="IBAN">
+              </mat-form-field>
+
+              <!-- Client Status -->
+              <mat-checkbox color="primary" formControlName="IsActiveClient">Client activ
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <div class="row action-button">
+            <button mat-raised-button color="primary" (click)="updateClient()">Salvează</button>
+          </div>
+
+        </form>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Proiecte"> Proiecte</mat-tab>
+    <mat-tab label="Oferte"> Oferte </mat-tab>
+    <mat-tab label="Cereri oferta"> Cereri oferta </mat-tab>
+    <mat-tab label="Facturi"> Facturi </mat-tab>
+
+  </mat-tab-group>
+
+</div>

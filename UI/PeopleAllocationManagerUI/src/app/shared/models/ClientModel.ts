@@ -9,7 +9,8 @@ export class ClientModel {
     phoneNumber?: string;
     email: string;
     cif?: string;
-    country: CountryModel;
+    country?: CountryModel;
+    countryId: number;
     city: string;
     adress: string;
     iban?: string;

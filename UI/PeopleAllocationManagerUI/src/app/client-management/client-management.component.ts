@@ -10,6 +10,8 @@ import { ClientModel } from '../shared/models/ClientModel';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ClientModalComponent } from './components/client-modal/client-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { EmployeeService } from '../time-management/services/employee.service';
+import { CountryModel } from '../shared/models/CountryModel';
 
 @Component({
   selector: 'app-client-management',
@@ -30,6 +32,10 @@ export class ClientManagementComponent implements OnInit {
   dataSource = new MatTableDataSource(this.clients);
   columnsToDisplay: string[] = ['clientName', 'clientCountry', 'clientPhone', 'clientEmail', 'clientStatus', 'actions'];
 
+  selectedCountryId: any;
+  countries: any;
+  selectedCountry: any;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -37,12 +43,53 @@ export class ClientManagementComponent implements OnInit {
     private clientService: ClientService,
     public matDialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService,
+    private countryService: CountryService
   ) {
+    this.getCountries();
     this.getClients();
+
   }
 
   ngOnInit(): void { }
+
+  // onCountrySelection() {
+  //   console.log(this.selectedCountry);
+  // }
+
+  public changeSelection() {
+    console.log(this.selectedCountry);
+    this.sendselectData(this.selectedCountry);
+
+    // this.setSelectedDates();
+    // this.selectedCountry = this.countries.filter((value, index) => {
+    //   return value;
+    // });
+
+    // console.log('selectedDates', this.selectedCountry);
+    // this.sendselectData(this.selectedCountry);
+  }
+
+  public setSelectedDates() {
+    this.selectedCountry = this.countries.filter((value, index) => {
+      return value;
+    });
+
+    console.log('selectedDates', this.selectedCountry);
+    this.sendselectData(this.selectedCountry);
+  }
+
+  public sendselectData(selectData): void {
+    // send message to subscribers via observable subject
+    this.employeeService.sendSelectData(selectData);
+  }
+
+  public getCountries() {
+    this.countryService.getCountries().subscribe((data: CountryModel) => {
+      this.countries = data;
+    });
+  }
 
   public getClients() {
     this.clientService.getClients().subscribe((data: any) => {

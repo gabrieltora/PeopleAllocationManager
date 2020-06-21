@@ -11,6 +11,7 @@ export class EmployeeService {
   token: string;
 
   employeeSubject = new Subject<any>();
+  selectSubject = new Subject<any>();
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth');
@@ -22,6 +23,16 @@ export class EmployeeService {
 
   public getEmployeeData(): Observable<any> {
     return this.employeeSubject.asObservable();
+  }
+
+  // <!-- Pass data via Subject and service -->
+  public sendSelectData(selectData) {
+    this.selectSubject.next(selectData);
+  }
+
+  // <!-- Pass data via Subject and service -->
+  public getSelectData(): Observable<any> {
+    return this.selectSubject.asObservable();
   }
 
   public getEmployeeById(id: number) {
