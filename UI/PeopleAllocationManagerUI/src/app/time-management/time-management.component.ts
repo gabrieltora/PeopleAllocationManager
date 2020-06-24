@@ -4,7 +4,7 @@ import { EmployeeService } from './services/employee.service';
 import { EmployeeModel } from '../shared/models/EmployeeModel';
 import { AuthService } from '../auth/services/auth.service';
 import { DailyActivityModel } from '../shared/models/DailyActivityModel';
-import { ProjectsService } from '../client-management/services/projects.service';
+import { ProjectsService } from 'src/app/shared/services/projects.service';
 import { ProjectModel } from '../shared/models/ProjectModel';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';

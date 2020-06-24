@@ -7,10 +7,12 @@ import { ClientModalComponent } from './components/client-modal/client-modal.com
 import { ClientDetailsComponent } from './components/client-details/client-details.component';
 import { ClientManagementRoutingModule } from './client-management-routing.module';
 import { ClientsComponent } from './clients.component';
+import { ProjectManagementComponent } from './components/projects/project-management/project-management.component';
+import { ProjectModalComponent } from './components/projects/project-modal/project-modal.component';
 
 
 @NgModule({
-  declarations: [ClientManagementComponent, ClientModalComponent, ClientDetailsComponent, ClientsComponent],
+  declarations: [ClientManagementComponent, ClientModalComponent, ClientDetailsComponent, ClientsComponent, ProjectManagementComponent, ProjectModalComponent],
   imports: [
     CommonModule,
     SharedModule,

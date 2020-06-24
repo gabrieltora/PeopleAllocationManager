@@ -1,0 +1,57 @@
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasProjectId">Adăugare Proiect</h1>
+  <h1 mat-dialog-title *ngIf="hasProjectId">Editare Proiect</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="projectForm" class="form">
+
+      <!-- Project Name -->
+      <mat-form-field>
+        <input matInput formControlName="ProjectName" placeholder="Nume proiect: ">
+        <mat-error
+          *ngIf="projectFormControls.ProjectName.invalid && (projectFormControls.ProjectName.dirty || projectFormControls.ProjectName.touched)">
+          <span *ngIf="projectFormControls.ProjectName.errors.required">
+            Introducerea numelui de proiect este obligatorie
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Project Start Date -->
+      <mat-form-field>
+        <mat-label>Data de început</mat-label>
+        <input matInput [matDatepicker]="startDate" formControlName="StartDate">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+
+        <mat-error
+          *ngIf="projectFormControls.StartDate.invalid && (projectFormControls.StartDate.dirty || projectFormControls.StartDate.touched)">
+          <span *ngIf="projectFormControls.StartDate.errors.required">
+            Selectarea datei de început este obligatorie
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Project End Date -->
+      <mat-form-field>
+        <mat-label>Data de sfârșit</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="EndDate">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+
+        <mat-error
+          *ngIf="projectFormControls.EndDate.invalid && (projectFormControls.EndDate.dirty || projectFormControls.EndDate.touched)">
+          <span *ngIf="projectFormControls.EndDate.errors.required">
+            Selectarea datei de sfârșit este obligatorie
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasProjectId" (click)="addProject()">Adaugă</button>
+    <button mat-button *ngIf="hasProjectId" (click)="updateProject()">Salvează</button>
+  </div>
+</div>

@@ -1,8 +1,9 @@
 export class ProjectModel {
-    projectId: number;
+    projectId?: number;
     name: string;
     startDate: Date;
     endDate: Date;
     agreementUrl: string;
     clientId: number;
+    employeeProject?: Array<any>;
 }

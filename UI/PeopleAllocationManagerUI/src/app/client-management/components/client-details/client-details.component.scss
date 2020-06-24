@@ -7,7 +7,6 @@
 mat-tab-group {
     width: 100%;
     display: flex;
-    justify-content: center;
     padding-top: 10px;
 
     mat-card {
@@ -41,3 +40,19 @@ mat-tab-group {
 
 
 }
+
+::ng-deep mat-tab-group {
+    min-height: 100% !important;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+    min-height: 100% !important;
+    overflow: visible;
+}
+
+::ng-deep .mat-tab-body,
+.mat-tab-body-active {
+    overflow-y: hidden;
+}
+
+::ng-deep .mat-tab-body-content {}

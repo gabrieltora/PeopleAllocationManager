@@ -60,7 +60,7 @@
 
               <!-- Client Address -->
               <mat-form-field>
-                <input matInput formControlName="Adress" placeholder="Adresa">
+                <input matInput formControlName="Address" placeholder="Adresa">
               </mat-form-field>
             </div>
 
@@ -93,7 +93,9 @@
         </form>
       </mat-card>
     </mat-tab>
-    <mat-tab label="Proiecte"> Proiecte</mat-tab>
+    <mat-tab label="Proiecte">
+      <app-project-management></app-project-management>
+    </mat-tab>
     <mat-tab label="Oferte"> Oferte </mat-tab>
     <mat-tab label="Cereri oferta"> Cereri oferta </mat-tab>
     <mat-tab label="Facturi"> Facturi </mat-tab>

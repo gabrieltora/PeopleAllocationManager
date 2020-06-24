@@ -12,7 +12,7 @@ export class ClientModel {
     country?: CountryModel;
     countryId: number;
     city: string;
-    adress: string;
+    address: string;
     iban?: string;
     bank?: string;
     isActiveClient: boolean;
