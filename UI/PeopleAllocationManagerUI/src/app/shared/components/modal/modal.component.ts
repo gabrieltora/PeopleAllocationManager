@@ -9,6 +9,8 @@ import { ClientModel } from '../../models/ClientModel';
 import { ClientService } from '../../services/client.service';
 import { ProjectsService } from '../../services/projects.service';
 import { ProjectModel } from '../../models/ProjectModel';
+import { RequestsService } from '../../services/requests.service';
+import { RequestModel } from '../../models/RequestModel';
 
 @Component({
   selector: 'app-modal',
@@ -26,7 +28,8 @@ export class ModalComponent implements OnInit {
     private authService: AuthService,
     private dailyActivityService: DailyActivityService,
     private clientService: ClientService,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
+    private requestsService: RequestsService
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +65,12 @@ export class ModalComponent implements OnInit {
 
       case 'deleteProject':
         this.deleteProject(modalData);
+        break;
+
+      case 'deleteRequest':
+        this.deleteRequest(modalData);
+        console.log('modal dataaaaaaaaaaaaaaa', modalData);
+
         break;
 
       default:
@@ -123,6 +132,26 @@ export class ModalComponent implements OnInit {
           this.closeDialog(success);
         } else {
           console.log('Project was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  private deleteRequest(modalData: RequestModel) {
+    this.requestsService.deleteRequest(modalData.requestId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Request deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Request was NOT deteled');
           this.closeDialog(success);
         }
       },

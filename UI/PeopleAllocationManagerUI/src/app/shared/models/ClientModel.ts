@@ -18,7 +18,7 @@ export class ClientModel {
     isActiveClient: boolean;
     projects?: Array<ProjectModel>;
     deals?: Array<DealModel>;
-    request?: Array<RequestModel>;
+    requests?: Array<RequestModel>;
 
     constructor() { }
 }

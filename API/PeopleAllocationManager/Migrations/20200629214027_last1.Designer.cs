@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleAllocationManager.Models;
 
 namespace PeopleAllocationManager.Migrations
 {
     [DbContext(typeof(PeopleAllocationManagerContext))]
-    partial class PeopleAllocationManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200629214027_last1")]
+    partial class last1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,8 +180,6 @@ namespace PeopleAllocationManager.Migrations
                     b.HasKey("DealId");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("RequestId");
 
                     b.ToTable("Deal");
                 });
@@ -463,6 +463,9 @@ namespace PeopleAllocationManager.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DealId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("varchar(1000)")
@@ -585,10 +588,6 @@ namespace PeopleAllocationManager.Migrations
                     b.HasOne("PeopleAllocationManager.Models.Client", "Client")
                         .WithMany("Deals")
                         .HasForeignKey("ClientId");
-
-                    b.HasOne("PeopleAllocationManager.Models.Request", "Request")
-                        .WithMany()
-                        .HasForeignKey("RequestId");
                 });
 
             modelBuilder.Entity("PeopleAllocationManager.Models.EmployeeProject", b =>

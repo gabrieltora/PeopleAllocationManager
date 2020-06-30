@@ -1,0 +1,44 @@
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasRequestId">Adăugare Cerere</h1>
+  <h1 mat-dialog-title *ngIf="hasRequestId">Editare Cerere</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="requestForm" class="form">
+
+      <!-- Request description -->
+      <mat-form-field>
+        <mat-label>Descriere: </mat-label>
+        <textarea #message maxlength="512" matInput cdkTextareaAutosize
+          formControlName="Description" placeholder="Detalii privind cererea" rows="5"></textarea>
+        <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
+        <mat-error
+          *ngIf="requestFormControls.Description.invalid && (requestFormControls.Description.dirty || requestFormControls.Description.touched)">
+          <span *ngIf="requestFormControls.Description.errors.required">Introducerea descrierii este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Request Date -->
+      <mat-form-field>
+        <mat-label>Data cererii</mat-label>
+        <input matInput [matDatepicker]="Date" formControlName="Date">
+        <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
+        <mat-datepicker #Date></mat-datepicker>
+
+        <mat-error
+          *ngIf="requestFormControls.Date.invalid && (requestFormControls.Date.dirty || requestFormControls.Date.touched)">
+          <span *ngIf="requestFormControls.Date.errors.required">
+            Selectarea datei este obligatorie
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasRequestId" (click)="addRequest()">Adaugă</button>
+    <button mat-button *ngIf="hasRequestId" (click)="updateRequest()">Salvează</button>
+  </div>
+</div>

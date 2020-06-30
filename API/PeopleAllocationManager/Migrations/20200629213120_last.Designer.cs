@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleAllocationManager.Models;
 
 namespace PeopleAllocationManager.Migrations
 {
     [DbContext(typeof(PeopleAllocationManagerContext))]
-    partial class PeopleAllocationManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200629213120_last")]
+    partial class last
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,14 +174,9 @@ namespace PeopleAllocationManager.Migrations
                         .HasMaxLength(500)
                         .IsUnicode(false);
 
-                    b.Property<int?>("RequestId")
-                        .HasColumnType("int");
-
                     b.HasKey("DealId");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("RequestId");
 
                     b.ToTable("Deal");
                 });
@@ -585,10 +582,6 @@ namespace PeopleAllocationManager.Migrations
                     b.HasOne("PeopleAllocationManager.Models.Client", "Client")
                         .WithMany("Deals")
                         .HasForeignKey("ClientId");
-
-                    b.HasOne("PeopleAllocationManager.Models.Request", "Request")
-                        .WithMany()
-                        .HasForeignKey("RequestId");
                 });
 
             modelBuilder.Entity("PeopleAllocationManager.Models.EmployeeProject", b =>

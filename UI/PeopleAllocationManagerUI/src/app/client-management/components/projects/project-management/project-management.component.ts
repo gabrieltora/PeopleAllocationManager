@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { trigger, state, transition, animate, style } from '@angular/animations';
 import { ProjectModel } from 'src/app/shared/models/ProjectModel';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -15,14 +14,7 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
 @Component({
   selector: 'app-project-management',
   templateUrl: './project-management.component.html',
-  styleUrls: ['./project-management.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ]
+  styleUrls: ['./project-management.component.scss']
 })
 export class ProjectManagementComponent implements OnInit {
   clientId: string;

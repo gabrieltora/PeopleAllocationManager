@@ -64,7 +64,7 @@
       <mat-form-field>
         <mat-label>Comentariu: </mat-label>
         <textarea #message maxlength="512" matInput cdkTextareaAutosize formControlName="Comment"
-          placeholder="Detalii activitate"></textarea>
+          placeholder="Detalii activitate" rows="5"></textarea>
         <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
         <mat-error
           *ngIf="dailyActivityControls.Comment.invalid && (dailyActivityControls.Comment.dirty || dailyActivityControls.Comment.touched)">

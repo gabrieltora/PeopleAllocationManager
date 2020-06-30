@@ -9,10 +9,24 @@ import { ClientManagementRoutingModule } from './client-management-routing.modul
 import { ClientsComponent } from './clients.component';
 import { ProjectManagementComponent } from './components/projects/project-management/project-management.component';
 import { ProjectModalComponent } from './components/projects/project-modal/project-modal.component';
+import { DealsManagementComponent } from './components/deals/deals-management/deals-management.component';
+import { InvoicesManagementComponent } from './components/invoices/invoices-management/invoices-management.component';
+import { RequestsManagementComponent } from './components/requests/requests-management/requests-management.component';
+import { RequestModalComponent } from './components/requests/request-modal/request-modal.component';
 
 
 @NgModule({
-  declarations: [ClientManagementComponent, ClientModalComponent, ClientDetailsComponent, ClientsComponent, ProjectManagementComponent, ProjectModalComponent],
+  declarations: [
+    ClientManagementComponent,
+    ClientModalComponent,
+    ClientDetailsComponent,
+    ClientsComponent,
+    ProjectManagementComponent,
+    ProjectModalComponent,
+    DealsManagementComponent,
+    InvoicesManagementComponent,
+    RequestsManagementComponent,
+    RequestModalComponent],
   imports: [
     CommonModule,
     SharedModule,

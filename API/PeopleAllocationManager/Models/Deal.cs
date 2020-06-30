@@ -16,5 +16,9 @@ namespace PeopleAllocationManager.Models
         public bool? DealAccepted { get; set; }
         public string Description { get; set; }
 
+        public int? RequestId { get; set; }
+
+        public virtual Request Request { get; set; }
+
     }
 }

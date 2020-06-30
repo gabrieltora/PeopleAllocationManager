@@ -16,14 +16,7 @@ import { CountryModel } from '../shared/models/CountryModel';
 @Component({
   selector: 'app-client-management',
   templateUrl: './client-management.component.html',
-  styleUrls: ['./client-management.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ]
+  styleUrls: ['./client-management.component.scss']
 })
 export class ClientManagementComponent implements OnInit {
   services: any;

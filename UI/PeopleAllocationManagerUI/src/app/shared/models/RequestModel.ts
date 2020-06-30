@@ -1,5 +1,5 @@
 export class RequestModel {
-    requestId: number;
+    requestId?: number;
     description: string;
     date: Date;
     clientId: number;
