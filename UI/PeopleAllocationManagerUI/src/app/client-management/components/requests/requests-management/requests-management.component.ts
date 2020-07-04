@@ -28,9 +28,7 @@ export class RequestsManagementComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
-    private requestsService: RequestsService,
     private clientService: ClientService,
     public matDialog: MatDialog
   ) { }
@@ -84,7 +82,7 @@ export class RequestsManagementComponent implements OnInit {
     dialogConfig.data = {
       name: 'deleteRequest',
       title: 'Stergere cerere!',
-      description: 'Dacă continuați Cererea din data: ' + request.date + ' având obiectivul: ' + request.description + ' si toate datele legate de acestă cerere vor fi sterse!',
+      description: 'Dacă continuați Cererea din data: ' + request.date + ' având obiectivul: ' + request.description + ' si toate datele legate de această cerere vor fi sterse!',
       actionButtonText: 'Sterge',
       requestId: request.requestId
     };

@@ -13,6 +13,7 @@ import { DealsManagementComponent } from './components/deals/deals-management/de
 import { InvoicesManagementComponent } from './components/invoices/invoices-management/invoices-management.component';
 import { RequestsManagementComponent } from './components/requests/requests-management/requests-management.component';
 import { RequestModalComponent } from './components/requests/request-modal/request-modal.component';
+import { DealModalComponent } from './components/deals/deal-modal/deal-modal.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { RequestModalComponent } from './components/requests/request-modal/reque
     DealsManagementComponent,
     InvoicesManagementComponent,
     RequestsManagementComponent,
-    RequestModalComponent],
+    RequestModalComponent,
+    DealModalComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,0 +1,47 @@
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasDealId">Adăugare Ofertă</h1>
+  <h1 mat-dialog-title *ngIf="hasDealId">Editare Ofertă</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="dealForm" class="form">
+
+      <!-- Deal description -->
+      <mat-form-field>
+        <mat-label>Descriere: </mat-label>
+        <textarea #message maxlength="512" matInput cdkTextareaAutosize
+          formControlName="Description" placeholder="Detalii privind oferta" rows="5"></textarea>
+        <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
+        <mat-error
+          *ngIf="dealFormControls.Description.invalid && (dealFormControls.Description.dirty || dealFormControls.Description.touched)">
+          <span *ngIf="dealFormControls.Description.errors.required">Introducerea descrierii este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Deal Date -->
+      <mat-form-field>
+        <mat-label>Data cererii</mat-label>
+        <input matInput [matDatepicker]="Date" formControlName="Date">
+        <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
+        <mat-datepicker #Date></mat-datepicker>
+
+        <mat-error
+          *ngIf="dealFormControls.Date.invalid && (dealFormControls.Date.dirty || dealFormControls.Date.touched)">
+          <span *ngIf="dealFormControls.Date.errors.required">
+            Selectarea datei este obligatorie
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Client Status -->
+      <mat-checkbox color="primary" formControlName="DealAccepted">Ofertă acceptată</mat-checkbox>
+
+    </form>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasDealId" (click)="addDeal()">Adaugă</button>
+    <button mat-button *ngIf="hasDealId" (click)="updateDeal()">Salvează</button>
+  </div>
+</div>

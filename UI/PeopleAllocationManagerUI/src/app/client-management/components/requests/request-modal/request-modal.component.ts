@@ -28,7 +28,7 @@ export class RequestModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private requestsService: RequestsService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     if (data.hasOwnProperty('requestData') && data.requestData.hasOwnProperty('requestId')) {
       this.hasRequestId = true;
