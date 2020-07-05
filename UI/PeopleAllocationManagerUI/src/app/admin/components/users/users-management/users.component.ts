@@ -23,4 +23,12 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public openUserModal(user?) {
+
+  }
+
+  public openAlertModal(data?) {
+
+  }
+
 }
