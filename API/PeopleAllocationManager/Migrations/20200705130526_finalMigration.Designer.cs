@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleAllocationManager.Models;
 
 namespace PeopleAllocationManager.Migrations
 {
     [DbContext(typeof(PeopleAllocationManagerContext))]
-    partial class PeopleAllocationManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200705130526_finalMigration")]
+    partial class finalMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -434,7 +436,7 @@ namespace PeopleAllocationManager.Migrations
                         .HasMaxLength(34)
                         .IsUnicode(false);
 
-                    b.Property<bool>("IsInactive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -449,8 +451,6 @@ namespace PeopleAllocationManager.Migrations
                         .IsUnicode(false);
 
                     b.HasKey("ProviderId");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Provider");
                 });
@@ -646,15 +646,6 @@ namespace PeopleAllocationManager.Migrations
                     b.HasOne("PeopleAllocationManager.Models.Client", "Client")
                         .WithMany("Projects")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PeopleAllocationManager.Models.Provider", b =>
-                {
-                    b.HasOne("PeopleAllocationManager.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

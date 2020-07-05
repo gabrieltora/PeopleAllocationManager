@@ -1,1 +1,35 @@
-<p>service-modal works!</p>
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasServiceId">Adăugare Serviciu</h1>
+  <h1 mat-dialog-title *ngIf="hasServiceId">Editare Serviciu</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="serviceForm" class="form">
+      <!-- Service Name -->
+      <mat-form-field>
+        <input matInput formControlName="Name" placeholder="Nume serviciu">
+        <mat-error
+          *ngIf="serviceFormControls.Name.invalid && (serviceFormControls.Name.dirty || serviceFormControls.Name.touched)">
+          <span *ngIf="serviceFormControls.Name.errors.required">Numele este obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Service description -->
+      <mat-form-field>
+        <mat-label>Descriere: </mat-label>
+        <textarea #message maxlength="512" matInput cdkTextareaAutosize
+          formControlName="Description" placeholder="Detalii privind serviciul" rows="5"></textarea>
+        <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
+        <mat-error
+          *ngIf="serviceFormControls.Description.invalid && (serviceFormControls.Description.dirty || serviceFormControls.Description.touched)">
+          <span *ngIf="serviceFormControls.Description.errors.required">Introducerea descrierii este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasServiceId" (click)="addService()">Adaugă</button>
+    <button mat-button *ngIf="hasServiceId" (click)="updateService()">Salvează</button>
+  </div>
+</div>

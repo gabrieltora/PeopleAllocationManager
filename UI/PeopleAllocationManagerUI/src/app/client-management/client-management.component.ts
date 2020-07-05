@@ -42,7 +42,6 @@ export class ClientManagementComponent implements OnInit {
   ) {
     this.getCountries();
     this.getClients();
-
   }
 
   ngOnInit(): void { }

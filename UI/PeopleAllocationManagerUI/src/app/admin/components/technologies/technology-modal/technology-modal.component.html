@@ -1,1 +1,22 @@
-<p>technology-modal works!</p>
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasTechnologyId">Adăugare Tehnologie</h1>
+  <h1 mat-dialog-title *ngIf="hasTechnologyId">Editare Tehnologie</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="technologyForm" class="form">
+      <!-- Technology Name -->
+      <mat-form-field>
+        <input matInput formControlName="Name" placeholder="Nume tehnologie">
+        <mat-error
+          *ngIf="technologyFormControls.Name.invalid && (technologyFormControls.Name.dirty || technologyFormControls.Name.touched)">
+          <span *ngIf="technologyFormControls.Name.errors.required">Numele este obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasTechnologyId" (click)="addTechnology()">Adaugă</button>
+    <button mat-button *ngIf="hasTechnologyId" (click)="updateTechnology()">Salvează</button>
+  </div>
+</div>

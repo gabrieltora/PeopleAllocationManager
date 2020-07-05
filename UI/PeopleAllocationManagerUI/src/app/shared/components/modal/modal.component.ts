@@ -13,6 +13,11 @@ import { RequestsService } from '../../services/requests.service';
 import { RequestModel } from '../../models/RequestModel';
 import { DealModel } from '../../models/DealModel';
 import { DealsService } from '../../services/deals.service';
+import { AdminService } from '../../services/admin.service';
+import { DepartmentModel } from '../../models/DepartmentModel';
+import { FunctionModel } from '../../models/FunctionModel';
+import { ServiceModel } from '../../models/ServiceModel';
+import { TechnologyModel } from '../../models/TechnologyModel';
 
 @Component({
   selector: 'app-modal',
@@ -32,7 +37,8 @@ export class ModalComponent implements OnInit {
     private clientService: ClientService,
     private projectsService: ProjectsService,
     private requestsService: RequestsService,
-    private dealsService: DealsService
+    private dealsService: DealsService,
+    private adminService: AdminService
   ) { }
 
   ngOnInit(): void {
@@ -76,6 +82,22 @@ export class ModalComponent implements OnInit {
 
       case 'deleteDeal':
         this.deleteDeal(modalData);
+        break;
+
+      case 'deleteDepartment':
+        this.deleteDepartment(modalData);
+        break;
+
+      case 'deleteFunction':
+        this.deleteFunction(modalData);
+        break;
+
+      case 'deleteService':
+        this.deleteService(modalData);
+        break;
+
+      case 'deleteTechnology':
+        this.deleteTechnology(modalData);
         break;
 
       default:
@@ -177,6 +199,86 @@ export class ModalComponent implements OnInit {
           this.closeDialog(success);
         } else {
           console.log('Deal was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  private deleteDepartment(modalData: DepartmentModel) {
+    this.adminService.deleteDepartment(modalData.departmentId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Department deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Department was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  private deleteFunction(modalData: FunctionModel) {
+    this.adminService.deleteFunction(modalData.functionId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Function deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Function was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  private deleteService(modalData: ServiceModel) {
+    this.adminService.deleteService(modalData.serviceId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Service deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Service was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
+  private deleteTechnology(modalData: TechnologyModel) {
+    this.adminService.deleteTechnology(modalData.technologyId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('Technology deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('Technology was NOT deteled');
           this.closeDialog(success);
         }
       },

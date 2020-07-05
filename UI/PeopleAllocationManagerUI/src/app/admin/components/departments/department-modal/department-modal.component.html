@@ -1,1 +1,22 @@
-<p>department-modal works!</p>
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasDepartmentId">Adăugare Departament</h1>
+  <h1 mat-dialog-title *ngIf="hasDepartmentId">Editare Departament</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="departmentForm" class="form">
+      <!-- Department Name -->
+      <mat-form-field>
+        <input matInput formControlName="Name" placeholder="Nume departament">
+        <mat-error
+          *ngIf="departmentFormControls.Name.invalid && (departmentFormControls.Name.dirty || departmentFormControls.Name.touched)">
+          <span *ngIf="departmentFormControls.Name.errors.required">Numele este obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasDepartmentId" (click)="addDepartment()">Adaugă</button>
+    <button mat-button *ngIf="hasDepartmentId" (click)="updateDepartment()">Salvează</button>
+  </div>
+</div>

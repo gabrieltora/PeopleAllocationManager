@@ -1,1 +1,38 @@
-<p>departments-management works!</p>
+<div class="wrapper">
+
+  <button mat-raised-button color="primary" (click)="openDepartmentModal()">Adaugă
+    Departament</button>
+
+  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
+    matSortActive="date" matSortDirection="asc">
+
+    <!-- Department Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume departament </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell class="action-buttons" *matCellDef="let element">
+        <button mat-raised-button class="action-button" (click)="openDepartmentModal(element)">
+          <mat-icon>edit</mat-icon>
+          Editează
+        </button>
+        <button mat-raised-button class="action-button" (click)="openAlertModal(element)">
+          <mat-icon>delete</mat-icon>
+          Sterge
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15, 30, 60, 90, 120]"
+    class="mat-elevation-z8">
+  </mat-paginator>
+</div>
