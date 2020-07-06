@@ -52,9 +52,14 @@ export class ProvidersManagementComponent implements OnInit {
   public getProviders() {
     this.providerService.getProviders().subscribe((data: any) => {
       const providers = data as Array<ProviderModel>;
-
+      providers.sort((a, b) => (a.isInactive > b.isInactive) ? 1 : -1);
       this.setProvidersData(providers);
     });
+  }
+
+  sortBy(prop: string) {
+    prop = prop.toString();
+    return this.providers.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
   }
 
   public setProvidersData(data) {

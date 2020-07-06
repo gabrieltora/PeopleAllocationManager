@@ -1,84 +1,65 @@
 <button mat-raised-button color="primary" (click)="openProviderModal()">Adaugă provider</button>
 
-<table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
-  matSortActive="providerName" matSortDirection="asc">
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel class="provider-wrapper" *ngFor="let provider of providers">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{provider.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{provider.status}}
+        <mat-icon *ngIf="!provider.isInactive">receipt_long</mat-icon>
+        <mat-icon *ngIf="provider.isInactive">receipt</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="provider">
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <input matInput placeholder="Țara: " required value="{{provider.country.name}}"
+              disabled>
+          </mat-form-field>
 
-  <!-- Provider Name Column -->
-  <ng-container matColumnDef="providerName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+          <mat-form-field>
+            <input matInput placeholder="Oraș: " required value="{{provider.city}}" disabled>
+          </mat-form-field>
 
-  <!-- Provider Country Column -->
-  <ng-container matColumnDef="providerCountry">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Țara </th>
-    <td mat-cell *matCellDef="let element"> {{element.country.name}} </td>
-  </ng-container>
+          <mat-form-field>
+            <input matInput placeholder="Adresă: " required value="{{provider.address}}" disabled>
+          </mat-form-field>
 
-  <!-- Provider City Column -->
-  <ng-container matColumnDef="providerCity">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Oraș </th>
-    <td mat-cell *matCellDef="let element"> {{element.city}} </td>
-  </ng-container>
+          <mat-form-field>
+            <input matInput placeholder="Telefon: " required value="{{provider.phoneNumber}}"
+              disabled>
+          </mat-form-field>
 
-  <!-- Provider Adress Column -->
-  <ng-container matColumnDef="providerAdress">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresa </th>
-    <td mat-cell *matCellDef="let element"> {{element.adress}} </td>
-  </ng-container>
+          <mat-form-field>
+            <input matInput placeholder="Email: " required value="{{provider.email}}" disabled>
+          </mat-form-field>
 
-  <!-- Provider Phone Column -->
-  <ng-container matColumnDef="providerPhone">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Număr Telefon </th>
-    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
-  </ng-container>
+        </div>
 
-  <!-- Provider Email Column -->
-  <ng-container matColumnDef="providerEmail">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-  </ng-container>
+        <div class="column">
+          <mat-form-field>
+            <input matInput placeholder="CIF: " required value="{{provider.cif}}" disabled>
+          </mat-form-field>
 
-  <!-- Provider CIF Column -->
-  <ng-container matColumnDef="providerCif">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> CIF </th>
-    <td mat-cell *matCellDef="let element"> {{element.cif}} </td>
-  </ng-container>
+          <mat-form-field>
+            <input matInput placeholder="IBAN: " required value="{{provider.iban}}" disabled>
+          </mat-form-field>
 
-  <!-- Provider IBAN Column -->
-  <ng-container matColumnDef="providerIban">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> IBAN </th>
-    <td mat-cell *matCellDef="let element"> {{element.iban}} </td>
-  </ng-container>
+          <mat-form-field>
+            <input matInput placeholder="Banca: " required value="{{provider.bank}}" disabled>
+          </mat-form-field>
 
-  <!-- Provider BANK Column -->
-  <ng-container matColumnDef="providerBank">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Banca </th>
-    <td mat-cell *matCellDef="let element"> {{element.bank}} </td>
-  </ng-container>
+        </div>
+      </div>
 
-  <!-- Provider Status Column -->
-  <ng-container matColumnDef="providerStatus">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-  </ng-container>
+      <div class="row action-button">
+        <button mat-raised-button color="primary"
+          (click)="openProviderModal(provider)">Editează</button>
+      </div>
 
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell class="action-buttons" *matCellDef="let element">
-      <button mat-raised-button class="action-button" (click)="openProviderModal(element)">
-        <mat-icon>edit</mat-icon>
-        Editează
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-
-</table>
-
-<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15, 30, 60, 90, 120]"
-  class="mat-elevation-z8">
-</mat-paginator>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

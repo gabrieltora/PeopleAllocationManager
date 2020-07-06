@@ -1,1 +1,118 @@
-<p>provider-modal works!</p>
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasProviderId">Adăugare Provider</h1>
+  <h1 mat-dialog-title *ngIf="hasProviderId">Editare Provider</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="providerForm" class="form">
+      <!-- Provider Name -->
+      <mat-form-field>
+        <input matInput formControlName="Name" placeholder="Nume:">
+        <mat-error
+          *ngIf="providerFormControls.Name.invalid && (providerFormControls.Name.dirty || providerFormControls.Name.touched)">
+          <span *ngIf="providerFormControls.Name.errors.required">Introducerea numelui de provider
+            este obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Country -->
+      <mat-form-field>
+        <mat-label>Țara</mat-label>
+        <mat-select [(ngModel)]="selectedCountryId" formControlName="CountryId" name="CountryId">
+          <mat-option *ngFor="let country of countries" [value]="country.countryId">
+            {{country.name}}
+          </mat-option>
+        </mat-select>
+
+        <mat-error
+          *ngIf="providerFormControls.CountryId.invalid && (providerFormControls.CountryId.dirty || providerFormControls.CountryId.touched)">
+          <span *ngIf="providerFormControls.CountryId.errors.required">Selectarea țării este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider City -->
+      <mat-form-field>
+        <input matInput formControlName="City" placeholder="Oraș:">
+        <mat-error
+          *ngIf="providerFormControls.City.invalid && (providerFormControls.City.dirty || providerFormControls.City.touched)">
+          <span *ngIf="providerFormControls.City.errors.required">Introducerea Orașului este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Address -->
+      <mat-form-field>
+        <input matInput formControlName="Address" placeholder="Adresa:">
+        <mat-error
+          *ngIf="providerFormControls.Address.invalid && (providerFormControls.Address.dirty || providerFormControls.Address.touched)">
+          <span *ngIf="providerFormControls.Address.errors.required">Introducerea adresei
+            este obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Phone -->
+      <mat-form-field>
+        <input matInput formControlName="PhoneNumber" placeholder="Telefon:">
+        <mat-error
+          *ngIf="providerFormControls.PhoneNumber.invalid && (providerFormControls.PhoneNumber.dirty || providerFormControls.PhoneNumber.touched)">
+          <span *ngIf="providerFormControls.PhoneNumber.errors.required">Numărul de telefon este
+            obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Email -->
+      <mat-form-field>
+        <input matInput formControlName="Email" placeholder="Email:">
+        <mat-error
+          *ngIf="providerFormControls.Email.invalid && (providerFormControls.Email.dirty || providerFormControls.Email.touched)">
+          <span *ngIf="providerFormControls.Email.errors.required">Adresa de email este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Cif -->
+      <mat-form-field>
+        <input matInput formControlName="Cif" placeholder="CIF:">
+        <mat-error
+          *ngIf="providerFormControls.Cif.invalid && (providerFormControls.Cif.dirty || providerFormControls.Cif.touched)">
+          <span *ngIf="providerFormControls.Cif.errors.required">Codul CIF este
+            obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Iban -->
+      <mat-form-field>
+        <input matInput formControlName="Iban" placeholder="IBAN:">
+        <mat-error
+          *ngIf="providerFormControls.Iban.invalid && (providerFormControls.Iban.dirty || providerFormControls.Iban.touched)">
+          <span *ngIf="providerFormControls.Iban.errors.required">IBAN-ul este
+            obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Bank -->
+      <mat-form-field>
+        <input matInput formControlName="Bank" placeholder="Banca:">
+        <mat-error
+          *ngIf="providerFormControls.Bank.invalid && (providerFormControls.Bank.dirty || providerFormControls.Bank.touched)">
+          <span *ngIf="providerFormControls.Bank.errors.required">Numele Băncii este
+            obligatoriu</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Provider Status -->
+      <!-- <mat-form-field> -->
+      <mat-checkbox color="primary" formControlName="IsInactive">Marchează datele ca fiind
+        inactive</mat-checkbox>
+      <mat-hint align="end">^ Odată marcate ca fiind inactive, aceste date nu vor mai putea fi
+        editate și nici folosite la facturile viitoare!</mat-hint>
+
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasProviderId" (click)="addProvider()">Adaugă</button>
+    <button mat-button *ngIf="hasProviderId" (click)="updateProvider()">Salvează</button>
+  </div>
+
+</div>
