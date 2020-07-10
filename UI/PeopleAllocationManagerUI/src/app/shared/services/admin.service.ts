@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { mapTo, catchError } from 'rxjs/operators';
+import { mapTo, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,27 @@ export class AdminService {
 
   public getDepartments() {
     const apiUrl = `${environment.apiUrl}/api/Departments`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
+
+  public getDepartmentById(id: number) {
+    const apiUrl = `${environment.apiUrl}/api/Departments/` + id;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
+  public Test(id: number) {
+    const apiUrl = `${environment.apiUrl}/api/Departments/` + id;
     return this.http.get<any>(apiUrl);
   }
 
