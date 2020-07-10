@@ -3,7 +3,7 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ProjectModel } from 'src/app/shared/models/ProjectModel';
 import { Observable, of } from 'rxjs';
-import { mapTo, catchError } from 'rxjs/operators';
+import { mapTo, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +12,40 @@ export class ProjectsService {
 
   constructor(private http: HttpClient) { }
 
+  // public getProjectById(id: number) {
+  //   const params = new HttpParams();
+  //   params.append('id', id.toString());
+  //   const apiUrl = `${environment.apiUrl}/api/Projects/` + id;
+  //   return this.http.get<ProjectModel>(apiUrl);
+  // }
+
   public getProjectById(id: number) {
     const params = new HttpParams();
     params.append('id', id.toString());
     const apiUrl = `${environment.apiUrl}/api/Projects/` + id;
-    return this.http.get<ProjectModel>(apiUrl);
+    return this.http.get<ProjectModel>(apiUrl).pipe(
+      map((response) => response),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
   }
+
+  // public getProjecs() {
+  //   const apiUrl = `${environment.apiUrl}/api/Projects`;
+  //   return this.http.get<any>(apiUrl);
+  // }
 
   public getProjecs() {
     const apiUrl = `${environment.apiUrl}/api/Projects`;
-    return this.http.get<any>(apiUrl);
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
   }
 
   public addProject(project: any): Observable<any> {

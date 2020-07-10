@@ -1,0 +1,57 @@
+<div class="wrapper">
+  <div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+  </div>
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel class="custom-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Raportul privind gradul de alocare al angajaților în cadrul proiectelor
+        </mat-panel-title>
+        <mat-icon>account_circle</mat-icon>
+      </mat-expansion-panel-header>
+
+      <app-allocation-rate></app-allocation-rate>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="custom-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Raport privind gradul de nealocare al angajaților
+        </mat-panel-title>
+        <mat-icon>account_tree</mat-icon>
+      </mat-expansion-panel-header>
+
+      <app-vacancy-rate></app-vacancy-rate>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="custom-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Raportul dintre numărul cererilor de oferte și ofertările realizate
+        </mat-panel-title>
+        <mat-icon>verified_user</mat-icon>
+      </mat-expansion-panel-header>
+
+      <app-requests-report></app-requests-report>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="custom-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Raportul dintre numărul total al ofertelor înregistrate și al ofertelor acceptate
+        </mat-panel-title>
+        <mat-icon>design_services</mat-icon>
+      </mat-expansion-panel-header>
+
+      <app-deals-report></app-deals-report>
+
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+</div>

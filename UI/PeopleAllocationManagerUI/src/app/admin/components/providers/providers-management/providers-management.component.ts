@@ -57,11 +57,6 @@ export class ProvidersManagementComponent implements OnInit {
     });
   }
 
-  sortBy(prop: string) {
-    prop = prop.toString();
-    return this.providers.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
-  }
-
   public setProvidersData(data) {
     this.providers = new Array<ProviderModel>();
     for (const provider of data) {
