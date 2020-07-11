@@ -14,7 +14,7 @@
     <mat-form-field class="date-selector">
       <mat-label>Data de început</mat-label>
       <input matInput [matDatepicker]="startDate" (dateInput)="onStartDateChange($event.value)"
-        [value]="startAt.value">
+        [value]="startAt.value" [disabled]="!selectedProjectId">
       <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
       <mat-datepicker #startDate></mat-datepicker>
     </mat-form-field>
@@ -22,7 +22,7 @@
     <mat-form-field class="date-selector">
       <mat-label>Data de sfârșit</mat-label>
       <input matInput [matDatepicker]="endDate" (dateInput)="onEndDateChange($event.value)"
-        [value]="endAt.value">
+        [value]="endAt.value" [disabled]="!selectedProjectId">
       <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
       <mat-datepicker #endDate></mat-datepicker>
     </mat-form-field>
@@ -45,25 +45,25 @@
     <!-- Employee Department -->
     <ng-container matColumnDef="department">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Departament </th>
-      <td mat-cell *matCellDef="let element"> {{element.departmentName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.department}} </td>
     </ng-container>
 
-    <!-- Employee Function {{element.function}} -->
+    <!-- Employee Function -->
     <ng-container matColumnDef="function">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Funcție </th>
-      <td mat-cell *matCellDef="let element"> </td>
+      <td mat-cell *matCellDef="let element"> {{element.function}} </td>
     </ng-container>
 
     <!-- Employee Allocation Rate -->
-    <ng-container matColumnDef="workedHours">
+    <ng-container matColumnDef="totalWorkedHours">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Ore lucrate </th>
       <td mat-cell *matCellDef="let element"> {{element.totalWorkedHours}} </td>
     </ng-container>
 
-    <!-- Employee Allocation Rate  {{element.allocationRate}}-->
+    <!-- Employee Allocation Rate -->
     <ng-container matColumnDef="allocationRate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Gradul de alocare </th>
-      <td mat-cell *matCellDef="let element"> </td>
+      <td mat-cell *matCellDef="let element"> {{element.allocationRate}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>

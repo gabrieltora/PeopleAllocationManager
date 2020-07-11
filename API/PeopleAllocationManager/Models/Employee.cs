@@ -21,10 +21,12 @@ namespace PeopleAllocationManager.Models
         public bool? IsVatPayer { get; set; }
 
         public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
 
         public int UserRoleId { get; set; }
 
         public int? FunctionId { get; set; }
+        public virtual Function Function { get; set; }
 
         public int? SeniorityId { get; set; }
 
