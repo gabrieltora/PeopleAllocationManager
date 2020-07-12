@@ -48,7 +48,8 @@ export class ProjectModalComponent implements OnInit {
       ProjectName: ['', [Validators.required]],
       StartDate: ['', [Validators.required]],
       EndDate: ['', [Validators.required]],
-      ClientId: [this.clientId, [Validators.required]]
+      ClientId: [this.clientId, [Validators.required]],
+      IsChargeable: ['']
     });
   }
 
@@ -59,7 +60,8 @@ export class ProjectModalComponent implements OnInit {
         ProjectName: this.data.projectData.name,
         StartDate: this.data.projectData.startDate,
         EndDate: this.data.projectData.endDate,
-        ClientId: this.data.projectData.clientId
+        ClientId: this.data.projectData.clientId,
+        IsChargeable: this.data.projectData.isChargeable
       });
     }
 
@@ -83,7 +85,8 @@ export class ProjectModalComponent implements OnInit {
       name: this.projectForm.controls.ProjectName.value,
       startDate: this.projectForm.controls.StartDate.value,
       endDate: this.projectForm.controls.EndDate.value,
-      clientId: this.clientId
+      clientId: this.clientId,
+      isChargeable: this.projectForm.controls.IsChargeable.value
     };
 
     this.loading = true;
@@ -116,7 +119,8 @@ export class ProjectModalComponent implements OnInit {
       name: this.projectForm.controls.ProjectName.value,
       startDate: this.projectForm.controls.StartDate.value,
       endDate: this.projectForm.controls.EndDate.value,
-      clientId: this.clientId
+      clientId: this.clientId,
+      isChargeable: this.projectForm.controls.IsChargeable.value
     };
 
     this.projectsService.updateProject(this.project).subscribe(

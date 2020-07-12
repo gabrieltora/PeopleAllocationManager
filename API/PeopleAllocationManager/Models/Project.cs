@@ -21,6 +21,8 @@ namespace PeopleAllocationManager.Models
 
         public virtual ICollection<EmployeeProject> EmployeeProject { get; set; }
 
+        public bool? IsChargeable { get; set; }
+
 
 
     }

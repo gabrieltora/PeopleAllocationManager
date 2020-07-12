@@ -3,11 +3,7 @@ import { ProjectsService } from 'src/app/shared/services/projects.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { EmployeeModel } from 'src/app/shared/models/EmployeeModel';
-import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
-import { AdminService } from 'src/app/shared/services/admin.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-allocation-rate',
@@ -32,16 +28,12 @@ export class AllocationRateComponent implements OnInit {
 
   dataSource = new MatTableDataSource(this.employees);
   columnsToDisplay: string[] = ['name', 'department', 'function', 'totalWorkedHours', 'allocationRate'];
-  newEmployees = new Array();
 
-  departments = new Array();
-  dep: any;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private projectsService: ProjectsService,
-    private adminService: AdminService
+    private projectsService: ProjectsService
   ) {
     const date = new Date();
     this.startAt = new FormControl(new Date(date.getFullYear(), date.getMonth(), 1));
@@ -57,6 +49,7 @@ export class AllocationRateComponent implements OnInit {
       for (const project of data) {
         this.projects.push(project);
       }
+      this.projects = this.projects.filter(elem => elem.isChargeable);
     });
   }
 
@@ -66,7 +59,7 @@ export class AllocationRateComponent implements OnInit {
 
     if (this.selectedProjectIndex !== -1) {
       this.project = JSON.parse(JSON.stringify(this.projects[this.selectedProjectIndex]));
-      console.log('project', this.project);
+      // console.log('project', this.project);
 
     }
 
@@ -155,8 +148,8 @@ export class AllocationRateComponent implements OnInit {
       employee.allocationRate = ((employee.totalWorkedHours / workingHours) * 100).toFixed(2);
     }
 
-    console.log('newEmployees', newEmployees);
-    console.log(this.dailyActivities);
+    // console.log('newEmployees', newEmployees);
+    // console.log(this.dailyActivities);
 
     this.dataSource = new MatTableDataSource(newEmployees);
     this.dataSource.sort = this.sort;
@@ -167,9 +160,8 @@ export class AllocationRateComponent implements OnInit {
   public calculateWorkingDays(start, end) {
     const d0 = start;
     const d1 = end;
-    // const workingDaysBetweenDates = (d0, d1) => {
-    /* Two working days and an sunday (not working day) */
-    const holidays = ['2020-07-01', '2020-07-08'];
+    /* Two working days and and a weekend(not working day) */
+    const holidays = ['2020-07-01', '2020-07-08', '2020-07-11', '2020-07-12'];
     const startDate = new Date(d0);
     const endDate = new Date(d1);
 
@@ -215,18 +207,9 @@ export class AllocationRateComponent implements OnInit {
       }
     });
 
-    console.log('daaaaaays', days);
+    // console.log('daaaaaays', days);
 
     return days;
-    // };
   }
-
-
-  // public parseDate(input) {
-  //   // Transform date from text to date
-  //   const parts = input.match(/(\d+)/g);
-  //   // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
-  //   return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
-  // }
 
 }
