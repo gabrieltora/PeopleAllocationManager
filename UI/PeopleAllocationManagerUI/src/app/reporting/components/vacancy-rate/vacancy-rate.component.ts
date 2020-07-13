@@ -69,7 +69,7 @@ export class VacancyRateComponent implements OnInit {
 
     if (this.selectedProjectIndex !== -1) {
       this.project = JSON.parse(JSON.stringify(this.projects[this.selectedProjectIndex]));
-      console.log('project', this.project);
+      // console.log('project', this.project);
     }
 
     this.buildTableData(
@@ -155,8 +155,8 @@ export class VacancyRateComponent implements OnInit {
       }
 
       for (const employee of newEmployees) {
-        console.log('employee.totalWorkedHours', employee.totalWorkedHours);
-        console.log('workingHours', workingHours);
+        // console.log('employee.totalWorkedHours', employee.totalWorkedHours);
+        // console.log('workingHours', workingHours);
 
 
         employee.allocationRate = ((employee.totalWorkedHours / workingHours) * 100).toFixed(2);
@@ -244,7 +244,7 @@ export class VacancyRateComponent implements OnInit {
         employee.allocationRate = ((employee.totalWorkedHours / workingHours) * 100).toFixed(2);
       }
 
-      console.log('newEmployees', newEmployees);
+      // console.log('newEmployees', newEmployees);
 
       this.dataSource = new MatTableDataSource(newEmployees);
       this.dataSource.sort = this.sort;

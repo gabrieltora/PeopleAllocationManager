@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { mapTo, catchError } from 'rxjs/operators';
+import { mapTo, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,17 @@ import { mapTo, catchError } from 'rxjs/operators';
 export class RequestsService {
 
   constructor(private http: HttpClient) { }
+
+  public getRequests() {
+    const apiUrl = `${environment.apiUrl}/api/Projects`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
 
   public addRequest(request: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/api/Requests`, request)

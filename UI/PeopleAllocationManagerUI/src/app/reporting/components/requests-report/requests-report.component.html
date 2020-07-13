@@ -1,1 +1,52 @@
-<p>requests-report works!</p>
+<div class="filters">
+  <mat-form-field>
+    <mat-label>Alege anul</mat-label>
+    <mat-select [(ngModel)]="selectedYear" name="year" (selectionChange)="changeYear()">
+      <mat-option *ngFor="let year of years" [value]="year">
+        {{year}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<div class="wrapper">
+
+  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
+    matSortActive="DealsRequestsReport" matSortDirection="desc">
+
+    <!-- Month name -->
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Luna </th>
+      <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+
+    <!-- Deals number -->
+    <ng-container matColumnDef="dealsNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> #Oferte realizate </th>
+      <td mat-cell *matCellDef="let element"> {{element.dealsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{allDeals}}</td>
+    </ng-container>
+
+    <!-- Requests number -->
+    <ng-container matColumnDef="requestsNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> #Cereri de ofertă </th>
+      <td mat-cell *matCellDef="let element"> {{element.requestsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{allRequests}}</td>
+    </ng-container>
+
+    <!-- Deals / Requests number -->
+    <ng-container matColumnDef="dealsRequestsReport">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Raport #Oferte / # Cereri </th>
+      <td mat-cell *matCellDef="let element"> {{element.dealsRequestsReport}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{overallReport}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+
+  </table>
+
+</div>

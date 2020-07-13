@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { mapTo, catchError } from 'rxjs/operators';
+import { mapTo, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,18 @@ import { mapTo, catchError } from 'rxjs/operators';
 export class DealsService {
 
   constructor(private http: HttpClient) { }
+
+  public getDeals() {
+    const apiUrl = `${environment.apiUrl}/api/Deals`;
+    return this.http.get<any[]>(apiUrl);
+    // .pipe(
+    //   map((response) => response),
+    //   catchError(error => {
+    //     console.log(error.error);
+    //     return of(false);
+    //   })
+    // );
+  }
 
   public addDeal(deal: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/api/Deals`, deal)
