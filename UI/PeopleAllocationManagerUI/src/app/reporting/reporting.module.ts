@@ -11,6 +11,7 @@ import { AllocationRateComponent } from './components/allocation-rate/allocation
 import { RequestsReportComponent } from './components/requests-report/requests-report.component';
 import { DealsReportComponent } from './components/deals-report/deals-report.component';
 import { ProjectActivitiesComponent } from './components/project-activities/project-activities.component';
+import { InvoiceCreationModalComponent } from './components/project-activities/invoice-creation-modal/invoice-creation-modal.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ProjectActivitiesComponent } from './components/project-activities/proj
     AllocationRateComponent,
     RequestsReportComponent,
     DealsReportComponent,
-    ProjectActivitiesComponent
+    ProjectActivitiesComponent,
+    InvoiceCreationModalComponent
   ],
   imports: [
     CommonModule,

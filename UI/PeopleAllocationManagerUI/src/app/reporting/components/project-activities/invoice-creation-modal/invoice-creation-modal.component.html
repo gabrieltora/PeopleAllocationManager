@@ -1,0 +1,100 @@
+<div class="modal-wrapper">
+  <h1 mat-dialog-title>Generare Factură</h1>
+
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="column">
+        <p><strong>Date furnizor</strong></p>
+        <p><strong>Denumire: </strong>{{provider.name}}</p>
+        <p>
+          <strong>Adresa:</strong>{{provider.country.name}}, {{provider.city}}, {{provider.address}}
+        </p>
+        <p><strong>Telefon:</strong> {{provider.phoneNumber}}</p>
+        <p><strong>Email:</strong> {{provider.email}}</p>
+        <p><strong>CIF:</strong> {{provider.cif}}</p>
+        <p><strong>Banca:</strong> {{provider.bank}}</p>
+        <p><strong>IBAN:</strong> {{provider.iban}}</p>
+      </div>
+      <div class="column">
+        <p><strong>Date client</strong></p>
+        <p><strong>Denumire: </strong>{{project.client.name}}</p>
+        <p>
+          <strong>Adresa:</strong>{{project.client.country.name}}, {{project.client.city}},
+          {{project.client.address}}
+        </p>
+        <p><strong>Telefon:</strong> {{project.client.phoneNumber}}</p>
+        <p><strong>Email:</strong> {{project.client.email}}</p>
+        <p><strong>CIF:</strong> {{project.client.cif}}</p>
+        <p><strong>Banca:</strong> {{project.client.bank}}</p>
+        <p><strong>IBAN:</strong> {{project.client.iban}}</p>
+      </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="invoice-date-range">
+
+    </div>
+    <div class="wrapper">
+      <div class="project">
+        <p><strong>Perioada de facturare:</strong> {{sd | date}} - {{ed | date}}</p>
+        <p><strong>Nume proiect:</strong> {{project.name}}</p>
+      </div>
+      <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows
+        class="mat-elevation-z8" matSortActive="workedHours" matSortDirection="desc">
+
+        <!-- Project name -->
+        <ng-container matColumnDef="projectName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume Proiect</th>
+          <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+
+        <!-- Employee name -->
+        <ng-container matColumnDef="employeeName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume angajat </th>
+          <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
+          <td mat-footer-cell *matFooterCellDef>-</td>
+        </ng-container>
+
+        <!-- Activity date -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
+          <td mat-footer-cell *matFooterCellDef>-</td>
+        </ng-container>
+
+        <!-- Worked hours -->
+        <ng-container matColumnDef="workedHours">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ore lucrate </th>
+          <td mat-cell *matCellDef="let element"> {{element.workedHours}} </td>
+          <td mat-footer-cell *matFooterCellDef> {{totalWorkedHours}}</td>
+        </ng-container>
+
+        <!-- Employee Allocation Rate -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Costul </th>
+          <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+          <td mat-footer-cell *matFooterCellDef> {{totalPrice}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+
+      </table>
+
+      <!-- <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15, 30, 60, 90, 120]"
+        class="mat-elevation-z8">
+      </mat-paginator> -->
+
+    </div>
+
+
+  </div>
+
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasProjectId" (click)="generateInvoice()">Generează</button>
+  </div>
+</div>

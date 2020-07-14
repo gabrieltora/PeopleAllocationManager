@@ -5,6 +5,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ProjectsService } from 'src/app/shared/services/projects.service';
 import { FormControl } from '@angular/forms';
 import { ProjectActivitiesModel } from 'src/app/shared/models/ProjectActivitiesReportModel';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { InvoiceCreationModalComponent } from './invoice-creation-modal/invoice-creation-modal.component';
+import { ProviderService } from 'src/app/shared/services/provider.service';
 
 @Component({
   selector: 'app-project-activities',
@@ -25,6 +30,9 @@ export class ProjectActivitiesComponent implements OnInit {
   startAt: any;
   endAt: any;
 
+  sd: any;
+  ed: any;
+
   dailyActivities: any;
 
   totalWorkedHours = 0;
@@ -40,8 +48,15 @@ export class ProjectActivitiesComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  providers = new Array<any>();
+
   constructor(
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
+    private clientService: ClientService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public matDialog: MatDialog,
+    private providersService: ProviderService
   ) {
     const date = new Date();
     this.startAt = new FormControl(new Date(date.getFullYear(), date.getMonth(), 1));
@@ -50,6 +65,35 @@ export class ProjectActivitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProjects();
+    this.getProviders();
+  }
+
+  public getProviders() {
+    this.providersService.getProviders().subscribe(data => {
+      for (const provider of data) {
+        if (provider.isInactive === false) {
+          this.providers.push(provider);
+        }
+      }
+    });
+  }
+
+  public openInvoiceCreationModal() {
+    const modalData = {
+      project: this.project,
+      tableData: this.tableData,
+      totalWorkedHours: this.totalWorkedHours,
+      totalPrice: this.totalPrice,
+      sd: this.sd,
+      ed: this.ed,
+      providers: this.providers
+    };
+
+    const dialogRef = this.matDialog.open(InvoiceCreationModalComponent, {
+      width: '1024px',
+      data: modalData
+    });
+
   }
 
   public getProjects() {
@@ -97,6 +141,8 @@ export class ProjectActivitiesComponent implements OnInit {
   }
 
   public buildTableData(startDate: any, endDate: any) {
+    this.sd = startDate;
+    this.ed = endDate;
     // const workingDays = this.calculateWorkingDays(startDate, endDate);
     // const workingHours = workingDays * 8;
 

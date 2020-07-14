@@ -36,8 +36,6 @@
   <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
     matSortActive="workedHours" matSortDirection="desc">
 
-    ['projectName', 'employeeName', 'date', 'workedHours', 'price']
-
     <!-- Project name -->
     <ng-container matColumnDef="projectName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume Proiect</th>
@@ -55,7 +53,7 @@
     <!-- Activity date -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
       <td mat-footer-cell *matFooterCellDef>-</td>
     </ng-container>
 
@@ -82,4 +80,7 @@
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15, 30, 60, 90, 120]"
     class="mat-elevation-z8">
   </mat-paginator>
+
+  <button mat-raised-button color="primary" (click)="openInvoiceCreationModal()">Generează
+    factură</button>
 </div>
