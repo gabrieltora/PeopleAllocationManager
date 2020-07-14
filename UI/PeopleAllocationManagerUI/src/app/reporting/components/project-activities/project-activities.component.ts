@@ -90,7 +90,10 @@ export class ProjectActivitiesComponent implements OnInit {
     };
 
     const dialogRef = this.matDialog.open(InvoiceCreationModalComponent, {
-      width: '1024px',
+      // width: '1024px',
+      height: '98%',
+      width: '100vw',
+      panelClass: 'full-screen-modal',
       data: modalData
     });
 

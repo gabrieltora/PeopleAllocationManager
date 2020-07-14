@@ -7,6 +7,7 @@ import { ProjectActivitiesModel } from 'src/app/shared/models/ProjectActivitiesR
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-invoice-creation-modal',
@@ -74,7 +75,18 @@ export class InvoiceCreationModalComponent implements OnInit {
   }
 
   public generateInvoice() {
+    this.print();
+  }
 
+  print() {
+    const options = {
+      filename: 'invoice.pdf',
+      image: { type: 'jpeg' },
+      html2canvas: {},
+      jsPDF: { orientation: 'portrait' }
+    };
+    const content = document.getElementById('print');
+    html2pdf().from(content).set(options).save();
   }
 
 }

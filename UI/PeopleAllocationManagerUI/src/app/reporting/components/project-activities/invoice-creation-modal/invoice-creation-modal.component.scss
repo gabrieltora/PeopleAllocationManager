@@ -119,3 +119,7 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+::ng-deep .mat-dialog-content {
+    max-height: 100% !important;
+}

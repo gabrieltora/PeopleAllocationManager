@@ -16,3 +16,7 @@ body {
 .mat-focus-indicator {
     outline: none !important;
 }
+
+.full-screen-modal .mat-dialog-container {
+    max-width: none;
+}
