@@ -10,6 +10,7 @@ import { VacancyRateComponent } from './components/vacancy-rate/vacancy-rate.com
 import { AllocationRateComponent } from './components/allocation-rate/allocation-rate.component';
 import { RequestsReportComponent } from './components/requests-report/requests-report.component';
 import { DealsReportComponent } from './components/deals-report/deals-report.component';
+import { ProjectActivitiesComponent } from './components/project-activities/project-activities.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DealsReportComponent } from './components/deals-report/deals-report.com
     VacancyRateComponent,
     AllocationRateComponent,
     RequestsReportComponent,
-    DealsReportComponent
+    DealsReportComponent,
+    ProjectActivitiesComponent
   ],
   imports: [
     CommonModule,

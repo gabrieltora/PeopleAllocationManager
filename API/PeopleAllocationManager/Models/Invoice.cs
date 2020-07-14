@@ -11,7 +11,7 @@ namespace PeopleAllocationManager.Models
         public int InvoiceId { get; set; }
         public DateTime Date { get; set; }
         public double VAT { get; set; }
-        public double Discount { get; set; }
+        public double? Discount { get; set; }
 
         public virtual IEnumerable<DailyActivity> DailyActivities { get; set; }
 
@@ -20,5 +20,9 @@ namespace PeopleAllocationManager.Models
 
         public int ClientId { get; set; }
         public virtual Client Client { get; set; }
+
+        public int ProjectId { get; set; }
+
+        public double Price { get; set; }
     }
 }

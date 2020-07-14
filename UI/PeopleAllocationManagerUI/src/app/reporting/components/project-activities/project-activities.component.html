@@ -1,0 +1,85 @@
+<div class="filters">
+  <mat-form-field>
+    <mat-label>Alege Proiect</mat-label>
+    <mat-select [(ngModel)]="selectedProjectId" name="ProjectId"
+      (selectionChange)="changeProject()">
+      <mat-option *ngFor="let project of projects" [value]="project.projectId">
+        {{project.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="dates-selectors">
+
+    <mat-form-field class="date-selector">
+      <mat-label>Data de început</mat-label>
+      <input matInput [matDatepicker]="startDate" (dateInput)="onStartDateChange($event.value)"
+        [value]="startAt.value" [disabled]="!selectedProjectId">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="date-selector">
+      <mat-label>Data de sfârșit</mat-label>
+      <input matInput [matDatepicker]="endDate" (dateInput)="onEndDateChange($event.value)"
+        [value]="endAt.value" [disabled]="!selectedProjectId">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+</div>
+
+<div class="wrapper">
+
+  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
+    matSortActive="workedHours" matSortDirection="desc">
+
+    ['projectName', 'employeeName', 'date', 'workedHours', 'price']
+
+    <!-- Project name -->
+    <ng-container matColumnDef="projectName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume Proiect</th>
+      <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+
+    <!-- Employee name -->
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume angajat </th>
+      <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
+      <td mat-footer-cell *matFooterCellDef>-</td>
+    </ng-container>
+
+    <!-- Activity date -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      <td mat-footer-cell *matFooterCellDef>-</td>
+    </ng-container>
+
+    <!-- Worked hours -->
+    <ng-container matColumnDef="workedHours">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ore lucrate </th>
+      <td mat-cell *matCellDef="let element"> {{element.workedHours}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalWorkedHours}}</td>
+    </ng-container>
+
+    <!-- Employee Allocation Rate -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Costul </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{totalPrice}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+
+  </table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15, 30, 60, 90, 120]"
+    class="mat-elevation-z8">
+  </mat-paginator>
+</div>
