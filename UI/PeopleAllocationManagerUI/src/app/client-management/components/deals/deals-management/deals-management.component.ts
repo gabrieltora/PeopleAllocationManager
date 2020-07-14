@@ -39,11 +39,11 @@ export class DealsManagementComponent implements OnInit {
   public getClientDeals() {
     this.clientService.getClientById(+this.clientId).subscribe((data: any) => {
       for (const deal of data.deals) {
-        if (deal.dealAccepted) {
-          deal.status = 'Acceptata';
-        } else {
-          deal.status = 'Neacceptata';
-        }
+        // if (deal.dealAccepted) {
+        //   deal.status = 'Acceptata';
+        // } else {
+        //   deal.status = 'Neacceptata';
+        // }
         this.deals.push(deal);
       }
 

@@ -1,1 +1,66 @@
-<p>deals-report works!</p>
+<div class="filters">
+  <mat-form-field>
+    <mat-label>Alege anul</mat-label>
+    <mat-select [(ngModel)]="selectedYear" name="year" (selectionChange)="changeYear()">
+      <mat-option *ngFor="let year of years" [value]="year">
+        {{year}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<div class="wrapper">
+
+  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
+    matSortActive="DealsRequestsReport" matSortDirection="desc">
+
+    <!-- Month name -->
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Luna </th>
+      <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+
+    <!-- Deals number -->
+    <ng-container matColumnDef="dealsNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> #Oferte realizate </th>
+      <td mat-cell *matCellDef="let element"> {{element.dealsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{allDeals}}</td>
+    </ng-container>
+
+    <!-- Rejected deals number -->
+    <ng-container matColumnDef="rejectedDealsNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> #Oferte refuzate </th>
+      <td mat-cell *matCellDef="let element"> {{element.rejectedDealsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{allRejected}}</td>
+    </ng-container>
+
+    <!-- Waiting deals number -->
+    <ng-container matColumnDef="waitingDealsNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> #Oferte în așsteptare </th>
+      <td mat-cell *matCellDef="let element"> {{element.waitingDealsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{allWaiting}}</td>
+    </ng-container>
+
+    <!-- Accepted deals number -->
+    <ng-container matColumnDef="acceptedDealsNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> #Oferte acceptate </th>
+      <td mat-cell *matCellDef="let element"> {{element.acceptedDealsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{allAccepted}}</td>
+    </ng-container>
+
+    <!-- Deals / Requests number -->
+    <ng-container matColumnDef="dealsReport">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Raport #Oferte / # Cereri </th>
+      <td mat-cell *matCellDef="let element"> {{element.dealsReport}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{overallReport}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+
+  </table>
+
+</div>

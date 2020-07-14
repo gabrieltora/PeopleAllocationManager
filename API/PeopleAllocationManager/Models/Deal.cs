@@ -14,6 +14,8 @@ namespace PeopleAllocationManager.Models
         //public virtual Client Client { get; set; }
 
         public bool? DealAccepted { get; set; }
+        public bool? DealRejected { get; set; }
+        public string? Status { get; set; }
         public string Description { get; set; }
 
         public int? RequestId { get; set; }

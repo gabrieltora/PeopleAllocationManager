@@ -34,7 +34,22 @@
       </mat-form-field>
 
       <!-- Client Status -->
-      <mat-checkbox color="primary" formControlName="DealAccepted">Ofertă acceptată</mat-checkbox>
+      <!-- <mat-checkbox color="primary" formControlName="DealAccepted">Ofertă acceptată</mat-checkbox> -->
+
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" formControlName="Status" name="Status">
+          <mat-option *ngFor="let status of statuses" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+
+        <mat-error
+          *ngIf="dealFormControls.Status.invalid && (dealFormControls.Status.dirty || dealFormControls.Status.touched)">
+          <span *ngIf="dealFormControls.Status.errors.required">Selectarea statusului este
+            obligatorie!</span>
+        </mat-error>
+      </mat-form-field>
 
     </form>
 

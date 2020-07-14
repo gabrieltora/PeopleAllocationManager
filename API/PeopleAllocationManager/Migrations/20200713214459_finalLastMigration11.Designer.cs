@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleAllocationManager.Models;
 
 namespace PeopleAllocationManager.Migrations
 {
     [DbContext(typeof(PeopleAllocationManagerContext))]
-    partial class PeopleAllocationManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200713214459_finalLastMigration11")]
+    partial class finalLastMigration11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,9 +179,6 @@ namespace PeopleAllocationManager.Migrations
 
                     b.Property<int?>("RequestId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DealId");
 

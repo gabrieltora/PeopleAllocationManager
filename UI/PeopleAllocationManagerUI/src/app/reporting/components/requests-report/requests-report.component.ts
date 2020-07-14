@@ -106,7 +106,7 @@ export class RequestsReportComponent implements OnInit {
   allDeals = 0;
   allRequests = 0;
   overallReport = '';
-  selectedYear: any;
+  selectedYear = +new Date().getFullYear();
   years = new Array<any>();
 
   dataSource = new MatTableDataSource(this.dealsRequestsReportData);
@@ -116,14 +116,12 @@ export class RequestsReportComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private dealsService: DealsService,
-    private requestsService: RequestsService,
     private clientsService: ClientService
   ) { }
 
   ngOnInit(): void {
     this.setYears();
-    this.getClients(2020);
+    this.getClients(this.selectedYear);
   }
 
   public changeYear() {

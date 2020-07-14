@@ -19,6 +19,9 @@ export class DealModalComponent implements OnInit {
   dealData: any;
   clientId: any;
   deal: DealModel;
+  statuses = ['waiting', 'accepted', 'rejected'];
+  selectedStatus: string;
+  status: string;
 
   loading = false;
   error = '';
@@ -47,18 +50,22 @@ export class DealModalComponent implements OnInit {
       Description: ['', [Validators.required]],
       Date: ['', [Validators.required]],
       ClientId: [this.clientId, [Validators.required]],
-      DealAccepted: [false]
+      Status: ['']
     });
   }
 
   ngOnInit(): void {
     if (this.hasDealId) {
+      this.status = this.data.dealData.status;
+      this.selectedStatus = this.data.dealData.status;
+      console.log('selected status', this.selectedStatus);
+
       this.dealForm.patchValue({
         DealId: this.dealId,
         Description: this.data.dealData.description,
         Date: this.data.dealData.date,
         ClientId: this.data.dealData.clientId,
-        DealAccepted: this.data.dealData.dealAccepted
+        Status: this.status
       });
     }
 
@@ -80,7 +87,7 @@ export class DealModalComponent implements OnInit {
       description: this.dealForm.controls.Description.value,
       date: this.dealForm.controls.Date.value,
       clientId: this.clientId,
-      dealAccepted: this.dealForm.controls.DealAccepted.value
+      status: this.dealForm.controls.Status.value
     };
 
     this.loading = true;
@@ -113,7 +120,7 @@ export class DealModalComponent implements OnInit {
       description: this.dealForm.controls.Description.value,
       date: this.dealForm.controls.Date.value,
       clientId: this.clientId,
-      dealAccepted: this.dealForm.controls.DealAccepted.value
+      status: this.dealForm.controls.Status.value
     };
 
     this.dealsService.updateDeal(this.deal).subscribe(

@@ -2,7 +2,8 @@ export class DealModel {
     dealId?: number;
     date: Date;
     clientId: number;
-    dealAccepted: boolean;
+    dealAccepted?: boolean;
+    status: string;
     description: string;
 
     constructor() { }
