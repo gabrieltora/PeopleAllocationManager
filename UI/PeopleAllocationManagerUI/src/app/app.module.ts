@@ -15,12 +15,14 @@ import { AuthModule } from './auth/auth.module';
 import { HeaderComponent } from './components/header/header.component';
 import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
 import { TimeManagementModule } from './time-management/time-management.module';
+import { ChangePasswordModalComponent } from './components/change-password-modal/change-password-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    ChangePasswordModalComponent
   ],
   imports: [
     BrowserModule,

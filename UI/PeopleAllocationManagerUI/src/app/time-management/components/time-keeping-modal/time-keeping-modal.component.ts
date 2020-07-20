@@ -27,6 +27,9 @@ export class TimeKeepingModalComponent implements OnInit {
   employeeData: any;
   employeeHourlyPrice: number;
 
+  minDate: Date;
+  maxDate: Date;
+
   loading = false;
   error = '';
 
@@ -36,6 +39,8 @@ export class TimeKeepingModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dailyActivityService: DailyActivityService
   ) {
+    this.minDate = new Date(new Date().getTime() - (45 * 24 * 60 * 60 * 1000));
+    this.maxDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000));
     for (const ep of data.employeeData.employeeProject) {
       this.employeeProjects.push(ep);
     }
@@ -97,6 +102,9 @@ export class TimeKeepingModalComponent implements OnInit {
     if (this.dailyActivityForm.invalid) {
       return;
     }
+    console.log('this.dailyActivityForm.controls.Date.value', this.dailyActivityForm.controls.Date.value);
+    console.log('new Date(this.dailyActivityForm.controls.Date.value).toISOString()',
+      new Date(this.dailyActivityForm.controls.Date.value));
 
     this.dailyActivity = {
       date: this.dailyActivityForm.controls.Date.value,
@@ -136,6 +144,10 @@ export class TimeKeepingModalComponent implements OnInit {
     this.dailyActivityForm.patchValue({
       Price: this.dailyActivityForm.controls.WorkedHours.value * this.employeeData.hourlyPrice
     });
+
+    console.log('this.dailyActivityForm.controls.Date.value', this.dailyActivityForm.controls.Date.value);
+    console.log('new Date(this.dailyActivityForm.controls.Date.value).toISOString()',
+      new Date(this.dailyActivityForm.controls.Date.value));
 
     this.dailyActivity = {
       dailyActivityId: this.dailyActivityId,

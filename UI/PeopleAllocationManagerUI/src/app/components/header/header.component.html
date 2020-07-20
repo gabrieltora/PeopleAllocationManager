@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="user-menu" *ngIf="employeeName">
-      <div class="user-notifications">
+      <div class="user-notifications" [style.visibility]="'hidden'">
         <mat-icon [matMenuTriggerFor]="notifications" class="icon">notifications</mat-icon>
         <mat-menu #notifications="matMenu" xPosition="before">
           <button mat-menu-item>Notification 1</button>
@@ -28,7 +28,7 @@
           <mat-icon class="icon-bottom">keyboard_arrow_down</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
-          <button mat-menu-item>My profile</button>
+          <button mat-menu-item (click)="openAccountModal()">Editare profil</button>
           <button mat-menu-item>Log-out</button>
         </mat-menu>
       </div>

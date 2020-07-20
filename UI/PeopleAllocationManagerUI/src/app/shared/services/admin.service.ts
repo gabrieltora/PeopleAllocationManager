@@ -235,6 +235,17 @@ export class AdminService {
     );
   }
 
+  public getEmployeeByIdNoTechnologyNoProjectDto(id: number) {
+    const apiUrl = `${environment.apiUrl}/api/EmployeeNoTechnologyNoProjectDto/dto/` + id;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return throwError(false);
+      })
+    );
+  }
+
   public addEmployee(employee: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/api/Employees`, employee)
       .pipe(
