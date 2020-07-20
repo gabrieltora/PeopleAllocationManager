@@ -30,7 +30,6 @@ export class DepartmentModalComponent implements OnInit {
       this.hasDepartmentId = true;
       this.departmentId = data.departmentData.departmentId;
       this.departmentData = data.departmentData;
-      console.log('data', data);
     } else {
       this.hasDepartmentId = false;
     }
@@ -57,8 +56,6 @@ export class DepartmentModalComponent implements OnInit {
   }
 
   public addDepartment() {
-    console.log('this.departmentForm', this.departmentForm);
-
     if (this.departmentForm.invalid) {
       return;
     }

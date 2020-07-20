@@ -23,7 +23,7 @@ export class ClientManagementComponent implements OnInit {
   clients: ClientModel[];
 
   dataSource = new MatTableDataSource(this.clients);
-  columnsToDisplay: string[] = ['clientName', 'clientCountry', 'clientPhone', 'clientEmail', 'clientStatus', 'actions'];
+  columnsToDisplay: string[] = ['name', 'clientCountry', 'phoneNumber', 'email', 'status', 'actions'];
 
   selectedCountryId: any;
   countries: any;
@@ -41,7 +41,7 @@ export class ClientManagementComponent implements OnInit {
     private countryService: CountryService
   ) {
     this.getCountries();
-    this.getClients();
+    this.getClientsDto();
   }
 
   ngOnInit(): void { }
@@ -83,8 +83,8 @@ export class ClientManagementComponent implements OnInit {
     });
   }
 
-  public getClients() {
-    this.clientService.getClients().subscribe((data: any) => {
+  public getClientsDto() {
+    this.clientService.getClientsDto().subscribe((data: any) => {
       const clients = data as Array<ClientModel>;
 
       this.setClientsData(clients);
@@ -123,7 +123,7 @@ export class ClientManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getClients();
+        this.getClientsDto();
       } else if (result === false) {
         alert(result);
       }
@@ -145,7 +145,7 @@ export class ClientManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getClients();
+        this.getClientsDto();
       } else if (result === false) {
         alert('Clientul nu a fost sters');
       }
@@ -153,8 +153,6 @@ export class ClientManagementComponent implements OnInit {
   }
 
   public goToClientDetails(client) {
-    // if (client.clientId) {
     this.router.navigate(['/client-details/', client.clientId], { relativeTo: this.route });
-    // }
   }
 }

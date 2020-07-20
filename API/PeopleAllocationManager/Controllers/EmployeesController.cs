@@ -27,6 +27,220 @@ namespace PeopleAllocationManager.Controllers
             return await _context.Employee.ToListAsync();
         }
 
+
+
+        // GET: api/EmployeesGetDto/dto
+        [HttpGet("/api/EmployeesGetDto/dto")]
+        public IActionResult GetEmployeesGetDto()
+        {
+
+            List<EmployeesGetDto> final_result = new List<EmployeesGetDto>();
+            foreach (var e in _context.Employee)
+            {
+                var epproject = from epr in e.EmployeeProject
+                                select new ProjectDto()
+                                {
+                                    ProjectId = epr.ProjectId,
+                                    Name = epr.Project.Name,
+                                    StartDate = epr.Project.StartDate,
+                                    EndDate = epr.Project.EndDate,
+                                    AgreementUrl = epr.Project.AgreementUrl,
+                                    ClientId = epr.Project.ClientId,
+                                    IsChargeable = epr.Project.IsChargeable
+                                };
+
+                var etechnology = from eth in e.EmployeeTechnology
+                                  select new TechnologyDto()
+                                {
+                                    TechnologyId = eth.Technology.TechnologyId,
+                                    Name = eth.Technology.Name
+                                };
+
+                final_result.Add(new EmployeesGetDto()
+                {
+                    UserId = e.UserId,
+                    EmployeeCode = e.EmployeeCode,
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    UserName = e.UserName,
+                    Email = e.Email,
+                    Password = e.Password,
+                    CreatedDate = e.CreatedDate,
+                    BirthDate = e.BirthDate,
+                    PhoneNumber = e.PhoneNumber,
+                    GrossSalary = e.GrossSalary,
+                    NetSalary = e.NetSalary,
+                    HourlyPrice = e.HourlyPrice,
+                    IsVatPayer = e.IsVatPayer,
+                    DepartmentId = e.DepartmentId,
+                    Department = e.Department,
+                    UserRoleId = e.UserRoleId,
+                    FunctionId = e.FunctionId,
+                    Function = e.Function,
+                    SeniorityId = e.SeniorityId,
+                    Seniority = e.Seniority,
+                    EmployeeProject = epproject,
+                    EmployeeTechnology = etechnology
+                });
+            }
+
+            return Ok(final_result);
+
+        }
+
+
+
+
+
+
+
+
+
+        // GET: /api/EmployeeNoTechnologyNoProjectDto/dto
+        [HttpGet("/api/EmployeeNoTechnologyNoProjectDto/dto")]
+        public IQueryable<EmployeeNoTechnologyNoProjectDto> GetEmployeeNoTechnologyNoProjectDto()
+        {
+            var employee = from e in _context.Employee
+                           select new EmployeeNoTechnologyNoProjectDto()
+                           {
+                               UserId = e.UserId,
+                               EmployeeCode = e.EmployeeCode,
+                               FirstName = e.FirstName,
+                               LastName = e.LastName,
+                               UserName = e.UserName,
+                               Email = e.Email,
+                               Password = e.Password,
+                               CreatedDate = e.CreatedDate,
+                               BirthDate = e.BirthDate,
+                               PhoneNumber = e.PhoneNumber,
+                               GrossSalary = e.GrossSalary,
+                               NetSalary = e.NetSalary,
+                               HourlyPrice = e.HourlyPrice,
+                               IsVatPayer = e.IsVatPayer,
+                               DepartmentId = e.DepartmentId,
+                               Department = e.Department,
+                               UserRoleId = e.UserRoleId,
+                               FunctionId = e.FunctionId,
+                               Function = e.Function,
+                               SeniorityId = e.SeniorityId,
+                               Seniority = e.Seniority,
+                               DailyActivities = e.DailyActivities
+                           };
+
+            return employee;
+        }
+
+
+
+        // GET: api/EmployeeNoTechnologyNoProjectDto/dto/{id}
+        [HttpGet("/api/EmployeeNoTechnologyNoProjectDto/dto/{id}")]
+        public IActionResult GetEmployeeNoTechnologyNoProjectDto(int id)
+        {
+            var foundUser = _context.Employee.Where(e => e.UserId == id);
+
+            if (foundUser == null)
+            {
+                return NotFound();
+            }
+            List<EmployeeNoTechnologyNoProjectDto> final_result = new List<EmployeeNoTechnologyNoProjectDto>();
+            foreach (var e in foundUser)
+            {
+                
+                final_result.Add(new EmployeeNoTechnologyNoProjectDto()
+                {
+                    UserId = e.UserId,
+                    EmployeeCode = e.EmployeeCode,
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    UserName = e.UserName,
+                    Email = e.Email,
+                    Password = e.Password,
+                    CreatedDate = e.CreatedDate,
+                    BirthDate = e.BirthDate,
+                    PhoneNumber = e.PhoneNumber,
+                    GrossSalary = e.GrossSalary,
+                    NetSalary = e.NetSalary,
+                    HourlyPrice = e.HourlyPrice,
+                    IsVatPayer = e.IsVatPayer,
+                    DepartmentId = e.DepartmentId,
+                    Department = e.Department,
+                    UserRoleId = e.UserRoleId,
+                    FunctionId = e.FunctionId,
+                    Function = e.Function,
+                    SeniorityId = e.SeniorityId,
+                    Seniority = e.Seniority,
+                    DailyActivities = e.DailyActivities
+                });
+            }
+
+            return Ok(final_result);
+
+        }
+
+
+        // GET: api/EmployeeNoTechnologyDto/dto/{id}
+        [HttpGet("/api/EmployeeNoTechnologyDto/dto/{id}")]
+        public IActionResult GetEmployeeNoTechnologyDto(int id)
+        {
+            var foundUser = _context.Employee.Where(e => e.UserId == id);
+
+            if (foundUser == null)
+            {
+                return NotFound();
+            }
+            List<EmployeeNoTechnologyDto> final_result = new List<EmployeeNoTechnologyDto>();
+            foreach (var e in foundUser)
+            {
+                var epproject = from epr in e.EmployeeProject
+                                select new ProjectDto()
+                                {
+                                    ProjectId = epr.ProjectId,
+                                    Name = epr.Project.Name,
+                                    StartDate = epr.Project.StartDate,
+                                    EndDate = epr.Project.EndDate,
+                                    AgreementUrl = epr.Project.AgreementUrl,
+                                    ClientId = epr.Project.ClientId,
+                                    IsChargeable = epr.Project.IsChargeable
+                                };
+
+                final_result.Add(new EmployeeNoTechnologyDto()
+                {
+                    UserId = e.UserId,
+                    EmployeeCode = e.EmployeeCode,
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    UserName = e.UserName,
+                    Email = e.Email,
+                    Password = e.Password,
+                    CreatedDate = e.CreatedDate,
+                    BirthDate = e.BirthDate,
+                    PhoneNumber = e.PhoneNumber,
+                    GrossSalary = e.GrossSalary,
+                    NetSalary = e.NetSalary,
+                    HourlyPrice = e.HourlyPrice,
+                    IsVatPayer = e.IsVatPayer,
+                    DepartmentId = e.DepartmentId,
+                    Department = e.Department,
+                    UserRoleId = e.UserRoleId,
+                    FunctionId = e.FunctionId,
+                    Function = e.Function,
+                    SeniorityId = e.SeniorityId,
+                    Seniority = e.Seniority,
+                    DailyActivities = e.DailyActivities,
+                    EmployeeProject = epproject
+
+
+
+                }); ;
+            }
+
+            return Ok(final_result);
+
+        }
+
+
+
+
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)

@@ -52,7 +52,9 @@
 
     <!-- Deals / Requests number -->
     <ng-container matColumnDef="dealsReport">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Raport #Oferte / # Cereri </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Raport #Oferte acceptate / #Oferte
+        realizate
+      </th>
       <td mat-cell *matCellDef="let element"> {{element.dealsReport}} </td>
       <td mat-footer-cell *matFooterCellDef> {{overallReport}}</td>
     </ng-container>

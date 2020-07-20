@@ -2,14 +2,15 @@ import { DailyActivityModel } from './DailyActivityModel';
 import { ProjectModel } from './ProjectModel';
 
 export class EmployeeModel {
-    userId: number;
-    employeeCode: string;
+    name?: string;
+    userId?: number;
+    employeeCode?: string;
     firstName: string;
     lastName: string;
-    userName: string;
+    userName?: string;
     email: string;
     password: string;
-    createdDate: Date;
+    createdDate?: Date;
     birthDate?: Date;
     phoneNumber?: string;
     grossSalary?: number;
@@ -20,8 +21,8 @@ export class EmployeeModel {
     userRoleId: number;
     functionId?: number;
     seniorityId?: number;
-    dailyActivities: Array<DailyActivityModel>;
-    employeeProject: Array<any>;
+    dailyActivities?: Array<DailyActivityModel>;
+    employeeProject?: Array<any>;
 
     constructor() { }
 }

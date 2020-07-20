@@ -42,17 +42,17 @@
       </div>
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
 
-        <!-- Project name -->
+        <!-- Project name
         <ng-container matColumnDef="projectName">
           <th mat-header-cell *matHeaderCellDef> Nume Proiect</th>
           <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
           <td mat-footer-cell *matFooterCellDef> Total </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Employee name -->
-        <ng-container matColumnDef="employeeName">
-          <th mat-header-cell *matHeaderCellDef> Nume angajat </th>
-          <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
+        <ng-container matColumnDef="serviceName">
+          <th mat-header-cell *matHeaderCellDef> Serviciul oferit </th>
+          <td mat-cell *matCellDef="let element"> {{element.serviceName}} </td>
           <td mat-footer-cell *matFooterCellDef>-</td>
         </ng-container>
 

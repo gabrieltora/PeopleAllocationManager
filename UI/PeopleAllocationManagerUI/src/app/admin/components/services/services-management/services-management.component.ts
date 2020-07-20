@@ -64,8 +64,6 @@ export class ServicesManagementComponent implements OnInit {
   }
 
   public openAlertModal(service) {
-    console.log('service', service);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.width = '500px';

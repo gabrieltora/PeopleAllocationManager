@@ -21,7 +21,7 @@ export class ProjectManagementComponent implements OnInit {
   projects: ProjectModel[] = [];
 
   dataSource = new MatTableDataSource(this.projects);
-  columnsToDisplay: string[] = ['projectName', 'startDate', 'endDate', 'actions'];
+  columnsToDisplay: string[] = ['name', 'startDate', 'endDate', 'actions'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -42,16 +42,14 @@ export class ProjectManagementComponent implements OnInit {
 
 
   public getClientProjects() {
-    this.clientService.getClientById(+this.clientId).subscribe((data: ClientModel) => {
-      for (const project of data.projects) {
+    this.clientService.getClientByIdGetClientDto(+this.clientId).subscribe((data: ClientModel[]) => {
+      for (const project of data[0].projects) {
         this.projects.push(project);
       }
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
-    console.log('this.projects', this.projects);
-
   }
 
   public openProjectModal(project?) {

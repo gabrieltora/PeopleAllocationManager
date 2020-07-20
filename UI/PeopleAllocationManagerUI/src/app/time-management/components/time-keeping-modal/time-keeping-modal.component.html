@@ -33,7 +33,7 @@
         <mat-label>Proiect</mat-label>
         <mat-select [(ngModel)]="selectedProjectId" formControlName="ProjectId" name="ProjectId">
           <mat-option *ngFor="let project of employeeProjects" [value]="project.projectId">
-            {{project.project.name}}
+            {{project.name}}
           </mat-option>
         </mat-select>
 

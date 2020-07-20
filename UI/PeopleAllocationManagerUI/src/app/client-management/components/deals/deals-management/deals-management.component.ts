@@ -37,8 +37,8 @@ export class DealsManagementComponent implements OnInit {
   }
 
   public getClientDeals() {
-    this.clientService.getClientById(+this.clientId).subscribe((data: any) => {
-      for (const deal of data.deals) {
+    this.clientService.getClientByIdGetClientDto(+this.clientId).subscribe((data: ClientModel[]) => {
+      for (const deal of data[0].deals) {
         // if (deal.dealAccepted) {
         //   deal.status = 'Acceptata';
         // } else {
@@ -78,8 +78,6 @@ export class DealsManagementComponent implements OnInit {
   }
 
   public openAlertModal(deal) {
-    console.log('deal', deal);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.width = '500px';

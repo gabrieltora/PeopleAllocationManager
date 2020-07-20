@@ -31,7 +31,6 @@ export class FunctionModalComponent implements OnInit {
       this.hasFunctionId = true;
       this.functionId = data.functionData.functionId;
       this.functionData = data.functionData;
-      console.log('data', data);
     } else {
       this.hasFunctionId = false;
     }
@@ -58,8 +57,6 @@ export class FunctionModalComponent implements OnInit {
   }
 
   public addFunction() {
-    console.log('this.functionForm', this.functionForm);
-
     if (this.functionForm.invalid) {
       return;
     }

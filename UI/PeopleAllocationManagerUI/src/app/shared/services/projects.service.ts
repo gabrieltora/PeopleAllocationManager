@@ -48,6 +48,28 @@ export class ProjectsService {
     );
   }
 
+  public getProjecsDto() {
+    const apiUrl = `${environment.apiUrl}/api/Projects/dto`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
+
+  public getProjectsWithDailyActivitiesDto() {
+    const apiUrl = `${environment.apiUrl}/api/ProjectWithDailyActivitiesDto/dto`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
+
   public addProject(project: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/api/Projects`, project)
       .pipe(

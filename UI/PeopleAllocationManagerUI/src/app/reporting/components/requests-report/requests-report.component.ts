@@ -121,11 +121,11 @@ export class RequestsReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.setYears();
-    this.getClients(this.selectedYear);
+    this.getClientsDealsRequestsDto(this.selectedYear);
   }
 
   public changeYear() {
-    this.getClients(this.selectedYear);
+    this.getClientsDealsRequestsDto(this.selectedYear);
   }
 
   public setYears() {
@@ -139,14 +139,14 @@ export class RequestsReportComponent implements OnInit {
     this.years.sort((a, b) => (a > b ? -1 : 1));
   }
 
-  public getClients(year: number) {
+  public getClientsDealsRequestsDto(year: number) {
     for (const month of this.dealsRequestsReportData) {
       month.dealsNumber = 0;
       month.requestsNumber = 0;
       month.dealsRequestsReport = '';
     }
     this.dataSource = new MatTableDataSource(this.dealsRequestsReportData);
-    this.clientsService.getClients().subscribe(data => {
+    this.clientsService.getClientsDealsRequestsDto().subscribe(data => {
       this.allDeals = 0;
       this.allRequests = 0;
       this.overallReport = '';

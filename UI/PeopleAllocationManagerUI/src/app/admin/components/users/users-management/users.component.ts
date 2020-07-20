@@ -3,6 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeModel } from 'src/app/shared/models/EmployeeModel';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { AdminService } from 'src/app/shared/services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserModalComponent } from '../user-modal/user-modal.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-users',
@@ -11,20 +15,60 @@ import { MatSort } from '@angular/material/sort';
 })
 export class UsersComponent implements OnInit {
   userId: string;
-  users: EmployeeModel[] = [];
+  employees = new Array<EmployeeModel>();
 
-  dataSource = new MatTableDataSource(this.users);
-  columnsToDisplay: string[] = ['name', 'email', 'phone', 'department', 'function', 'seniority', 'actions'];
+  emailstring = '';
+
+  dataSource = new MatTableDataSource(this.employees);
+  columnsToDisplay: string[] = ['firstName', 'email', 'phoneNumber', 'department', 'function', 'seniority', 'actions'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  constructor() { }
+  constructor(
+    private adminService: AdminService,
+    public matDialog: MatDialog
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getEmployeesGetDto();
   }
 
-  public openUserModal(user?) {
+  mail() {
+    window.location.href = `mailto:xyz@example.com?Subject=Hello&body=${this.employees[0].lastName}`;
+  }
 
+  public getEmployeesGetDto() {
+    this.adminService.getEmployeesGetDto().subscribe((data: Array<EmployeeModel>) => {
+      for (const employee of data) {
+        this.employees.push(employee);
+      }
+
+      this.dataSource = new MatTableDataSource(this.employees);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  public openEmployeeModal(employee?) {
+    const modalData = employee ?
+      {
+        employeeData: employee
+      } :
+      {};
+
+    const dialogRef = this.matDialog.open(UserModalComponent, {
+      width: '1024px',
+      data: modalData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.employees = [];
+        this.getEmployeesGetDto();
+      } else if (result === false) {
+        alert(result);
+      }
+    });
   }
 
   public openAlertModal(data?) {

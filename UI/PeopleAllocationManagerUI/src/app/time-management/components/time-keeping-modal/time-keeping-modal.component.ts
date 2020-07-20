@@ -21,7 +21,8 @@ export class TimeKeepingModalComponent implements OnInit {
   hasDailyActivityId: boolean;
   dailyActivityId: number;
 
-  employeeProjects: any;
+  // employeeProjects: any;
+  employeeProjects = new Array<any>();
   services: any;
   employeeData: any;
   employeeHourlyPrice: number;
@@ -35,8 +36,11 @@ export class TimeKeepingModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dailyActivityService: DailyActivityService
   ) {
-    this.employeeProjects = data.employeeData.employeeProject;
+    for (const ep of data.employeeData.employeeProject) {
+      this.employeeProjects.push(ep);
+    }
     this.employeeData = data.employeeData;
+
     this.services = data.services;
 
     if (data.hasOwnProperty('dailyActivityData') && data.dailyActivityData.hasOwnProperty('dailyActivityId')) {

@@ -19,6 +19,7 @@ export class ClientModel {
     projects?: Array<ProjectModel>;
     deals?: Array<DealModel>;
     requests?: Array<RequestModel>;
+    status?: string;
 
     constructor() { }
 }

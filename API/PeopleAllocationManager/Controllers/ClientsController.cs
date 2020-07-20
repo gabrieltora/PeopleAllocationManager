@@ -28,6 +28,119 @@ namespace PeopleAllocationManager.Controllers
             return await _context.Client.ToListAsync();
         }
 
+
+        // GET: api/Clients/dto
+        [HttpGet("/api/Clients/dto")]
+        public IQueryable<ClientsDto> GetClientDto()
+        {
+            var clients = from c in _context.Client
+                          select new ClientsDto()
+                          {
+                              ClientId = c.ClientId,
+                              Name = c.Name,
+                              PhoneNumber = c.PhoneNumber,
+                              Email = c.Email,
+                              CIF = c.CIF,
+                              CountryId = c.CountryId,
+                              Country = c.Country,
+                              City = c.City,
+                              Address = c.Address,
+                              IBAN = c.IBAN,
+                              Bank = c.Bank,
+                              IsActiveClient = c.IsActiveClient
+                            };
+
+            return clients;
+        }
+
+        // GET: api/ClientsDealsRequests/dto
+        [HttpGet("/api/ClientsDealsRequests/dto")]
+        public IQueryable<ClientsDealsRequestsDto> GetClientsDealsRequestsDto()
+        {
+            var clients = from c in _context.Client
+                          select new ClientsDealsRequestsDto()
+                          {
+                              ClientId = c.ClientId,
+                              Name = c.Name,
+                              PhoneNumber = c.PhoneNumber,
+                              Email = c.Email,
+                              CIF = c.CIF,
+                              CountryId = c.CountryId,
+                              Country = c.Country,
+                              City = c.City,
+                              Address = c.Address,
+                              IBAN = c.IBAN,
+                              Bank = c.Bank,
+                              IsActiveClient = c.IsActiveClient,
+                              Deals = c.Deals,
+                              Requests = c.Requests
+                          };
+
+            return clients;
+        }
+
+
+
+
+
+        // GET: api/Clients/GetClientDto/dto/{id}
+        [HttpGet("/api/Clients/GetClientDto/dto/{id}")]
+        public IActionResult GetGetClientDto(int id)
+        {
+            var foundClient = _context.Client.Where(e => e.ClientId == id);
+
+            if (foundClient == null)
+            {
+                return NotFound();
+            }
+            List<GetClientDto> final_result = new List<GetClientDto>();
+            foreach (var c in foundClient)
+            {
+
+                var projects = from proj in c.Projects
+                                select new ProjectDto()
+                                {
+                                    ProjectId = proj.ProjectId,
+                                    Name = proj.Name,
+                                    StartDate = proj.StartDate,
+                                    EndDate = proj.EndDate,
+                                    AgreementUrl = proj.AgreementUrl,
+                                    ClientId = proj.ClientId,
+                                    IsChargeable = proj.IsChargeable
+                                };
+
+                final_result.Add(new GetClientDto()
+                {
+                    ClientId = c.ClientId,
+                    Name = c.Name,
+                    PhoneNumber = c.PhoneNumber,
+                    Email = c.Email,
+                    CIF = c.CIF,
+                    CountryId = c.CountryId,
+                    Country = c.Country,
+                    City = c.City,
+                    Address = c.Address,
+                    IBAN = c.IBAN,
+                    Bank = c.Bank,
+                    IsActiveClient = c.IsActiveClient,
+                    Deals = c.Deals,
+                    Requests = c.Requests,
+                    Projects = projects
+                });
+            }
+
+            return Ok(final_result);
+
+        }
+
+
+
+
+
+
+
+
+
         // GET: api/Clients/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClient(int id)

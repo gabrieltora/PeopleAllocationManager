@@ -13,7 +13,7 @@ namespace PeopleAllocationManager.Models
         public double VAT { get; set; }
         public double? Discount { get; set; }
 
-        public virtual IEnumerable<DailyActivity> DailyActivities { get; set; }
+        //public virtual IEnumerable<DailyActivity> DailyActivities { get; set; }
 
         public int ProviderId { get; set; }
         public virtual Provider Provider { get; set; }

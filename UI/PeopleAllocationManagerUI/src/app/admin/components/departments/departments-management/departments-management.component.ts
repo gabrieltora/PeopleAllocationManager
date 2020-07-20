@@ -66,8 +66,6 @@ export class DepartmentsManagementComponent implements OnInit {
   }
 
   public openAlertModal(department) {
-    console.log('department', department);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.width = '500px';

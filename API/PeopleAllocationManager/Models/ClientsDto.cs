@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PeopleAllocationManager.Models
 {
-    public class Client
+    public class ClientsDto
     {
         public int ClientId { get; set; }
         public string Name { get; set; }
@@ -18,14 +18,6 @@ namespace PeopleAllocationManager.Models
         public string? Address { get; set; }
         public string? IBAN { get; set; }
         public string? Bank { get; set; }
-
         public bool IsActiveClient { get; set; }
-
-        public virtual IEnumerable<Project> Projects { get; set; }
-
-        public virtual ICollection<Deal> Deals { get; set; }
-
-        public virtual ICollection<Request> Requests { get; set; }
-
     }
 }

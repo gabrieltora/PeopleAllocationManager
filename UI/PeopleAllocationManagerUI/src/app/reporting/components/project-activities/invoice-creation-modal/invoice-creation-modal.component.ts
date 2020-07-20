@@ -44,7 +44,8 @@ export class InvoiceCreationModalComponent implements OnInit {
   provider: any;
 
   dataSource = new MatTableDataSource(this.tableData);
-  columnsToDisplay: string[] = ['projectName', 'employeeName', 'date', 'workedHours', 'price'];
+  // columnsToDisplay: string[] = ['projectName', 'serviceName', 'date', 'workedHours', 'price'];
+  columnsToDisplay: string[] = ['serviceName', 'date', 'workedHours', 'price'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -57,7 +58,6 @@ export class InvoiceCreationModalComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     if (data) {
-      console.log('data', data);
       this.tableData = data.tableData;
       this.dataSource = new MatTableDataSource(this.tableData);
       this.dataSource.sort = this.sort;
@@ -76,6 +76,10 @@ export class InvoiceCreationModalComponent implements OnInit {
 
   public generateInvoice() {
     this.print();
+  }
+
+  public closeDialog(data?) {
+    this.dialogRef.close(data);
   }
 
   print() {

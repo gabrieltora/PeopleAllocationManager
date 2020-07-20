@@ -41,11 +41,12 @@ export class AllocationRateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProjects();
+    // this.getProjects();
+    this.getProjectsWithDailyActivitiesDto();
   }
 
-  public getProjects() {
-    this.projectsService.getProjecs().subscribe(data => {
+  public getProjectsWithDailyActivitiesDto() {
+    this.projectsService.getProjectsWithDailyActivitiesDto().subscribe(data => {
       for (const project of data) {
         this.projects.push(project);
       }
@@ -59,8 +60,6 @@ export class AllocationRateComponent implements OnInit {
 
     if (this.selectedProjectIndex !== -1) {
       this.project = JSON.parse(JSON.stringify(this.projects[this.selectedProjectIndex]));
-      // console.log('project', this.project);
-
     }
 
     this.buildTableData(
@@ -122,10 +121,10 @@ export class AllocationRateComponent implements OnInit {
             newEmployees.push({
               id: dailyActivity.employeeId,
               totalWorkedHours: dailyActivity.workedHours,
-              function: this.project.employeeProject[employeeIdIndex].employee.function.name,
-              department: this.project.employeeProject[employeeIdIndex].employee.department.name,
-              name: this.project.employeeProject[employeeIdIndex].employee.firstName + ' ' +
-                this.project.employeeProject[employeeIdIndex].employee.lastName,
+              function: this.project.employeeProject[employeeIdIndex].function.name,
+              department: this.project.employeeProject[employeeIdIndex].department.name,
+              name: this.project.employeeProject[employeeIdIndex].firstName + ' ' +
+                this.project.employeeProject[employeeIdIndex].lastName,
             });
           }
         }
@@ -135,10 +134,10 @@ export class AllocationRateComponent implements OnInit {
           newEmployees.push({
             id: dailyActivity.employeeId,
             totalWorkedHours: dailyActivity.workedHours,
-            function: this.project.employeeProject[employeeIdIndex].employee.function.name,
-            department: this.project.employeeProject[employeeIdIndex].employee.department.name,
-            name: this.project.employeeProject[employeeIdIndex].employee.firstName + ' ' +
-              this.project.employeeProject[employeeIdIndex].employee.lastName,
+            function: this.project.employeeProject[employeeIdIndex].function.name,
+            department: this.project.employeeProject[employeeIdIndex].department.name,
+            name: this.project.employeeProject[employeeIdIndex].firstName + ' ' +
+              this.project.employeeProject[employeeIdIndex].lastName,
           });
         }
       }
@@ -147,9 +146,6 @@ export class AllocationRateComponent implements OnInit {
     for (const employee of newEmployees) {
       employee.allocationRate = ((employee.totalWorkedHours / workingHours) * 100).toFixed(2);
     }
-
-    // console.log('newEmployees', newEmployees);
-    // console.log(this.dailyActivities);
 
     this.dataSource = new MatTableDataSource(newEmployees);
     this.dataSource.sort = this.sort;
@@ -206,8 +202,6 @@ export class AllocationRateComponent implements OnInit {
         }
       }
     });
-
-    // console.log('daaaaaays', days);
 
     return days;
   }

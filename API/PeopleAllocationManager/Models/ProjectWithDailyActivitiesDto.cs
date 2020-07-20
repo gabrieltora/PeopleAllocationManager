@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace PeopleAllocationManager.Models
 {
-    public class Project
+    public class ProjectWithDailyActivitiesDto
     {
-        //-	Projects(ProjectId, Name, StartDate, EndDate, ClientId, AgreementNumber, AgreementDate)
         public int ProjectId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
@@ -15,15 +14,14 @@ namespace PeopleAllocationManager.Models
         public string AgreementUrl { get; set; }
 
         public int ClientId { get; set; }
-        public virtual Client Client { get; set; }
+        public virtual ClientsDto Client { get; set; }
 
         public virtual ICollection<DailyActivity> DailyActivities { get; set; }
 
-        public virtual ICollection<EmployeeProject> EmployeeProject { get; set; }
+        public virtual IEnumerable<EmployeeDto> EmployeeProject { get; set; }
+
+
 
         public bool? IsChargeable { get; set; }
-
-
-
     }
 }

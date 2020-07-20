@@ -39,8 +39,8 @@ export class RequestsManagementComponent implements OnInit {
   }
 
   public getClientRequests() {
-    this.clientService.getClientById(+this.clientId).subscribe((data: ClientModel) => {
-      for (const request of data.requests) {
+    this.clientService.getClientByIdGetClientDto(+this.clientId).subscribe((data: ClientModel[]) => {
+      for (const request of data[0].requests) {
         this.requests.push(request);
       }
       this.dataSource = new MatTableDataSource(this.requests);
@@ -74,8 +74,6 @@ export class RequestsManagementComponent implements OnInit {
   }
 
   public openAlertModal(request) {
-    console.log('requeeeeeeeeeeeeeeest', request);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.width = '500px';

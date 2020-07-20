@@ -38,11 +38,9 @@ export class DealModalComponent implements OnInit {
       this.dealId = data.dealData.dealId;
       this.dealData = data.dealData;
       this.clientId = data.dealData.clientId;
-      console.log('data', data);
     } else {
       this.hasDealId = false;
       this.clientId = data.clientId;
-      console.log('this.clientId', this.clientId);
     }
 
     this.dealForm = this.formBuilder.group({
@@ -58,7 +56,6 @@ export class DealModalComponent implements OnInit {
     if (this.hasDealId) {
       this.status = this.data.dealData.status;
       this.selectedStatus = this.data.dealData.status;
-      console.log('selected status', this.selectedStatus);
 
       this.dealForm.patchValue({
         DealId: this.dealId,
@@ -77,8 +74,6 @@ export class DealModalComponent implements OnInit {
   }
 
   public addDeal() {
-    console.log('this.dealForm', this.dealForm);
-
     if (this.dealForm.invalid) {
       return;
     }

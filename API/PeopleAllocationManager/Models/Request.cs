@@ -13,7 +13,7 @@ namespace PeopleAllocationManager.Models
         public DateTime Date { get; set; }
 
         public int? ClientId { get; set; }
-        public virtual Client Client { get; set; }
+        //public virtual Client Client { get; set; }
         
     }
 }

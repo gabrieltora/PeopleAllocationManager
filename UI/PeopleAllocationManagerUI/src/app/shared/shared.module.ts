@@ -29,6 +29,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
@@ -62,7 +64,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCheckboxModule,
     MatExpansionModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   exports: [
     FormsModule,
@@ -93,7 +97,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCheckboxModule,
     MatExpansionModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule { }

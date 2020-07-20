@@ -1,1 +1,207 @@
-<p>user-modal works!</p>
+<div class="modal-wrapper">
+  <h1 mat-dialog-title *ngIf="!hasEmployeeId">Adăugare utilizator</h1>
+  <h1 mat-dialog-title *ngIf="hasEmployeeId">Editare utilizator</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="employeeForm" class="form">
+      <div class="column">
+        <!-- Employee First Name -->
+        <mat-form-field>
+          <input matInput formControlName="FirstName" placeholder="Prenume">
+          <mat-error
+            *ngIf="employeeFormControls.FirstName.invalid && (employeeFormControls.FirstName.dirty || employeeFormControls.FirstName.touched)">
+            <span *ngIf="employeeFormControls.FirstName.errors.required">Prenumele este
+              obligatoriu</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Last Name -->
+        <mat-form-field>
+          <input matInput formControlName="LastName" placeholder="Nume">
+          <mat-error
+            *ngIf="employeeFormControls.LastName.invalid && (employeeFormControls.LastName.dirty || employeeFormControls.LastName.touched)">
+            <span *ngIf="employeeFormControls.LastName.errors.required">Numele este
+              obligatoriu</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Email -->
+        <mat-form-field>
+          <input matInput formControlName="Email" placeholder="Email" type="email">
+          <mat-error
+            *ngIf="employeeFormControls.Email.invalid && (employeeFormControls.Email.dirty || employeeFormControls.Email.touched)">
+            <span *ngIf="employeeFormControls.Email.errors.required">Email-ul este
+              obligatoriu</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Phone -->
+        <mat-form-field>
+          <input matInput formControlName="PhoneNumber" placeholder="Telefon">
+        </mat-form-field>
+
+        <!-- Employee password -->
+        <mat-form-field>
+          <input matInput formControlName="Password" placeholder="Parola">
+          <mat-error
+            *ngIf="employeeFormControls.Password.invalid && (employeeFormControls.Password.dirty || employeeFormControls.Password.touched)">
+            <span *ngIf="employeeFormControls.Password.errors.required">Parola este
+              obligatoriu</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Birthdate -->
+        <mat-form-field>
+          <mat-label>Data nașterii</mat-label>
+          <input matInput [matDatepicker]="birthDate" formControlName="BirthDate">
+          <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+          <mat-datepicker #birthDate></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Employee IsVatPayer -->
+        <mat-checkbox color="primary" formControlName="IsVatPayer">Este plătitor de TVA
+        </mat-checkbox>
+
+      </div>
+
+      <div class="column">
+        <!-- Employee Gross Salary -->
+        <mat-form-field>
+          <input matInput formControlName="GrossSalary" placeholder="Salariul brut:">
+        </mat-form-field>
+
+        <!-- Employee NET Salary -->
+        <mat-form-field>
+          <input matInput formControlName="NetSalary" placeholder="Salariul net:">
+        </mat-form-field>
+
+
+        <!-- Employee HourlyPrice-->
+        <mat-form-field>
+          <input matInput formControlName="HourlyPrice" placeholder="Preț/oră">
+          <mat-error
+            *ngIf="employeeFormControls.HourlyPrice.invalid && (employeeFormControls.HourlyPrice.dirty || employeeFormControls.HourlyPrice.touched)">
+            <span *ngIf="employeeFormControls.HourlyPrice.errors.required">Prețul pe oră este
+              obligatoriu</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Department -->
+        <mat-form-field>
+          <mat-label>Departament</mat-label>
+          <mat-select [(ngModel)]="selectedDepartmentId" formControlName="DepartmentId"
+            name="DepartmentId">
+            <mat-option *ngFor="let department of departments" [value]="department.departmentId">
+              {{department.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="employeeFormControls.DepartmentId.invalid && (employeeFormControls.DepartmentId.dirty || employeeFormControls.DepartmentId.touched)">
+            <span *ngIf="employeeFormControls.DepartmentId.errors.required">Selectarea
+              departamentului este
+              obligatorie</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee UserRole -->
+        <mat-form-field>
+          <mat-label>Rol de utilizator</mat-label>
+          <mat-select [(ngModel)]="selectedUserRoleId" formControlName="UserRoleId"
+            name="UserRoleId">
+            <mat-option *ngFor="let userRole of userRoles" [value]="userRole.userRoleId">
+              {{userRole.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="employeeFormControls.UserRoleId.invalid && (employeeFormControls.UserRoleId.dirty || employeeFormControls.UserRoleId.touched)">
+            <span *ngIf="employeeFormControls.UserRoleId.errors.required">Selectarea rolului de
+              utilizator este obligatorie</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Function -->
+        <mat-form-field>
+          <mat-label>Funcție</mat-label>
+          <mat-select [(ngModel)]="selectedFunctionId" formControlName="FunctionId"
+            name="FunctionId">
+            <mat-option *ngFor="let userFunction of userFunctions"
+              [value]="userFunction.functionId">
+              {{userFunction.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="employeeFormControls.FunctionId.invalid && (employeeFormControls.FunctionId.dirty || employeeFormControls.FunctionId.touched)">
+            <span *ngIf="employeeFormControls.FunctionId.errors.required">Selectarea funcției este
+              obligatorie</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Employee Seniority -->
+        <mat-form-field>
+          <mat-label>Senioritate</mat-label>
+          <mat-select [(ngModel)]="selectedSeniorityId" formControlName="SeniorityId"
+            name="SeniorityId">
+            <mat-option *ngFor="let seniority of seniorities" [value]="seniority.seniorityId">
+              {{seniority.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="employeeFormControls.SeniorityId.invalid && (employeeFormControls.SeniorityId.dirty || employeeFormControls.SeniorityId.touched)">
+            <span *ngIf="employeeFormControls.SeniorityId.errors.required">Selectarea seniorității
+              este obligatorie</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+
+    </form>
+
+    <div class="form">
+      <!-- Employee projects -->
+      <mat-form-field appearance="fill">
+        <mat-label>Proiecte</mat-label>
+        <mat-select [(ngModel)]="selectedProjects" multiple (ngModelChange)="onProjectsChange()">
+          <mat-select-trigger>
+            {{selectedProjects.length > 0 ? selectedProjects[0].name : ''}}
+            <span *ngIf="selectedProjects.length > 1" class="example-additional-selection">
+              (+{{selectedProjects.length - 1}}
+              {{selectedProjects.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let project of projects" [value]="project">
+            {{project.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Employee technologies -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tehnologii</mat-label>
+        <mat-select [(ngModel)]="selectedTechnologies" multiple
+          (ngModelChange)="onTechnologiesChange()">
+          <mat-select-trigger>
+            {{selectedTechnologies.length > 0 ? selectedTechnologies[0].name : ''}}
+            <span *ngIf="selectedTechnologies.length > 1" class="example-additional-selection">
+              (+{{selectedTechnologies.length - 1}}
+              {{selectedTechnologies.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let technology of technologies" [value]="technology">
+            {{technology.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="closeDialog()">Anulează</button>
+    <button mat-button *ngIf="!hasEmployeeId" (click)="addEmployee()">Adaugă</button>
+    <button mat-button *ngIf="hasEmployeeId" (click)="updateEmployee()">Salvează</button>
+  </div>
+</div>

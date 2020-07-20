@@ -31,7 +31,6 @@ export class TechnologyModalComponent implements OnInit {
       this.hasTechnologyId = true;
       this.technologyId = data.technologyData.technologyId;
       this.technologyData = data.technologyData;
-      console.log('data', data);
     } else {
       this.hasTechnologyId = false;
     }
@@ -58,8 +57,6 @@ export class TechnologyModalComponent implements OnInit {
   }
 
   public addTechnology() {
-    console.log('this.technologyForm', this.technologyForm);
-
     if (this.technologyForm.invalid) {
       return;
     }

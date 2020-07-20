@@ -15,8 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ClientDetailsComponent implements OnInit {
   clientFormControls: any;
   client: ClientModel;
+  clients = new Array<any>();
   clientId: any;
-  // clientForm: FormGroup;
 
   selectedCountryId: any;
   countries: any;
@@ -78,8 +78,12 @@ export class ClientDetailsComponent implements OnInit {
 
 
   public getClientData() {
-    this.clientService.getClientById(this.clientId).subscribe((data: ClientModel) => {
-      this.setClientData(data);
+    this.clientService.getClientByIdGetClientDto(this.clientId).subscribe((data: ClientModel[]) => {
+      for (const client of data) {
+        this.clients.push(client);
+      }
+      this.setClientData(this.clients[0]);
+
     });
   }
 

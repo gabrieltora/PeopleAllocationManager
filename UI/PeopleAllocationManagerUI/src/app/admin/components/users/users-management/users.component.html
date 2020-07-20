@@ -1,13 +1,13 @@
 <div class="wrapper">
   <h2 class="title">Lista Utilizatorilor</h2>
 
-  <button mat-raised-button color="primary" (click)="openUserModal()">Adaugă utilizator</button>
+  <button mat-raised-button color="primary" (click)="openEmployeeModal()">Adaugă utilizator</button>
 
   <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
     matSortActive="date" matSortDirection="asc">
 
     <!-- User name -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="firstName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nume </th>
       <td mat-cell *matCellDef="let element"> {{element.lastName}} {{element.firstName}} </td>
     </ng-container>
@@ -19,7 +19,7 @@
     </ng-container>
 
     <!-- User Phone -->
-    <ng-container matColumnDef="phone">
+    <ng-container matColumnDef="phoneNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefon </th>
       <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
     </ng-container>
@@ -27,26 +27,26 @@
     <!-- User Department -->
     <ng-container matColumnDef="department">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Departament </th>
-      <td mat-cell *matCellDef="let element"> {{element.departmentId}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.department.name}} </td>
     </ng-container>
 
     <!-- User Function -->
     <ng-container matColumnDef="function">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Funcție </th>
-      <td mat-cell *matCellDef="let element"> {{element.functionId}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.function.name}} </td>
     </ng-container>
 
     <!-- User Seniority -->
     <ng-container matColumnDef="seniority">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Funcție </th>
-      <td mat-cell *matCellDef="let element"> {{element.seniorityId}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vechime </th>
+      <td mat-cell *matCellDef="let element"> {{element.seniority.name}} </td>
     </ng-container>
 
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell class="action-buttons" *matCellDef="let element">
-        <button mat-raised-button class="action-button" (click)="openUserModal(element)">
+        <button mat-raised-button class="action-button" (click)="openEmployeeModal(element)">
           <mat-icon>edit</mat-icon>
           Editează
         </button>

@@ -30,7 +30,6 @@ export class ServiceModalComponent implements OnInit {
       this.hasServiceId = true;
       this.serviceId = data.serviceData.serviceId;
       this.serviceData = data.serviceData;
-      console.log('data', data);
     } else {
       this.hasServiceId = false;
     }
@@ -59,8 +58,6 @@ export class ServiceModalComponent implements OnInit {
   }
 
   public addService() {
-    console.log('this.serviceForm', this.serviceForm);
-
     if (this.serviceForm.invalid) {
       return;
     }

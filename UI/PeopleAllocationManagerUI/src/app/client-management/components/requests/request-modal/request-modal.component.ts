@@ -35,11 +35,9 @@ export class RequestModalComponent implements OnInit {
       this.requestId = data.requestData.requestId;
       this.requestData = data.requestData;
       this.clientId = data.requestData.clientId;
-      console.log('data', data);
     } else {
       this.hasRequestId = false;
       this.clientId = data.clientId;
-      console.log('this.clientId', this.clientId);
     }
 
     this.requestForm = this.formBuilder.group({
@@ -70,8 +68,6 @@ export class RequestModalComponent implements OnInit {
   }
 
   public addRequest() {
-    console.log('this.requestForm', this.requestForm);
-
     if (this.requestForm.invalid) {
       return;
     }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { mapTo, catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -13,6 +13,28 @@ export class AdminService {
 
   public getDepartments() {
     const apiUrl = `${environment.apiUrl}/api/Departments`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
+
+  public getUserRoles() {
+    const apiUrl = `${environment.apiUrl}/api/UserRoles`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return of(false);
+      })
+    );
+  }
+
+  public getUserSeniorities() {
+    const apiUrl = `${environment.apiUrl}/api/Seniorities`;
     return this.http.get<any>(apiUrl).pipe(
       map((result) => result),
       catchError(error => {
@@ -190,4 +212,62 @@ export class AdminService {
         })
       );
   }
+
+  public getEmployees() {
+    const apiUrl = `${environment.apiUrl}/api/Employees`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return throwError(false);
+      })
+    );
+  }
+
+  public getEmployeesGetDto() {
+    const apiUrl = `${environment.apiUrl}/api/EmployeesGetDto/dto`;
+    return this.http.get<any>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        console.log(error.error);
+        return throwError(false);
+      })
+    );
+  }
+
+  public addEmployee(employee: any): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/api/Employees`, employee)
+      .pipe(
+        map((result) => result),
+        catchError(error => {
+          console.log(error.error);
+          return throwError(false);
+        })
+      );
+  }
+
+  public updateEmployee(employee: any): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/api/Employees/${employee.userId}`;
+    return this.http.put(apiUrl, employee)
+      .pipe(
+        map((result) => result),
+        catchError(error => {
+          console.log(error.error);
+          return throwError(false);
+        })
+      );
+  }
+
+  public deleteEmployee(employeeId): Observable<boolean> {
+    const apiUrl = `${environment.apiUrl}/api/Employees/${employeeId}`;
+    return this.http.delete(apiUrl)
+      .pipe(
+        mapTo(true),
+        catchError(error => {
+          console.log(error.error);
+          return throwError(false);
+        })
+      );
+  }
+
 }

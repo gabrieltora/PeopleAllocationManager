@@ -14,7 +14,7 @@ import { TechnologyModalComponent } from '../technology-modal/technology-modal.c
   styleUrls: ['./technologies-management.component.scss']
 })
 export class TechnologiesManagementComponent implements OnInit {
-    technologyId: string;
+  technologyId: string;
   technologies: TechnologyModel[] = [];
 
   dataSource = new MatTableDataSource(this.technologies);
@@ -64,8 +64,6 @@ export class TechnologiesManagementComponent implements OnInit {
   }
 
   public openAlertModal(technology) {
-    console.log('technology', technology);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.width = '500px';

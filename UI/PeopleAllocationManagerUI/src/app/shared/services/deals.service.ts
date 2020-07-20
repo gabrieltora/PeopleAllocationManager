@@ -14,13 +14,6 @@ export class DealsService {
   public getDeals() {
     const apiUrl = `${environment.apiUrl}/api/Deals`;
     return this.http.get<any[]>(apiUrl);
-    // .pipe(
-    //   map((response) => response),
-    //   catchError(error => {
-    //     console.log(error.error);
-    //     return of(false);
-    //   })
-    // );
   }
 
   public addDeal(deal: any): Observable<any> {

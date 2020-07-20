@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PeopleAllocationManager.Models
 {
-    public partial class Employee
+    public class EmployeeNoTechnologyNoProjectDto
     {
         public int UserId { get; set; }
         public string EmployeeCode { get; set; }
@@ -30,11 +32,8 @@ namespace PeopleAllocationManager.Models
 
         public int? SeniorityId { get; set; }
         public virtual Seniority Seniority { get; set; }
-
+        
         public virtual ICollection<DailyActivity> DailyActivities { get; set; }
 
-        public virtual ICollection<EmployeeTechnology> EmployeeTechnology { get; set; }
-
-        public virtual ICollection<EmployeeProject> EmployeeProject { get; set; }
     }
 }

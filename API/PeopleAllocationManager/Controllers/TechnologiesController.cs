@@ -20,11 +20,26 @@ namespace PeopleAllocationManager.Controllers
             _context = context;
         }
 
+        //// GET: api/Technologies
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Technology>>> GetTechnology()
+        //{
+        //    return await _context.Technology.ToListAsync();
+        //}
+
+
         // GET: api/Technologies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Technology>>> GetTechnology()
+        public IQueryable<TechnologyDto> GetTechnology()
         {
-            return await _context.Technology.ToListAsync();
+            var technologies = from t in _context.Technology
+                               select new TechnologyDto()
+                        {
+                            TechnologyId = t.TechnologyId,
+                            Name = t.Name
+                        };
+
+            return technologies;
         }
 
         // GET: api/Technologies/5

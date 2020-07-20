@@ -36,11 +36,9 @@ export class ProjectModalComponent implements OnInit {
       this.projectId = data.projectData.projectId;
       this.projectData = data.projectData;
       this.clientId = data.projectData.clientId;
-      console.log('data', data);
     } else {
       this.hasProjectId = false;
       this.clientId = data.clientId;
-      console.log('this.clientId', this.clientId);
     }
 
     this.projectForm = this.formBuilder.group({
@@ -75,8 +73,6 @@ export class ProjectModalComponent implements OnInit {
   }
 
   public addProject() {
-    console.log('this.projectForm', this.projectForm);
-
     if (this.projectForm.invalid) {
       return;
     }

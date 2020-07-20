@@ -14,6 +14,8 @@ import { TimeKeepingModalComponent } from './components/time-keeping-modal/time-
 import { ServiceService } from '../shared/services/service.service';
 import { ServiceModel } from '../shared/models/ServiceModel';
 import { ModalComponent } from '../shared/components/modal/modal.component';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 
 @Component({
@@ -30,9 +32,10 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
 })
 export class TimeManagementComponent implements OnInit {
   userId: number;
-  employee: EmployeeModel;
+  employee: any;
+  employees = new Array<any>();
   dailyActivity = new DailyActivityModel();
-  dailyActivities: DailyActivityModel[];
+  dailyActivities = new Array<DailyActivityModel>();
   services: any;
   projects: any;
 
@@ -53,16 +56,24 @@ export class TimeManagementComponent implements OnInit {
     this.projects = [];
     this.userId = this.authService.userId;
     this.getServices();
-    this.getProjects();
+    this.getProjecsDto();
   }
 
   ngOnInit(): void { }
 
   public getData(userId: number) {
-    this.employeeService.getEmployeeById(userId).subscribe((data: EmployeeModel) => {
-      this.employee = data as EmployeeModel;
-      this.setDailyActivityData();
-      this.sendEmployeeData(this.employee);
+    this.employeeService.getEmployeesWithNoTechnologyDto(userId).subscribe(data => {
+      this.employees = [];
+      for (const employee of data) {
+        // if (employee.userId === this.userId) {
+        //   this.employees.push(employee);
+        // }
+        this.employees.push(employee);
+      }
+      // console.log('this.employee[0]', this.employees[0]);
+
+      this.setDailyActivityData(this.employees[0].dailyActivities);
+      this.sendEmployeeData(this.employees[0]);
     });
   }
 
@@ -71,8 +82,8 @@ export class TimeManagementComponent implements OnInit {
     this.employeeService.sendEmployeeData(employeeData);
   }
 
-  public getProjects() {
-    this.projectService.getProjecs().subscribe((data: any) => {
+  public getProjecsDto() {
+    this.projectService.getProjecsDto().subscribe((data: any) => {
       this.projects = data as ProjectModel;
       this.getData(this.userId);
     });
@@ -84,9 +95,9 @@ export class TimeManagementComponent implements OnInit {
     });
   }
 
-  public setDailyActivityData() {
-    this.dailyActivities = new Array<DailyActivityModel>();
-    for (const activity of this.employee.dailyActivities) {
+  public setDailyActivityData(dailyActivities) {
+    this.dailyActivities = [];
+    for (const activity of dailyActivities) {
       const index = this.projects.findIndex(project => project.projectId === activity.projectId);
       const serviceIndex = this.services.findIndex(service => service.serviceId === activity.serviceId);
 
@@ -111,11 +122,11 @@ export class TimeManagementComponent implements OnInit {
     const modalData = dailyActivity ?
       {
         dailyActivityData: dailyActivity,
-        employeeData: this.employee,
+        employeeData: this.employees[0],
         services: this.services
       } :
       {
-        employeeData: this.employee,
+        employeeData: this.employees[0],
         services: this.services
       };
 

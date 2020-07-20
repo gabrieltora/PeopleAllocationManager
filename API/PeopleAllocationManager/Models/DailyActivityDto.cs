@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace PeopleAllocationManager.Models
 {
-    public class DailyActivity
+    public class DailyActivityDto
     {
-        //-	DailyActivities(DailyActivityId, Date, ProjectId, EmployeeId, ServiceId, WorkedHours, Comment, Price)
         public int DailyActivityId { get; set; }
         public DateTime Date { get; set; }
         public double WorkedHours { get; set; }
@@ -21,7 +20,5 @@ namespace PeopleAllocationManager.Models
         public int ServiceId { get; set; }
 
         public int? InvoiceId { get; set; }
-        //public virtual Invoice Invoice { get; set; }
     }
 }
-

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PeopleAllocationManager.Models
 {
-    public class Client
+    public class GetClientDto
     {
         public int ClientId { get; set; }
         public string Name { get; set; }
@@ -21,11 +21,10 @@ namespace PeopleAllocationManager.Models
 
         public bool IsActiveClient { get; set; }
 
-        public virtual IEnumerable<Project> Projects { get; set; }
+        public virtual IEnumerable<ProjectDto> Projects { get; set; }
 
         public virtual ICollection<Deal> Deals { get; set; }
 
         public virtual ICollection<Request> Requests { get; set; }
-
     }
 }

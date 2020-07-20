@@ -10,6 +10,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceCreationModalComponent } from './invoice-creation-modal/invoice-creation-modal.component';
 import { ProviderService } from 'src/app/shared/services/provider.service';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { AdminService } from 'src/app/shared/services/admin.service';
 
 @Component({
   selector: 'app-project-activities',
@@ -22,6 +25,8 @@ export class ProjectActivitiesComponent implements OnInit {
   project = new Object() as any;
   selectedProjectIndex: any;
 
+  clientOfSelectedProject = new Object();
+
   userId: string;
   employees = new Array();
 
@@ -29,6 +34,8 @@ export class ProjectActivitiesComponent implements OnInit {
   endDate: any;
   startAt: any;
   endAt: any;
+
+  services = new Array<any>();
 
   sd: any;
   ed: any;
@@ -43,7 +50,7 @@ export class ProjectActivitiesComponent implements OnInit {
   tableData = new Array<ProjectActivitiesModel>();
 
   dataSource = new MatTableDataSource(this.tableData);
-  columnsToDisplay: string[] = ['projectName', 'employeeName', 'date', 'workedHours', 'price'];
+  columnsToDisplay: string[] = ['projectName', 'serviceName', 'date', 'workedHours', 'price'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -56,15 +63,22 @@ export class ProjectActivitiesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public matDialog: MatDialog,
-    private providersService: ProviderService
+    private providersService: ProviderService,
+    private adminService: AdminService
   ) {
+    this.adminService.getServices().subscribe(data => {
+      for (const service of data) {
+        this.services.push(service);
+      }
+    });
+
     const date = new Date();
     this.startAt = new FormControl(new Date(date.getFullYear(), date.getMonth(), 1));
     this.endAt = new FormControl(new Date(date.getFullYear(), date.getMonth() + 1, 0));
   }
 
   ngOnInit(): void {
-    this.getProjects();
+    this.getProjectsWithDailyActivitiesDto();
     this.getProviders();
   }
 
@@ -77,6 +91,7 @@ export class ProjectActivitiesComponent implements OnInit {
       }
     });
   }
+
 
   public openInvoiceCreationModal() {
     const modalData = {
@@ -99,8 +114,8 @@ export class ProjectActivitiesComponent implements OnInit {
 
   }
 
-  public getProjects() {
-    this.projectsService.getProjecs().subscribe(data => {
+  public getProjectsWithDailyActivitiesDto() {
+    this.projectsService.getProjectsWithDailyActivitiesDto().subscribe(data => {
       for (const project of data) {
         this.projects.push(project);
       }
@@ -110,12 +125,11 @@ export class ProjectActivitiesComponent implements OnInit {
 
   public changeProject() {
     this.project = new Object();
+
     this.selectedProjectIndex = this.projects.findIndex(project => project.projectId === this.selectedProjectId);
 
     if (this.selectedProjectIndex !== -1) {
       this.project = JSON.parse(JSON.stringify(this.projects[this.selectedProjectIndex]));
-      // console.log('project', this.project);
-
     }
 
     this.buildTableData(
@@ -144,10 +158,11 @@ export class ProjectActivitiesComponent implements OnInit {
   }
 
   public buildTableData(startDate: any, endDate: any) {
+    this.tableData = [];
+    this.totalWorkedHours = 0;
+    this.totalPrice = 0;
     this.sd = startDate;
     this.ed = endDate;
-    // const workingDays = this.calculateWorkingDays(startDate, endDate);
-    // const workingHours = workingDays * 8;
 
     const dailyActivitiesCopy = new Array();
     const newEmployees = new Array();
@@ -165,12 +180,11 @@ export class ProjectActivitiesComponent implements OnInit {
       new Date(this.setDayStart(new Date(dailyActivity.date))).getTime() <= new Date(endDate).getTime());
 
     for (const dailyActivity of this.dailyActivities) {
-      // ['projectName', 'employeeName', 'date', 'workedHours', 'price']
       dailyActivity.projectName = this.project.name;
-      const employeeIndex = this.project.employeeProject.findIndex(employee => employee.employeeId === dailyActivity.employeeId);
-      if (employeeIndex !== -1) {
-        dailyActivity.employeeName = this.project.employeeProject[employeeIndex].employee.lastName + ' ' +
-          this.project.employeeProject[employeeIndex].employee.firstName;
+
+      const serviceIndex = this.services.findIndex(service => service.serviceId === dailyActivity.serviceId);
+      if (serviceIndex !== -1) {
+        dailyActivity.serviceName = this.services[serviceIndex].name;
       }
 
       this.totalWorkedHours = this.totalWorkedHours + dailyActivity.workedHours;

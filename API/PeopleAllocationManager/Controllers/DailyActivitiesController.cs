@@ -21,10 +21,31 @@ namespace PeopleAllocationManager.Controllers
         }
 
         // GET: api/DailyActivities
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<DailyActivity>>> GetDailyActivity()
+        //{
+        //    return await _context.DailyActivity.ToListAsync();
+        //}
+
+        // GET: api/DailyActivities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DailyActivity>>> GetDailyActivity()
+        public IQueryable<DailyActivityDto> GetDailyActivity()
         {
-            return await _context.DailyActivity.ToListAsync();
+            var dailyActivity = from d in _context.DailyActivity
+                               select new DailyActivityDto()
+                               {
+                                  DailyActivityId = d.DailyActivityId,
+                                  Date = d.Date,
+                                  WorkedHours = d.WorkedHours,
+                                  Comment = d.Comment,
+                                  Price = d.Price,
+                                  ProjectId = d.ProjectId,
+                                  EmployeeId= d.EmployeeId,
+                                  ServiceId= d.ServiceId,
+                                  InvoiceId = d.InvoiceId,
+                                };
+
+            return dailyActivity;
         }
 
         // GET: api/DailyActivities/5
