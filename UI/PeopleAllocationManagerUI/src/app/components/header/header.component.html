@@ -29,7 +29,7 @@
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
           <button mat-menu-item (click)="openAccountModal()">Editare profil</button>
-          <button mat-menu-item>Log-out</button>
+          <button mat-menu-item (click)="logOut()">Log-out</button>
         </mat-menu>
       </div>
     </div>

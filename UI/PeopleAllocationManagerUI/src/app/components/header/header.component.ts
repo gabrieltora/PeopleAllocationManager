@@ -6,6 +6,7 @@ import { CountryService } from 'src/app/shared/services/country.service';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordModalComponent } from '../change-password-modal/change-password-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -32,13 +33,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private employeeService: EmployeeService,
     private countryService: CountryService,
     private adminService: AdminService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private router: Router
   ) {
-    this.employeeId = sessionStorage.getItem('UserId');
+
     this.employeeName = '';
     this.employeeSubscription = this.employeeService.getEmployeeData()
       .subscribe(employeeData => {
-        this.employeeName = employeeData.firstName + ' ' + employeeData.lastName;
+        if (employeeData) {
+          this.employeeName = employeeData.firstName + ' ' + employeeData.lastName;
+          this.employeeId = sessionStorage.getItem('UserId');
+        } else {
+          this.employeeName = '';
+          this.employeeId = null;
+        }
+
       });
     // Pass data via Subject and service
     this.selectSubscription = this.employeeService.getSelectData()
@@ -50,6 +59,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+  }
+
+  public logOut() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.employeeId = null;
+    this.employeeName = '';
+    this.router.navigate(['']);
+    this.employeeService.sendEmployeeData(null);
   }
 
   public onToggleSidenav = () => {
@@ -77,8 +95,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          console.log('reee', result);
-
           this.employeeService.sendEmployeeData(result);
 
         } else if (result === false) {
@@ -86,9 +102,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     });
-
-
-
 
   }
 

@@ -74,7 +74,13 @@ export class ChangePasswordModalComponent implements OnInit {
       password: this.employeeForm.controls.Password.value,
       phoneNumber: this.employeeForm.controls.PhoneNumber.value,
       departmentId: this.data.employeeData[0].departmentId,
-      userRoleId: this.data.employeeData[0].userRoleId
+      userRoleId: this.data.employeeData[0].userRoleId,
+      functionId: this.data.employeeData[0].functionId,
+      seniorityId: this.data.employeeData[0].seniorityId,
+      grossSalary: this.data.employeeData[0].grossSalary,
+      hourlyPrice: this.data.employeeData[0].hourlyPrice,
+      isVatPayer: this.data.employeeData[0].isVatPayer,
+      netSalary: this.data.employeeData[0].netSalary
     };
 
     this.adminService.updateEmployee(this.employee).subscribe(

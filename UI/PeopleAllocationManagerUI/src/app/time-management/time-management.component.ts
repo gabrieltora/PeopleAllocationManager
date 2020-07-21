@@ -74,6 +74,7 @@ export class TimeManagementComponent implements OnInit {
 
       this.setDailyActivityData(this.employees[0].dailyActivities);
       this.sendEmployeeData(this.employees[0]);
+      localStorage.setItem('NowUser', JSON.stringify(this.employees[0]));
     });
   }
 

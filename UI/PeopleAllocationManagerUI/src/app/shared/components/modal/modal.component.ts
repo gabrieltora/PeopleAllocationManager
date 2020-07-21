@@ -100,6 +100,10 @@ export class ModalComponent implements OnInit {
         this.deleteTechnology(modalData);
         break;
 
+      case 'deleteUser':
+        this.deleteUser(modalData);
+        break;
+
       default:
         break;
     }
@@ -293,5 +297,26 @@ export class ModalComponent implements OnInit {
   public closeDialog(data?) {
     this.dialogRef.close(data);
   }
+
+  private deleteUser(modalData) {
+    this.adminService.deleteEmployee(modalData.userId).subscribe(
+      success => {
+        this.loading = false;
+        if (success) {
+          console.log('User deleted');
+          this.closeDialog(success);
+        } else {
+          console.log('User was NOT deteled');
+          this.closeDialog(success);
+        }
+      },
+      error => {
+        this.error = error;
+        this.loading = false;
+        console.log('this.error', this.error);
+        this.closeDialog(error);
+      });
+  }
+
 
 }

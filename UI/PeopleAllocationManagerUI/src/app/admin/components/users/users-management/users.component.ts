@@ -4,9 +4,10 @@ import { EmployeeModel } from 'src/app/shared/models/EmployeeModel';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AdminService } from 'src/app/shared/services/admin.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import * as moment from 'moment';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-users',
@@ -71,8 +72,30 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  public openAlertModal(data?) {
 
+  public openAlertModal(data) {
+    console.log('data in delete user modal', data);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.width = '500px';
+    dialogConfig.data = {
+      name: 'deleteUser',
+      title: 'Stergere utilizator!',
+      description: 'Dacă continuați, utilizatorul: ' + data.firstName + ' ' + data.lastName + ' va fi sters!',
+      actionButtonText: 'Sterge',
+      userId: data.userId
+    };
+    const dialogRef = this.matDialog.open(ModalComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.employees = [];
+        this.getEmployeesGetDto();
+      } else if (result === false) {
+        alert('Utilizatorul nu a fost sters');
+      }
+    });
   }
 
 }

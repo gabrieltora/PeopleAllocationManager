@@ -19,9 +19,16 @@ export class SidenavListComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {
     this.employeeSubscription = this.employeeService.getEmployeeData()
       .subscribe(employeeData => {
-        this.employeeUserRoleId = employeeData.userRoleId;
-        this.isAdmin = (employeeData.userRoleId === 1) ? true : false;
+
+        if (employeeData) {
+          this.employeeUserRoleId = employeeData.userRoleId;
+          // this.isAdmin = (employeeData.userRoleId === 1) ? true : false;
+        } else {
+
+        }
+
         this.isLoggedIn = employeeData ? true : false;
+        console.log('employeeData in sidenav', employeeData);
       });
   }
 
