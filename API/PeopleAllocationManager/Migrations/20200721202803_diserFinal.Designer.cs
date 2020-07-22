@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleAllocationManager.Models;
 
 namespace PeopleAllocationManager.Migrations
 {
     [DbContext(typeof(PeopleAllocationManagerContext))]
-    partial class PeopleAllocationManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20200721202803_diserFinal")]
+    partial class diserFinal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

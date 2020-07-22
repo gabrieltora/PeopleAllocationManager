@@ -19,11 +19,23 @@ export class ClientService {
   }
 
 
+  // public getClientByIdGetClientDto(id: number) {
+  //   const params = new HttpParams();
+  //   params.append('id', id.toString());
+  //   const apiUrl = `${environment.apiUrl}/api/Clients/GetClientDto/dto/` + id;
+  //   return this.http.get<ClientModel[]>(apiUrl);
+  // }
+
   public getClientByIdGetClientDto(id: number) {
     const params = new HttpParams();
     params.append('id', id.toString());
     const apiUrl = `${environment.apiUrl}/api/Clients/GetClientDto/dto/` + id;
-    return this.http.get<ClientModel[]>(apiUrl);
+    return this.http.get<ClientModel[]>(apiUrl).pipe(
+      map((result) => result),
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
 
   public getClients() {

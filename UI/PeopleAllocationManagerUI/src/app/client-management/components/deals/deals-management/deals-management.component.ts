@@ -20,7 +20,7 @@ export class DealsManagementComponent implements OnInit {
   deals: DealModel[] = [];
 
   dataSource = new MatTableDataSource(this.deals);
-  columnsToDisplay: string[] = ['date', 'description', 'status', 'actions'];
+  columnsToDisplay: string[] = ['date', 'title', 'description', 'status', 'actions'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

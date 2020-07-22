@@ -33,6 +33,9 @@ export class TimeKeepingModalComponent implements OnInit {
   loading = false;
   error = '';
 
+  overMaxLimit = false;
+  workedHours: number;
+
   constructor(
     public dialogRef: MatDialogRef<TimeKeepingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -67,6 +70,12 @@ export class TimeKeepingModalComponent implements OnInit {
     });
   }
 
+  public checkWorkedHoursOverMaxLimit() {
+    console.log('bau');
+
+    this.overMaxLimit = this.workedHours > 12 ? true : false;
+  }
+
   ngOnInit(): void {
     if (this.hasDailyActivityId) {
       this.selectedProjectId = this.data.dailyActivityData.projectId;
@@ -81,6 +90,9 @@ export class TimeKeepingModalComponent implements OnInit {
         EmployeeId: this.data.dailyActivityData.employeeId,
         ServiceId: this.selectedServiceId
       });
+
+      new Date(this.data.dailyActivityData.date).getTime() < new Date(this.minDate).getTime() ?
+        this.dailyActivityForm.disable() : this.dailyActivityForm.enable();
     }
 
     this.dailyActivityControls = this.dailyActivityForm.controls;

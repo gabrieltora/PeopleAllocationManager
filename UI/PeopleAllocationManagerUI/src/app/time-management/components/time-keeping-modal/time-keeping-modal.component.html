@@ -21,21 +21,15 @@
       <!-- Daily activity worked hours -->
       <mat-form-field>
         <input matInput formControlName="WorkedHours" placeholder="Număr ore: " type="number"
-          max="12">
+          max="12" [(ngModel)]="workedHours" (keyup)="this.checkWorkedHoursOverMaxLimit()">
         <mat-error
           *ngIf="dailyActivityControls.WorkedHours.invalid && (dailyActivityControls.WorkedHours.dirty || dailyActivityControls.WorkedHours.touched)">
           <span *ngIf="dailyActivityControls.WorkedHours.errors.required">Introducerea numărului de
             ore este obligatorie</span>
-          <span *ngIf="dailyActivityControls.WorkedHours.value > 12"> Nu poti ponta mai mult de 12
-            ore / zi!</span>
         </mat-error>
-        <mat-error>
-
-          <span *ngIf="dailyActivityControls.WorkedHours.value > 12"> Nu poti ponta mai mult de 12
-            ore / zi!</span>
-        </mat-error>
-        {{dailyActivityControls.WorkedHours.value}}
       </mat-form-field>
+      <span *ngIf="overMaxLimit" style="color: red;"> Nu poti ponta mai mult de 12
+        ore / zi!</span>
 
       <!-- Daily activity project -->
       <mat-form-field>

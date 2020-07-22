@@ -43,6 +43,8 @@ export class TimeManagementComponent implements OnInit {
   columnsToDisplay: string[] = ['projectId', 'date', 'workedHours', 'serviceId', 'actions'];
   expandedElement: any;
 
+  minDate: Date;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -62,6 +64,9 @@ export class TimeManagementComponent implements OnInit {
   ngOnInit(): void { }
 
   public getData(userId: number) {
+    this.minDate = new Date(new Date().getTime() - (45 * 24 * 60 * 60 * 1000));
+
+
     this.employeeService.getEmployeesWithNoTechnologyDto(userId).subscribe(data => {
       this.employees = [];
       for (const employee of data) {

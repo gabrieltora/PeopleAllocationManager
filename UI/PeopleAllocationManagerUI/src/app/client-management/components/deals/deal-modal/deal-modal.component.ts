@@ -4,6 +4,8 @@ import { DealModel } from 'src/app/shared/models/DealModel';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DealsService } from 'src/app/shared/services/deals.service';
 import { ActivatedRoute } from '@angular/router';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { ClientModel } from 'src/app/shared/models/ClientModel';
 
 @Component({
   selector: 'app-deal-modal',
@@ -26,12 +28,19 @@ export class DealModalComponent implements OnInit {
   loading = false;
   error = '';
 
+  selectedRequest: any;
+
+  clientRequests = new Array<any>();
+
+  maxDate = new Date();
+
   constructor(
     public dialogRef: MatDialogRef<DealModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dealsService: DealsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private clientService: ClientService
   ) {
     if (data.hasOwnProperty('dealData') && data.dealData.hasOwnProperty('dealId')) {
       this.hasDealId = true;
@@ -44,25 +53,35 @@ export class DealModalComponent implements OnInit {
     }
 
     this.dealForm = this.formBuilder.group({
+      Title: ['', [Validators.required]],
       DealId: [''],
       Description: ['', [Validators.required]],
       Date: ['', [Validators.required]],
       ClientId: [this.clientId, [Validators.required]],
-      Status: ['']
+      RequestId: [''],
+      Status: ['', [Validators.required]],
+      DealUrlLink: ['']
     });
   }
 
   ngOnInit(): void {
+    this.getClientRequests();
+
+    console.log('this.clientRequests', this.clientRequests);
     if (this.hasDealId) {
       this.status = this.data.dealData.status;
       this.selectedStatus = this.data.dealData.status;
+      this.selectedRequest = this.data.dealData.requestId;
 
       this.dealForm.patchValue({
         DealId: this.dealId,
+        Title: this.data.dealData.title,
         Description: this.data.dealData.description,
         Date: this.data.dealData.date,
         ClientId: this.data.dealData.clientId,
-        Status: this.status
+        RequestId: this.data.dealData.requestId,
+        Status: this.status,
+        DealUrlLink: this.data.dealData.dealUrlLink
       });
     }
 
@@ -73,16 +92,28 @@ export class DealModalComponent implements OnInit {
     this.dialogRef.close(data);
   }
 
+  public getClientRequests() {
+    this.clientService.getClientByIdGetClientDto(this.clientId).subscribe((data: ClientModel[]) => {
+      for (const elem of data[0].requests) {
+        this.clientRequests.push(elem);
+        // console.log('this.clientRequests', this.clientRequests);
+      }
+    });
+  }
+
   public addDeal() {
     if (this.dealForm.invalid) {
       return;
     }
 
     this.deal = {
+      title: this.dealForm.controls.Title.value,
       description: this.dealForm.controls.Description.value,
       date: this.dealForm.controls.Date.value,
       clientId: this.clientId,
-      status: this.dealForm.controls.Status.value
+      requestId: this.dealForm.controls.RequestId.value,
+      status: this.dealForm.controls.Status.value,
+      dealUrlLink: this.dealForm.controls.DealUrlLink.value
     };
 
     this.loading = true;
@@ -112,10 +143,13 @@ export class DealModalComponent implements OnInit {
 
     this.deal = {
       dealId: this.dealId,
+      title: this.dealForm.controls.Title.value,
       description: this.dealForm.controls.Description.value,
       date: this.dealForm.controls.Date.value,
       clientId: this.clientId,
-      status: this.dealForm.controls.Status.value
+      requestId: this.dealForm.controls.RequestId.value,
+      status: this.dealForm.controls.Status.value,
+      dealUrlLink: this.dealForm.controls.DealUrlLink.value
     };
 
     this.dealsService.updateDeal(this.deal).subscribe(

@@ -4,12 +4,18 @@
   <button mat-raised-button color="primary" (click)="openDealModal()">Adaugă Ofertă</button>
 
   <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8"
-    matSortActive="date" matSortDirection="asc">
+    matSortActive="date" matSortDirection="desc">
 
     <!-- Deal Date -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Data cererii </th>
       <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
+    </ng-container>
+
+    <!-- Request Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title-column"> Titlu </th>
+      <td mat-cell *matCellDef="let element" class="title-column"> {{element.title}} </td>
     </ng-container>
 
     <!-- Deal Description Column -->

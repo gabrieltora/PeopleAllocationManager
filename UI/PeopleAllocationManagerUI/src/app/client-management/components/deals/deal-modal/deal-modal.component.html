@@ -5,6 +5,17 @@
   <div mat-dialog-content>
     <form [formGroup]="dealForm" class="form">
 
+
+      <!-- Deal Title -->
+      <mat-form-field>
+        <input matInput formControlName="Title" placeholder="Titlu: " maxlength="50">
+        <mat-error
+          *ngIf="dealFormControls.Title.invalid && (dealFormControls.Title.dirty || dealFormControls.Title.touched)">
+          <span *ngIf="dealFormControls.Title.errors.required">Introducerea titlului este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
       <!-- Deal description -->
       <mat-form-field>
         <mat-label>Descriere: </mat-label>
@@ -20,8 +31,8 @@
 
       <!-- Deal Date -->
       <mat-form-field>
-        <mat-label>Data cererii</mat-label>
-        <input matInput [matDatepicker]="Date" formControlName="Date">
+        <mat-label>Data</mat-label>
+        <input matInput [max]="maxDate" [matDatepicker]="Date" formControlName="Date">
         <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
         <mat-datepicker #Date></mat-datepicker>
 
@@ -33,8 +44,23 @@
         </mat-error>
       </mat-form-field>
 
+
+      <!-- Deal Title -->
+      <mat-form-field>
+        <input matInput formControlName="DealUrlLink" placeholder="Url ofertă: ">
+      </mat-form-field>
+
       <!-- Client Status -->
       <!-- <mat-checkbox color="primary" formControlName="DealAccepted">Ofertă acceptată</mat-checkbox> -->
+
+      <mat-form-field>
+        <mat-label>Secteaza cererea</mat-label>
+        <mat-select [(ngModel)]="selectedRequest" formControlName="RequestId" name="Request">
+          <mat-option *ngFor="let request of clientRequests" [value]="request.requestId">
+            {{request.title}} - {{request.date | date: 'fullDate'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label>Status</mat-label>

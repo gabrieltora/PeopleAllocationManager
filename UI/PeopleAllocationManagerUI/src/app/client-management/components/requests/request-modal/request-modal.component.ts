@@ -23,6 +23,8 @@ export class RequestModalComponent implements OnInit {
   loading = false;
   error = '';
 
+  maxDate = new Date();
+
   constructor(
     public dialogRef: MatDialogRef<RequestModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -41,6 +43,7 @@ export class RequestModalComponent implements OnInit {
     }
 
     this.requestForm = this.formBuilder.group({
+      Title: ['', [Validators.required]],
       RequestId: [''],
       Description: ['', [Validators.required]],
       Date: ['', [Validators.required]],
@@ -51,6 +54,7 @@ export class RequestModalComponent implements OnInit {
   ngOnInit(): void {
     if (this.hasRequestId) {
       this.requestForm.patchValue({
+        Title: this.data.requestData.title,
         RequestId: this.requestId,
         Description: this.data.requestData.description,
         Date: this.data.requestData.date,
@@ -73,6 +77,7 @@ export class RequestModalComponent implements OnInit {
     }
 
     this.request = {
+      title: this.requestForm.controls.Title.value,
       description: this.requestForm.controls.Description.value,
       date: this.requestForm.controls.Date.value,
       clientId: this.clientId
@@ -105,6 +110,7 @@ export class RequestModalComponent implements OnInit {
 
     this.request = {
       requestId: this.requestId,
+      title: this.requestForm.controls.Title.value,
       description: this.requestForm.controls.Description.value,
       date: this.requestForm.controls.Date.value,
       clientId: this.clientId

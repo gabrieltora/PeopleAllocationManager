@@ -9,7 +9,10 @@ import { EmployeeService } from 'src/app/time-management/services/employee.servi
 })
 export class SidenavListComponent implements OnInit {
   isLoggedIn: boolean;
-  isAdmin: boolean;
+  isAdmin = false;
+  isManager = false;
+  isSuperAdmin = false;
+
   employeeUserRoleId: string;
   employeeSubscription: Subscription;
 
@@ -22,7 +25,10 @@ export class SidenavListComponent implements OnInit {
 
         if (employeeData) {
           this.employeeUserRoleId = employeeData.userRoleId;
-          // this.isAdmin = (employeeData.userRoleId === 1) ? true : false;
+          this.isAdmin = employeeData.userRoleId === 1 ? true : false;
+          this.isManager = employeeData.userRoleId === 1 ? true : false;
+          this.isSuperAdmin = employeeData.userRoleId === 7 ? true : false;
+
         } else {
 
         }

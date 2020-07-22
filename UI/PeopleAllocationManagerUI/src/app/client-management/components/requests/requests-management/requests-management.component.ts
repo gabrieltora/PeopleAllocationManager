@@ -21,7 +21,7 @@ export class RequestsManagementComponent implements OnInit {
   requests: RequestModel[] = [];
 
   dataSource = new MatTableDataSource(this.requests);
-  columnsToDisplay: string[] = ['date', 'description', 'actions'];
+  columnsToDisplay: string[] = ['date', 'title', 'description', 'actions'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

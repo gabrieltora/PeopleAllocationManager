@@ -18,6 +18,10 @@ namespace PeopleAllocationManager.Models
         public string? Status { get; set; }
         public string Description { get; set; }
 
+        public string? Title { get; set; }
+
+        public string? DealUrlLink { get; set; }
+
         public int? RequestId { get; set; }
 
         //public virtual Request Request { get; set; }

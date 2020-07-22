@@ -1,15 +1,17 @@
 <div class="wrapper">
   <mat-nav-list *ngIf="isLoggedIn">
     <a mat-list-item routerLink="/time-management" (click)="onSidenavClose()">
-      <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
+      <mat-icon>home</mat-icon> <span class="nav-caption">Pontaj</span>
     </a>
-    <a mat-list-item routerLink="/admin" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/admin" (click)="onSidenavClose()" *ngIf="isAdmin || isSuperAdmin">
       <mat-icon>admin_panel_settings</mat-icon> <span class="nav-caption">Admin</span>
     </a>
-    <a mat-list-item routerLink="/client-management" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/client-management" (click)="onSidenavClose()"
+      *ngIf="isManager || isSuperAdmin">
       <mat-icon>business_center</mat-icon> <span class="nav-caption">Clients</span>
     </a>
-    <a mat-list-item routerLink="/reporting" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/reporting" (click)="onSidenavClose()"
+      *ngIf="isManager || isSuperAdmin">
       <mat-icon>insert_chart</mat-icon> <span class="nav-caption">Reports</span>
     </a>
   </mat-nav-list>

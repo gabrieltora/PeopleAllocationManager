@@ -5,6 +5,16 @@
   <div mat-dialog-content>
     <form [formGroup]="requestForm" class="form">
 
+      <!-- Request Title -->
+      <mat-form-field>
+        <input matInput formControlName="Title" placeholder="Titlu: " maxlength="50">
+        <mat-error
+          *ngIf="requestFormControls.Title.invalid && (requestFormControls.Title.dirty || requestFormControls.Title.touched)">
+          <span *ngIf="requestFormControls.Title.errors.required">Introducerea titlului este
+            obligatorie</span>
+        </mat-error>
+      </mat-form-field>
+
       <!-- Request description -->
       <mat-form-field>
         <mat-label>Descriere: </mat-label>
@@ -21,7 +31,7 @@
       <!-- Request Date -->
       <mat-form-field>
         <mat-label>Data cererii</mat-label>
-        <input matInput [matDatepicker]="Date" formControlName="Date">
+        <input matInput [max]="maxDate" [matDatepicker]="Date" formControlName="Date">
         <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
         <mat-datepicker #Date></mat-datepicker>
 

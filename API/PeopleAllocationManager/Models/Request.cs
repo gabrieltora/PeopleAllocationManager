@@ -10,6 +10,8 @@ namespace PeopleAllocationManager.Models
         public int RequestId { get; set; }
         public string Description { get; set; }
 
+        public string Title { get; set; }
+
         public DateTime Date { get; set; }
 
         public int? ClientId { get; set; }
